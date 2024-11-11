@@ -1,0 +1,532 @@
+dm,variable,est,value,type,group
+Total,age,mean,48.303634751773046,Continuous,NA
+Total,age,sd,18.524652044333788,Continuous,NA
+Total,age,median,48,Continuous,NA
+Total,age,q25,32,Continuous,NA
+Total,age,q75,63,Continuous,NA
+Total,age,min,18,Continuous,NA
+Total,age,max,80,Continuous,NA
+Total,age,freq,22560,Continuous,NA
+Total,age,missing,0,Continuous,NA
+Total,dm_age,mean,60.30184940554822,Continuous,NA
+Total,dm_age,sd,100.59001381171004,Continuous,NA
+Total,dm_age,median,50,Continuous,NA
+Total,dm_age,q25,40,Continuous,NA
+Total,dm_age,q75,60,Continuous,NA
+Total,dm_age,min,1,Continuous,NA
+Total,dm_age,max,999,Continuous,NA
+Total,dm_age,freq,3028,Continuous,NA
+Total,dm_age,missing,19532,Continuous,NA
+Total,waistcircumference,mean,98.9334151754096,Continuous,NA
+Total,waistcircumference,sd,16.880542027006264,Continuous,NA
+Total,waistcircumference,median,97.5,Continuous,NA
+Total,waistcircumference,q25,86.7,Continuous,NA
+Total,waistcircumference,q75,108.9,Continuous,NA
+Total,waistcircumference,min,55.5,Continuous,NA
+Total,waistcircumference,max,177.9,Continuous,NA
+Total,waistcircumference,freq,21179,Continuous,NA
+Total,waistcircumference,missing,1381,Continuous,NA
+Total,fasting_glucose,mean,110.37409306375157,Continuous,NA
+Total,fasting_glucose,sd,36.87997012488999,Continuous,NA
+Total,fasting_glucose,median,101,Continuous,NA
+Total,fasting_glucose,q25,94,Continuous,NA
+Total,fasting_glucose,q75,112,Continuous,NA
+Total,fasting_glucose,min,21,Continuous,NA
+Total,fasting_glucose,max,479,Continuous,NA
+Total,fasting_glucose,freq,10337,Continuous,NA
+Total,fasting_glucose,missing,12223,Continuous,NA
+Total,triglyceride,mean,117.55166915794719,Continuous,NA
+Total,triglyceride,sd,104.8330316102598,Continuous,NA
+Total,triglyceride,median,95,Continuous,NA
+Total,triglyceride,q25,65,Continuous,NA
+Total,triglyceride,q75,140,Continuous,NA
+Total,triglyceride,min,10,Continuous,NA
+Total,triglyceride,max,4233,Continuous,NA
+Total,triglyceride,freq,10035,Continuous,NA
+Total,triglyceride,missing,12525,Continuous,NA
+Total,ldl,mean,111.43204275055454,Continuous,NA
+Total,ldl,sd,35.60298897735409,Continuous,NA
+Total,ldl,median,108.5,Continuous,NA
+Total,ldl,q25,86,Continuous,NA
+Total,ldl,q75,133,Continuous,NA
+Total,ldl,min,9,Continuous,NA
+Total,ldl,max,375,Continuous,NA
+Total,ldl,freq,9918,Continuous,NA
+Total,ldl,missing,12642,Continuous,NA
+Total,hdl,mean,52.984276878039566,Continuous,NA
+Total,hdl,sd,15.914550373762877,Continuous,NA
+Total,hdl,median,50,Continuous,NA
+Total,hdl,q25,42,Continuous,NA
+Total,hdl,q75,61,Continuous,NA
+Total,hdl,min,6,Continuous,NA
+Total,hdl,max,226,Continuous,NA
+Total,hdl,freq,21179,Continuous,NA
+Total,hdl,missing,1381,Continuous,NA
+Total,total_fat,mean,27111.535726365633,Continuous,NA
+Total,total_fat,sd,11933.025116157305,Continuous,NA
+Total,total_fat,median,24979.4,Continuous,NA
+Total,total_fat,q25,18602.975,Continuous,NA
+Total,total_fat,q75,33259.625,Continuous,NA
+Total,total_fat,min,4902,Continuous,NA
+Total,total_fat,max,102288.7,Continuous,NA
+Total,total_fat,freq,11826,Continuous,NA
+Total,total_fat,missing,10734,Continuous,NA
+Total,fat_percentage,mean,32.73408591239642,Continuous,NA
+Total,fat_percentage,sd,8.672151389506109,Continuous,NA
+Total,fat_percentage,median,32.5,Continuous,NA
+Total,fat_percentage,q25,26.3,Continuous,NA
+Total,fat_percentage,q75,39.7,Continuous,NA
+Total,fat_percentage,min,11.7,Continuous,NA
+Total,fat_percentage,max,56.1,Continuous,NA
+Total,fat_percentage,freq,11826,Continuous,NA
+Total,fat_percentage,missing,10734,Continuous,NA
+Total,bmi,mean,29.140723574674887,Continuous,NA
+Total,bmi,sd,7.167185473942861,Continuous,NA
+Total,bmi,median,28,Continuous,NA
+Total,bmi,q25,24.1,Continuous,NA
+Total,bmi,q75,32.7,Continuous,NA
+Total,bmi,min,13.4,Continuous,NA
+Total,bmi,max,86.2,Continuous,NA
+Total,bmi,freq,22223,Continuous,NA
+Total,bmi,missing,337,Continuous,NA
+Total,glycohemoglobin,mean,5.790314318975553,Continuous,NA
+Total,glycohemoglobin,sd,1.11212310346442,Continuous,NA
+Total,glycohemoglobin,median,5.5,Continuous,NA
+Total,glycohemoglobin,q25,5.2,Continuous,NA
+Total,glycohemoglobin,q75,5.9,Continuous,NA
+Total,glycohemoglobin,min,3.5,Continuous,NA
+Total,glycohemoglobin,max,17.8,Continuous,NA
+Total,glycohemoglobin,freq,21475,Continuous,NA
+Total,glycohemoglobin,missing,1085,Continuous,NA
+Total,sbp,mean,124.37041482028557,Continuous,NA
+Total,sbp,sd,18.691010396272738,Continuous,NA
+Total,sbp,median,121.33333333333333,Continuous,NA
+Total,sbp,q25,111.33333333333333,Continuous,NA
+Total,sbp,q75,134,Continuous,NA
+Total,sbp,min,64.66666666666667,Continuous,NA
+Total,sbp,max,238,Continuous,NA
+Total,sbp,freq,21664,Continuous,NA
+Total,sbp,missing,896,Continuous,NA
+Total,dbp,mean,70.33905711472181,Continuous,NA
+Total,dbp,sd,12.785317688211597,Continuous,NA
+Total,dbp,median,70.66666666666667,Continuous,NA
+Total,dbp,q25,63.333333333333336,Continuous,NA
+Total,dbp,q75,78,Continuous,NA
+Total,dbp,min,0,Continuous,NA
+Total,dbp,max,138.66666666666666,Continuous,NA
+Total,dbp,freq,21664,Continuous,NA
+Total,dbp,missing,896,Continuous,NA
+diabetes,age,mean,60.862346144184876,Continuous,NA
+diabetes,age,sd,13.57018389249512,Continuous,NA
+diabetes,age,median,62,Continuous,NA
+diabetes,age,q25,52,Continuous,NA
+diabetes,age,q75,71,Continuous,NA
+diabetes,age,min,18,Continuous,NA
+diabetes,age,max,80,Continuous,NA
+diabetes,age,freq,3981,Continuous,NA
+diabetes,age,missing,0,Continuous,NA
+diabetes,dm_age,mean,60.30184940554822,Continuous,NA
+diabetes,dm_age,sd,100.59001381171004,Continuous,NA
+diabetes,dm_age,median,50,Continuous,NA
+diabetes,dm_age,q25,40,Continuous,NA
+diabetes,dm_age,q75,60,Continuous,NA
+diabetes,dm_age,min,1,Continuous,NA
+diabetes,dm_age,max,999,Continuous,NA
+diabetes,dm_age,freq,3028,Continuous,NA
+diabetes,dm_age,missing,953,Continuous,NA
+diabetes,waistcircumference,mean,109.11256875687569,Continuous,NA
+diabetes,waistcircumference,sd,16.37016926326018,Continuous,NA
+diabetes,waistcircumference,median,107.4,Continuous,NA
+diabetes,waistcircumference,q25,97.5,Continuous,NA
+diabetes,waistcircumference,q75,118.8,Continuous,NA
+diabetes,waistcircumference,min,69,Continuous,NA
+diabetes,waistcircumference,max,176,Continuous,NA
+diabetes,waistcircumference,freq,3636,Continuous,NA
+diabetes,waistcircumference,missing,345,Continuous,NA
+diabetes,fasting_glucose,mean,157.41269060501722,Continuous,NA
+diabetes,fasting_glucose,sd,61.35359932304631,Continuous,NA
+diabetes,fasting_glucose,median,138,Continuous,NA
+diabetes,fasting_glucose,q25,122,Continuous,NA
+diabetes,fasting_glucose,q75,174,Continuous,NA
+diabetes,fasting_glucose,min,21,Continuous,NA
+diabetes,fasting_glucose,max,479,Continuous,NA
+diabetes,fasting_glucose,freq,2033,Continuous,NA
+diabetes,fasting_glucose,missing,1948,Continuous,NA
+diabetes,triglyceride,mean,151.90605749486653,Continuous,NA
+diabetes,triglyceride,sd,161.09992657457232,Continuous,NA
+diabetes,triglyceride,median,121,Continuous,NA
+diabetes,triglyceride,q25,85,Continuous,NA
+diabetes,triglyceride,q75,175,Continuous,NA
+diabetes,triglyceride,min,22,Continuous,NA
+diabetes,triglyceride,max,4233,Continuous,NA
+diabetes,triglyceride,freq,1948,Continuous,NA
+diabetes,triglyceride,missing,2033,Continuous,NA
+diabetes,ldl,mean,105.15770042194093,Continuous,NA
+diabetes,ldl,sd,38.71315149898748,Continuous,NA
+diabetes,ldl,median,101,Continuous,NA
+diabetes,ldl,q25,76,Continuous,NA
+diabetes,ldl,q75,127,Continuous,NA
+diabetes,ldl,min,15,Continuous,NA
+diabetes,ldl,max,359,Continuous,NA
+diabetes,ldl,freq,1896,Continuous,NA
+diabetes,ldl,missing,2085,Continuous,NA
+diabetes,hdl,mean,48.07174887892376,Continuous,NA
+diabetes,hdl,sd,14.678062214430577,Continuous,NA
+diabetes,hdl,median,46,Continuous,NA
+diabetes,hdl,q25,38,Continuous,NA
+diabetes,hdl,q75,55,Continuous,NA
+diabetes,hdl,min,6,Continuous,NA
+diabetes,hdl,max,226,Continuous,NA
+diabetes,hdl,freq,3791,Continuous,NA
+diabetes,hdl,missing,190,Continuous,NA
+diabetes,total_fat,mean,34091.13923404255,Continuous,NA
+diabetes,total_fat,sd,13346.470281735345,Continuous,NA
+diabetes,total_fat,median,31913.5,Continuous,NA
+diabetes,total_fat,q25,24443.449999999997,Continuous,NA
+diabetes,total_fat,q75,41389.45,Continuous,NA
+diabetes,total_fat,min,7843.3,Continuous,NA
+diabetes,total_fat,max,86890.2,Continuous,NA
+diabetes,total_fat,freq,1175,Continuous,NA
+diabetes,total_fat,missing,2806,Continuous,NA
+diabetes,fat_percentage,mean,35.757106382978726,Continuous,NA
+diabetes,fat_percentage,sd,7.96278921376038,Continuous,NA
+diabetes,fat_percentage,median,35.9,Continuous,NA
+diabetes,fat_percentage,q25,29.4,Continuous,NA
+diabetes,fat_percentage,q75,42,Continuous,NA
+diabetes,fat_percentage,min,14.1,Continuous,NA
+diabetes,fat_percentage,max,54.4,Continuous,NA
+diabetes,fat_percentage,freq,1175,Continuous,NA
+diabetes,fat_percentage,missing,2806,Continuous,NA
+diabetes,bmi,mean,32.40349704294163,Continuous,NA
+diabetes,bmi,sd,7.729661891229814,Continuous,NA
+diabetes,bmi,median,31.1,Continuous,NA
+diabetes,bmi,q25,27.1,Continuous,NA
+diabetes,bmi,q75,36.2,Continuous,NA
+diabetes,bmi,min,16,Continuous,NA
+diabetes,bmi,max,84.4,Continuous,NA
+diabetes,bmi,freq,3889,Continuous,NA
+diabetes,bmi,missing,92,Continuous,NA
+diabetes,glycohemoglobin,mean,7.378421733505822,Continuous,NA
+diabetes,glycohemoglobin,sd,1.763575000898046,Continuous,NA
+diabetes,glycohemoglobin,median,6.8,Continuous,NA
+diabetes,glycohemoglobin,q25,6.3,Continuous,NA
+diabetes,glycohemoglobin,q75,8,Continuous,NA
+diabetes,glycohemoglobin,min,3.5,Continuous,NA
+diabetes,glycohemoglobin,max,17.8,Continuous,NA
+diabetes,glycohemoglobin,freq,3865,Continuous,NA
+diabetes,glycohemoglobin,missing,116,Continuous,NA
+diabetes,sbp,mean,132.4149428297111,Continuous,NA
+diabetes,sbp,sd,19.764372192531454,Continuous,NA
+diabetes,sbp,median,129.33333333333334,Continuous,NA
+diabetes,sbp,q25,118.66666666666667,Continuous,NA
+diabetes,sbp,q75,142.66666666666666,Continuous,NA
+diabetes,sbp,min,74,Continuous,NA
+diabetes,sbp,max,238,Continuous,NA
+diabetes,sbp,freq,3819,Continuous,NA
+diabetes,sbp,missing,162,Continuous,NA
+diabetes,dbp,mean,69.52971982194292,Continuous,NA
+diabetes,dbp,sd,14.199049761174301,Continuous,NA
+diabetes,dbp,median,70.66666666666667,Continuous,NA
+diabetes,dbp,q25,62,Continuous,NA
+diabetes,dbp,q75,78,Continuous,NA
+diabetes,dbp,min,0,Continuous,NA
+diabetes,dbp,max,138.66666666666666,Continuous,NA
+diabetes,dbp,freq,3819,Continuous,NA
+diabetes,dbp,missing,162,Continuous,NA
+nondiabetes,age,mean,45.61262715969643,Continuous,NA
+nondiabetes,age,sd,18.335962142179064,Continuous,NA
+nondiabetes,age,median,44,Continuous,NA
+nondiabetes,age,q25,30,Continuous,NA
+nondiabetes,age,q75,60,Continuous,NA
+nondiabetes,age,min,18,Continuous,NA
+nondiabetes,age,max,80,Continuous,NA
+nondiabetes,age,freq,18579,Continuous,NA
+nondiabetes,age,missing,0,Continuous,NA
+nondiabetes,dm_age,mean,NA,Continuous,NA
+nondiabetes,dm_age,sd,NA,Continuous,NA
+nondiabetes,dm_age,median,NA,Continuous,NA
+nondiabetes,dm_age,q25,NA,Continuous,NA
+nondiabetes,dm_age,q75,NA,Continuous,NA
+nondiabetes,dm_age,min,Inf,Continuous,NA
+nondiabetes,dm_age,max,-Inf,Continuous,NA
+nondiabetes,dm_age,freq,0,Continuous,NA
+nondiabetes,dm_age,missing,18579,Continuous,NA
+nondiabetes,waistcircumference,mean,96.82366185943111,Continuous,NA
+nondiabetes,waistcircumference,sd,16.20362392618536,Continuous,NA
+nondiabetes,waistcircumference,median,95.5,Continuous,NA
+nondiabetes,waistcircumference,q25,85,Continuous,NA
+nondiabetes,waistcircumference,q75,106.5,Continuous,NA
+nondiabetes,waistcircumference,min,55.5,Continuous,NA
+nondiabetes,waistcircumference,max,177.9,Continuous,NA
+nondiabetes,waistcircumference,freq,17543,Continuous,NA
+nondiabetes,waistcircumference,missing,1036,Continuous,NA
+nondiabetes,fasting_glucose,mean,98.85802023121387,Continuous,NA
+nondiabetes,fasting_glucose,sd,9.875715722542358,Continuous,NA
+nondiabetes,fasting_glucose,median,98,Continuous,NA
+nondiabetes,fasting_glucose,q25,92,Continuous,NA
+nondiabetes,fasting_glucose,q75,105,Continuous,NA
+nondiabetes,fasting_glucose,min,47,Continuous,NA
+nondiabetes,fasting_glucose,max,125,Continuous,NA
+nondiabetes,fasting_glucose,freq,8304,Continuous,NA
+nondiabetes,fasting_glucose,missing,10275,Continuous,NA
+nondiabetes,triglyceride,mean,109.2763694818845,Continuous,NA
+nondiabetes,triglyceride,sd,83.87826953507602,Continuous,NA
+nondiabetes,triglyceride,median,89,Continuous,NA
+nondiabetes,triglyceride,q25,62,Continuous,NA
+nondiabetes,triglyceride,q75,131,Continuous,NA
+nondiabetes,triglyceride,min,10,Continuous,NA
+nondiabetes,triglyceride,max,2684,Continuous,NA
+nondiabetes,triglyceride,freq,8087,Continuous,NA
+nondiabetes,triglyceride,missing,10492,Continuous,NA
+nondiabetes,ldl,mean,112.91498379456495,Continuous,NA
+nondiabetes,ldl,sd,34.66437656279078,Continuous,NA
+nondiabetes,ldl,median,110,Continuous,NA
+nondiabetes,ldl,q25,89,Continuous,NA
+nondiabetes,ldl,q75,134,Continuous,NA
+nondiabetes,ldl,min,9,Continuous,NA
+nondiabetes,ldl,max,375,Continuous,NA
+nondiabetes,ldl,freq,8022,Continuous,NA
+nondiabetes,ldl,missing,10557,Continuous,NA
+nondiabetes,hdl,mean,54.05532551184725,Continuous,NA
+nondiabetes,hdl,sd,15.972601161248177,Continuous,NA
+nondiabetes,hdl,median,52,Continuous,NA
+nondiabetes,hdl,q25,43,Continuous,NA
+nondiabetes,hdl,q75,63,Continuous,NA
+nondiabetes,hdl,min,10,Continuous,NA
+nondiabetes,hdl,max,189,Continuous,NA
+nondiabetes,hdl,freq,17388,Continuous,NA
+nondiabetes,hdl,missing,1191,Continuous,NA
+nondiabetes,total_fat,mean,26341.557872500234,Continuous,NA
+nondiabetes,total_fat,sd,11511.04145034698,Continuous,NA
+nondiabetes,total_fat,median,24363.4,Continuous,NA
+nondiabetes,total_fat,q25,18092.35,Continuous,NA
+nondiabetes,total_fat,q75,32202.95,Continuous,NA
+nondiabetes,total_fat,min,4902,Continuous,NA
+nondiabetes,total_fat,max,102288.7,Continuous,NA
+nondiabetes,total_fat,freq,10651,Continuous,NA
+nondiabetes,total_fat,missing,7928,Continuous,NA
+nondiabetes,fat_percentage,mean,32.40059149375646,Continuous,NA
+nondiabetes,fat_percentage,sd,8.683005182125903,Continuous,NA
+nondiabetes,fat_percentage,median,32.1,Continuous,NA
+nondiabetes,fat_percentage,q25,25.9,Continuous,NA
+nondiabetes,fat_percentage,q75,39.3,Continuous,NA
+nondiabetes,fat_percentage,min,11.7,Continuous,NA
+nondiabetes,fat_percentage,max,56.1,Continuous,NA
+nondiabetes,fat_percentage,freq,10651,Continuous,NA
+nondiabetes,fat_percentage,missing,7928,Continuous,NA
+nondiabetes,bmi,mean,28.448625504527108,Continuous,NA
+nondiabetes,bmi,sd,6.845219138683846,Continuous,NA
+nondiabetes,bmi,median,27.3,Continuous,NA
+nondiabetes,bmi,q25,23.7,Continuous,NA
+nondiabetes,bmi,q75,31.9,Continuous,NA
+nondiabetes,bmi,min,13.4,Continuous,NA
+nondiabetes,bmi,max,86.2,Continuous,NA
+nondiabetes,bmi,freq,18334,Continuous,NA
+nondiabetes,bmi,missing,245,Continuous,NA
+nondiabetes,glycohemoglobin,mean,5.44176036342987,Continuous,NA
+nondiabetes,glycohemoglobin,sd,0.3882487483822016,Continuous,NA
+nondiabetes,glycohemoglobin,median,5.4,Continuous,NA
+nondiabetes,glycohemoglobin,q25,5.2,Continuous,NA
+nondiabetes,glycohemoglobin,q75,5.7,Continuous,NA
+nondiabetes,glycohemoglobin,min,3.6,Continuous,NA
+nondiabetes,glycohemoglobin,max,6.4,Continuous,NA
+nondiabetes,glycohemoglobin,freq,17610,Continuous,NA
+nondiabetes,glycohemoglobin,missing,969,Continuous,NA
+nondiabetes,sbp,mean,122.64880919024937,Continuous,NA
+nondiabetes,sbp,sd,17.992423978868676,Continuous,NA
+nondiabetes,sbp,median,119.33333333333333,Continuous,NA
+nondiabetes,sbp,q25,110,Continuous,NA
+nondiabetes,sbp,q75,132,Continuous,NA
+nondiabetes,sbp,min,64.66666666666667,Continuous,NA
+nondiabetes,sbp,max,234,Continuous,NA
+nondiabetes,sbp,freq,17845,Continuous,NA
+nondiabetes,sbp,missing,734,Continuous,NA
+nondiabetes,dbp,mean,70.51226300551042,Continuous,NA
+nondiabetes,dbp,sd,12.455553773669754,Continuous,NA
+nondiabetes,dbp,median,70.66666666666667,Continuous,NA
+nondiabetes,dbp,q25,63.333333333333336,Continuous,NA
+nondiabetes,dbp,q75,78,Continuous,NA
+nondiabetes,dbp,min,0,Continuous,NA
+nondiabetes,dbp,max,135.33333333333334,Continuous,NA
+nondiabetes,dbp,freq,17845,Continuous,NA
+nondiabetes,dbp,missing,734,Continuous,NA
+Total,gender,proportion,51.1258865248227,Grouped,Female
+Total,gender,freq,11534,Grouped,Female
+Total,gender,proportion,48.8741134751773,Grouped,Male
+Total,gender,freq,11026,Grouped,Male
+diabetes,gender,proportion,47.62622456669179,Grouped,Female
+diabetes,gender,freq,1896,Grouped,Female
+diabetes,gender,proportion,52.37377543330821,Grouped,Male
+diabetes,gender,freq,2085,Grouped,Male
+nondiabetes,gender,proportion,51.875773723020615,Grouped,Female
+nondiabetes,gender,freq,9638,Grouped,Female
+nondiabetes,gender,proportion,48.124226276979385,Grouped,Male
+nondiabetes,gender,freq,8941,Grouped,Male
+Total,race_eth,proportion,12.85017730496454,Grouped,Asian
+Total,race_eth,freq,2899,Grouped,Asian
+Total,race_eth,proportion,24.28191489361702,Grouped,Hispanic
+Total,race_eth,freq,5478,Grouped,Hispanic
+Total,race_eth,proportion,22.91223404255319,Grouped,NH Black
+Total,race_eth,freq,5169,Grouped,NH Black
+Total,race_eth,proportion,36.2145390070922,Grouped,NH White
+Total,race_eth,freq,8170,Grouped,NH White
+Total,race_eth,proportion,3.7411347517730498,Grouped,Other Race
+Total,race_eth,freq,844,Grouped,Other Race
+diabetes,race_eth,proportion,11.75584024114544,Grouped,Asian
+diabetes,race_eth,freq,468,Grouped,Asian
+diabetes,race_eth,proportion,27.60612911328812,Grouped,Hispanic
+diabetes,race_eth,freq,1099,Grouped,Hispanic
+diabetes,race_eth,proportion,26.701833710123086,Grouped,NH Black
+diabetes,race_eth,freq,1063,Grouped,NH Black
+diabetes,race_eth,proportion,30.519969856819895,Grouped,NH White
+diabetes,race_eth,freq,1215,Grouped,NH White
+diabetes,race_eth,proportion,3.4162270786234616,Grouped,Other Race
+diabetes,race_eth,freq,136,Grouped,Other Race
+nondiabetes,race_eth,proportion,13.084665482534044,Grouped,Asian
+nondiabetes,race_eth,freq,2431,Grouped,Asian
+nondiabetes,race_eth,proportion,23.569621615802788,Grouped,Hispanic
+nondiabetes,race_eth,freq,4379,Grouped,Hispanic
+nondiabetes,race_eth,proportion,22.100220679261533,Grouped,NH Black
+nondiabetes,race_eth,freq,4106,Grouped,NH Black
+nondiabetes,race_eth,proportion,37.43473814521772,Grouped,NH White
+nondiabetes,race_eth,freq,6955,Grouped,NH White
+nondiabetes,race_eth,proportion,3.8107540771839172,Grouped,Other Race
+nondiabetes,race_eth,freq,708,Grouped,Other Race
+Total,fipr,proportion,76.49608432251391,Grouped,above poverty
+Total,fipr,freq,15531,Grouped,above poverty
+Total,fipr,proportion,0.3497020144806186,Grouped,at poverty
+Total,fipr,freq,71,Grouped,at poverty
+Total,fipr,proportion,23.154213663005468,Grouped,below poverty
+Total,fipr,freq,4701,Grouped,below poverty
+diabetes,fipr,proportion,73.64712514092446,Grouped,above poverty
+diabetes,fipr,freq,2613,Grouped,above poverty
+diabetes,fipr,proportion,0.7891770011273957,Grouped,at poverty
+diabetes,fipr,freq,28,Grouped,at poverty
+diabetes,fipr,proportion,25.56369785794814,Grouped,below poverty
+diabetes,fipr,freq,907,Grouped,below poverty
+nondiabetes,fipr,proportion,77.0993733213966,Grouped,above poverty
+nondiabetes,fipr,freq,12918,Grouped,above poverty
+nondiabetes,fipr,proportion,0.25663980901223515,Grouped,at poverty
+nondiabetes,fipr,freq,43,Grouped,at poverty
+nondiabetes,fipr,proportion,22.643986869591167,Grouped,below poverty
+nondiabetes,fipr,freq,3794,Grouped,below poverty
+Total,bmi_category,proportion,27.947695035460992,Grouped,18.5-24.9
+Total,bmi_category,freq,6305,Grouped,18.5-24.9
+Total,bmi_category,proportion,31.17464539007092,Grouped,25-29.9
+Total,bmi_category,freq,7033,Grouped,25-29.9
+Total,bmi_category,proportion,29.929078014184398,Grouped,30-39.9
+Total,bmi_category,freq,6752,Grouped,30-39.9
+Total,bmi_category,proportion,1.8617021276595744,Grouped,<18.5
+Total,bmi_category,freq,420,Grouped,<18.5
+Total,bmi_category,proportion,9.086879432624114,Grouped,>= 40
+Total,bmi_category,freq,2050,Grouped,>= 40
+diabetes,bmi_category,proportion,13.438834463702587,Grouped,18.5-24.9
+diabetes,bmi_category,freq,535,Grouped,18.5-24.9
+diabetes,bmi_category,proportion,28.158754081888972,Grouped,25-29.9
+diabetes,bmi_category,freq,1121,Grouped,25-29.9
+diabetes,bmi_category,proportion,41.220798794272795,Grouped,30-39.9
+diabetes,bmi_category,freq,1641,Grouped,30-39.9
+diabetes,bmi_category,proportion,0.4019090680733484,Grouped,<18.5
+diabetes,bmi_category,freq,16,Grouped,<18.5
+diabetes,bmi_category,proportion,16.779703592062297,Grouped,>= 40
+diabetes,bmi_category,freq,668,Grouped,>= 40
+nondiabetes,bmi_category,proportion,31.056569244846333,Grouped,18.5-24.9
+nondiabetes,bmi_category,freq,5770,Grouped,18.5-24.9
+nondiabetes,bmi_category,proportion,31.820873028688304,Grouped,25-29.9
+nondiabetes,bmi_category,freq,5912,Grouped,25-29.9
+nondiabetes,bmi_category,proportion,27.509553797298025,Grouped,30-39.9
+nondiabetes,bmi_category,freq,5111,Grouped,30-39.9
+nondiabetes,bmi_category,proportion,2.1744980892405406,Grouped,<18.5
+nondiabetes,bmi_category,freq,404,Grouped,<18.5
+nondiabetes,bmi_category,proportion,7.438505839926799,Grouped,>= 40
+nondiabetes,bmi_category,freq,1382,Grouped,>= 40
+Total,immigrant,proportion,0.057624113475177305,Grouped,
+Total,immigrant,freq,13,Grouped,
+Total,immigrant,proportion,69.40159574468085,Grouped,"Born in 50 US states or Washington, DC"
+Total,immigrant,freq,15657,Grouped,"Born in 50 US states or Washington, DC"
+Total,immigrant,proportion,30.54078014184397,Grouped,Other
+Total,immigrant,freq,6890,Grouped,Other
+diabetes,immigrant,proportion,0.05023863350916855,Grouped,
+diabetes,immigrant,freq,2,Grouped,
+diabetes,immigrant,proportion,66.1391610148204,Grouped,"Born in 50 US states or Washington, DC"
+diabetes,immigrant,freq,2633,Grouped,"Born in 50 US states or Washington, DC"
+diabetes,immigrant,proportion,33.81060035167044,Grouped,Other
+diabetes,immigrant,freq,1346,Grouped,Other
+nondiabetes,immigrant,proportion,0.05920663114268798,Grouped,
+nondiabetes,immigrant,freq,11,Grouped,
+nondiabetes,immigrant,proportion,70.10065127294257,Grouped,"Born in 50 US states or Washington, DC"
+nondiabetes,immigrant,freq,13024,Grouped,"Born in 50 US states or Washington, DC"
+nondiabetes,immigrant,proportion,29.840142095914743,Grouped,Other
+nondiabetes,immigrant,freq,5544,Grouped,Other
+Total,education,proportion,5.252659574468085,Grouped,
+Total,education,freq,1185,Grouped,
+Total,education,proportion,52.5,Grouped,Any college and above
+Total,education,freq,11844,Grouped,Any college and above
+Total,education,proportion,21.108156028368793,Grouped,High school only
+Total,education,freq,4762,Grouped,High school only
+Total,education,proportion,21.13918439716312,Grouped,Less than high school
+Total,education,freq,4769,Grouped,Less than high school
+diabetes,education,proportion,0.5777442853554383,Grouped,
+diabetes,education,freq,23,Grouped,
+diabetes,education,proportion,45.31524742527003,Grouped,Any college and above
+diabetes,education,freq,1804,Grouped,Any college and above
+diabetes,education,proportion,22.984174830444612,Grouped,High school only
+diabetes,education,freq,915,Grouped,High school only
+diabetes,education,proportion,31.122833458929918,Grouped,Less than high school
+diabetes,education,freq,1239,Grouped,Less than high school
+nondiabetes,education,proportion,6.25437321707304,Grouped,
+nondiabetes,education,freq,1162,Grouped,
+nondiabetes,education,proportion,54.03950697023521,Grouped,Any college and above
+nondiabetes,education,freq,10040,Grouped,Any college and above
+nondiabetes,education,proportion,20.706173636901877,Grouped,High school only
+nondiabetes,education,freq,3847,Grouped,High school only
+nondiabetes,education,proportion,18.99994617578987,Grouped,Less than high school
+nondiabetes,education,freq,3530,Grouped,Less than high school
+Total,marital,proportion,5.1462765957446805,Grouped,
+Total,marital,freq,1161,Grouped,
+Total,marital,proportion,47.5,Grouped,married
+Total,marital,freq,10716,Grouped,married
+Total,marital,proportion,26.13031914893617,Grouped,never married
+Total,marital,freq,5895,Grouped,never married
+Total,marital,proportion,21.22340425531915,Grouped,previously married
+Total,marital,freq,4788,Grouped,previously married
+diabetes,marital,proportion,0.37678975131876413,Grouped,
+diabetes,marital,freq,15,Grouped,
+diabetes,marital,proportion,54.10700828937453,Grouped,married
+diabetes,marital,freq,2154,Grouped,married
+diabetes,marital,proportion,14.971112785732227,Grouped,never married
+diabetes,marital,freq,596,Grouped,never married
+diabetes,marital,proportion,30.54508917357448,Grouped,previously married
+diabetes,marital,freq,1216,Grouped,previously married
+nondiabetes,marital,proportion,6.168254480865493,Grouped,
+nondiabetes,marital,freq,1146,Grouped,
+nondiabetes,marital,proportion,46.08428871306314,Grouped,married
+nondiabetes,marital,freq,8562,Grouped,married
+nondiabetes,marital,proportion,28.52144894773669,Grouped,never married
+nondiabetes,marital,freq,5299,Grouped,never married
+nondiabetes,marital,proportion,19.22600785833468,Grouped,previously married
+nondiabetes,marital,freq,3572,Grouped,previously married
+Total,insurance,proportion,0.19946808510638298,Grouped,
+Total,insurance,freq,45,Grouped,
+Total,insurance,proportion,80.36790780141844,Grouped,Covered by health insurance
+Total,insurance,freq,18131,Grouped,Covered by health insurance
+Total,insurance,proportion,19.43262411347518,Grouped,No health insurance
+Total,insurance,freq,4384,Grouped,No health insurance
+diabetes,insurance,proportion,0.15071590052750566,Grouped,
+diabetes,insurance,freq,6,Grouped,
+diabetes,insurance,proportion,86.38533031901532,Grouped,Covered by health insurance
+diabetes,insurance,freq,3439,Grouped,Covered by health insurance
+diabetes,insurance,proportion,13.463953780457171,Grouped,No health insurance
+diabetes,insurance,freq,536,Grouped,No health insurance
+nondiabetes,insurance,proportion,0.20991441950589376,Grouped,
+nondiabetes,insurance,freq,39,Grouped,
+nondiabetes,insurance,proportion,79.07852952257926,Grouped,Covered by health insurance
+nondiabetes,insurance,freq,14692,Grouped,Covered by health insurance
+nondiabetes,insurance,proportion,20.71155605791485,Grouped,No health insurance
+nondiabetes,insurance,freq,3848,Grouped,No health insurance
+Total,insurance_type,proportion,100,Grouped,
+Total,insurance_type,freq,22560,Grouped,
+diabetes,insurance_type,proportion,100,Grouped,
+diabetes,insurance_type,freq,3981,Grouped,
+nondiabetes,insurance_type,proportion,100,Grouped,
+nondiabetes,insurance_type,freq,18579,Grouped,
