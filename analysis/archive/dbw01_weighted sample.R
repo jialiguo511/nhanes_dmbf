@@ -1,5 +1,7 @@
 rm(list=ls());gc();source(".Rprofile")
 
+library(survey)
+
 nhanes_20112012 <- readRDS(paste0(path_nhanes_ckm_folder,"/working/cleaned/nhanes_20112012.rds"))
 nhanes_20132014 <- readRDS(paste0(path_nhanes_ckm_folder,"/working/cleaned/nhanes_20132014.rds"))
 nhanes_20152016 <- readRDS(paste0(path_nhanes_ckm_folder,"/working/cleaned/nhanes_20152016.rds"))
@@ -16,8 +18,8 @@ nhanes_20112018 <- bind_rows(
   nhanes_20172018 %>% 
     mutate(year = "2017-2018")) %>% 
   dplyr::filter(age >= 18) %>% 
-  # mutate(dm = case_when(dm_doc_told == 1 | glycohemoglobin >= 6.5 | fasting_glucose >= 126 ~ "diabetes",
-  #                       TRUE ~ "non-diabetes")) %>% 
+  mutate(dm = case_when(dm_doc_told == 1 | glycohemoglobin >= 6.5 | fasting_glucose >= 126 ~ "diabetes",
+                        TRUE ~ "non-diabetes")) %>% 
   mutate(female = case_when(gender == 2 ~ 1,
                             TRUE ~ 0),
          race_eth = case_when(race == 3 ~ "NH White",
@@ -48,6 +50,12 @@ nhanes_20112018 <- bind_rows(
                                     insured_medicare == 1 ~ "Insured by Medicare",
                                     insured_medicaid == 1 ~ "Insured by Medicaid",
                                     TRUE ~ ""),
+         bmi_category = case_when(bmi<18.5 ~ "<18.5",
+                                  bmi>=18.5 & bmi<25 ~ "18.5-24.9",
+                                  bmi>=25 & bmi<30 ~ "25-29.9",
+                                  bmi>=30 & bmi<40 ~ "30-39.9",
+                                  bmi>=40 ~ ">= 40",
+                                  TRUE ~ "Unkown"),
          sbp = rowMeans(select(., systolic1, systolic2, systolic3, systolic4), na.rm = TRUE),  
          dbp = rowMeans(select(., diastolic1, diastolic2, diastolic3, diastolic4), na.rm = TRUE),
          year_broad = case_when(year == '2011-2012' | year == '2013-2014' ~ '2011-2014',
@@ -56,63 +64,34 @@ nhanes_20112018 <- bind_rows(
   dplyr::select(-c(citizenship, race, poverty, hhincome, pregnant)) %>% 
   mutate(nhanes2yweight = mec2yweight/4) 
 
-#   # Refer: https://www.cdc.gov/nchs/data/series/sr_02/sr02-190.pdf >> Page 22 onwards
+
 # check weighted total sample size N
 sum(nhanes_20112018$nhanes2yweight)
-#-------------------------------------------------------------------------------------------
-# Identify all DM (either dm_age is not NA OR (dm_age is NA, HbA1c >= 6.5))
-# N = 3981
-nhanes_dm_all <- nhanes_20112018 %>% 
-  group_by(respondentid) %>% 
-  dplyr::filter((!is.na(dm_age) | 
-                   is.na(dm_age) & (glycohemoglobin >= 6.5 | fasting_glucose >= 126))) %>%
-  ungroup()
-
-# Identify diagnosed DM, N = 3032
-nhanes_dm_diag <- nhanes_dm_all %>% 
-  group_by(respondentid) %>%
-  dplyr::filter(dm_doc_told == 1) %>%
-  ungroup()
-
-# 4 ppl with diagnosed dm but missing dm_age --> diagnosis >1y
-sum(is.na(nhanes_dm_diag$dm_age))
-
-# Among diagnosed DM, duration <= 1 year, N = 310
-nhanes_dm_newdiag <- nhanes_dm_diag %>% 
-  group_by(respondentid) %>% 
-  dplyr::filter(!is.na(dm_age) & !is.na(age) & 
-                  (age - dm_age) >= 0 & 
-                  (age - dm_age) <= 1) %>%
-  ungroup()
-
-# Identify undiagnosed DM based on A1c. Set dm_age = current age, N = 949
-nhanes_dm_undiag <- nhanes_20112018 %>%
-  group_by(respondentid) %>% 
-  dplyr::filter((is.na(dm_age) & dm_doc_told != 1 & (glycohemoglobin >= 6.5 | fasting_glucose >= 126))) %>%
-  ungroup() %>% 
-  mutate(dm_age = age)
 
 
-# Exclude all DM from all HRS to get no DM, N = 18579
-nhanes_ndm <- nhanes_20112018 %>% 
-  dplyr::filter(!respondentid %in% nhanes_dm_all$respondentid) 
+#   # Refer: https://www.cdc.gov/nchs/data/series/sr_02/sr02-190.pdf >> Page 22 onwards
+#   group_by(year) %>%
+#   mutate(
+#     normalizedmec2yweight = mec2yweight / 4,  # Apply your normalization step
+#     year_total_weight = sum(normalizedmec2yweight, na.rm = TRUE)  # Calculate total weight per year
+#   ) %>%
+#   ungroup() %>%
+#   mutate(
+#     overall_total_weight = sum(year_total_weight, na.rm = TRUE),  # Total weight across all years
+#     year_proportion = year_total_weight / overall_total_weight,  # Proportion of each year's weight
+#     new_weight = normalizedmec2yweight * year_proportion  # Apply the scaling
+#   )
+
+# The `new_weight` column now represents the scaled weight for representing the overall US population across 2011-2018.
 
 
-# distinct(respondentid) %>%
-# nrow()
+# MEC: Mobile Examination Center
+# For cross-sectional analysis of biomarkers, use the MEC weights 
+# For cross-sectional analysis of questionnaire, use the interview weights
+# Always use the lowest common denominator to select the right weights
+# If pooling, there are specific guidelines around how to combine weights
 
-### NHANES Newly diagnosed (duration <= 1y + undiagnosed) dm: 1289 ###
-
-#-------------------------------------------------------------------------
-# Total sample (no T2D + new T2D), N = obs = 19842
-nhanes_total <- nhanes_20112018 %>% 
-  mutate(dm = case_when(respondentid %in% nhanes_ndm$respondentid ~ "non-diabetes",
-                        respondentid %in% nhanes_dm_newdiag$respondentid ~ "newly and undiagnosed diabetes",
-                        respondentid %in% nhanes_dm_undiag$respondentid ~ "newly and undiagnosed diabetes",
-                        TRUE ~ "diagnosed diabetes >1y"))
-
-# weighted
-nhanes_total_svy = nhanes_total %>% 
+nhanes_20112018_svy = nhanes_20112018 %>% 
   as_survey_design(.data=.,
                    ids=psu,
                    strata = pseudostratum,
@@ -121,4 +100,5 @@ nhanes_total_svy = nhanes_total %>%
                    # Both the below work well for most cases
                    pps = "brewer",variance = "YG")
 
-saveRDS(nhanes_total_svy, paste0(path_nhanes_dmbf_folder, "/working/cleaned/weighted sample.RDS"))
+saveRDS(nhanes_20112018_svy, paste0(path_nhanes_dmbf_folder, "/working/cleaned/weighted sample.RDS"))
+

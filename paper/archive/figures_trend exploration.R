@@ -13,7 +13,7 @@ nhanes_20112018_svy <- readRDS(paste0(path_nhanes_dmbf_folder, "/working/cleaned
                                     TRUE ~ ">9%")) %>% 
   mutate(glucosef_category = factor(glucosef_category, levels = c("<100", "100-126", "126-200", ">200")),
          hba1c_category = factor(hba1c_category, levels = c("<5.7%", "5.7%-6.5%", "6.5%-9%", ">9%")),
-         bmi_category = factor(bmi_category, levels = c("<18.5", "18.5-24.9", "25-29.9", "30-39.9", ">= 40")))
+         bmi_category = factor(bmi_category, levels = c("<18.5", "18.5-24.9", "25-29.9", "30-39.9", ">=40")))
 
 #------------------------------------------------------------------------------------------------------------------------
 # trend of mean BF% and BMI
@@ -270,20 +270,20 @@ nhanes_males_svy <- nhanes_20112018_svy %>%
     fat_percentage <= 14 ~ "<=14%",
     fat_percentage > 14 & fat_percentage <= 20 ~ "14-20%",
     fat_percentage > 20 & fat_percentage <= 25 ~ "20-25%",
-    fat_percentage > 25 ~ ">=25%",
-    TRUE ~ "Undefined")) %>% 
+    fat_percentage >= 25 ~ ">=25%",
+    TRUE ~ "Unknown")) %>% 
   mutate(fat_percentage_category = factor(
-    fat_percentage_category, levels = c("<=14%","14-20%","20-25%",">=25%","Undefined")))
+    fat_percentage_category, levels = c("<=14%","14-20%","20-25%",">=25%","Unknown")))
 nhanes_females_svy <- nhanes_20112018_svy %>% 
   dplyr::filter(female == 1) %>% 
   mutate(fat_percentage_category = case_when(
     fat_percentage <= 25 ~ "<=25%",
     fat_percentage > 25 & fat_percentage <= 30 ~ "25-30%",
     fat_percentage > 30 & fat_percentage <= 35 ~ "30-35%",
-    fat_percentage > 35 ~ ">=35%",
-    TRUE ~ "Undefined")) %>% 
+    fat_percentage >= 35 ~ ">=35%",
+    TRUE ~ "Unknown")) %>% 
   mutate(fat_percentage_category = factor(
-    fat_percentage_category, levels = c("<=25%","25-30%","30-35%",">=35%","Undefined")))
+    fat_percentage_category, levels = c("<=25%","25-30%","30-35%",">=35%","Unknown")))
 
 male_table <- svytable(~bmi_category + fat_percentage_category, nhanes_males_svy)
 male_proportions <- prop.table(male_table, margin = 1) * 100
@@ -321,6 +321,8 @@ ggsave(fig, filename=paste0(path_nhanes_dmbf_folder, "/figures/Bar Chart of BMI 
 
 #-------------------------------------------------------------------------------------------------------------------------------------
 # mis-classification in BMI and BF% -- bar chart 2
+library(scales)
+library(ggplot2)
 
 male_plot <- ggplot(data = nhanes_males_svy,
                     aes(x = bmi_category, y = ..prop.., fill = fat_percentage_category, group = fat_percentage_category)) +
