@@ -14,7 +14,6 @@ nhanes_20112018_svy = nhanes_20112018 %>%
                    pps = "brewer",variance = "YG")
 
 nhanes_20112018_svy <- nhanes_20112018_svy %>% 
-  dplyr::filter(bmi_category != "Unknown") %>% 
   mutate(glucosef_category = case_when(fasting_glucose < 100 ~ "<100",
                                        fasting_glucose >= 100 & fasting_glucose <= 126 ~ "100-126",
                                        fasting_glucose > 126 & fasting_glucose <= 200 ~ "126-200",
@@ -22,10 +21,15 @@ nhanes_20112018_svy <- nhanes_20112018_svy %>%
          hba1c_category = case_when(glycohemoglobin < 5.7 ~ "<5.7%",
                                     glycohemoglobin >= 5.7 & glycohemoglobin <= 6.5 ~ "5.7%-6.5%",
                                     glycohemoglobin > 6.5 & glycohemoglobin <= 9 ~ "6.5%-9%",
-                                    TRUE ~ ">9%")) %>% 
+                                    TRUE ~ ">9%"),
+         bmi_category = case_when(bmi<18.5 ~ "<18.5",
+                                  bmi>=18.5 & bmi<25 ~ "18.5-24.9",
+                                  bmi>=25 & bmi<30 ~ "25-29.9",
+                                  TRUE ~ ">=30")) %>% 
   mutate(glucosef_category = factor(glucosef_category, levels = c("<100", "100-126", "126-200", ">200")),
          hba1c_category = factor(hba1c_category, levels = c("<5.7%", "5.7%-6.5%", "6.5%-9%", ">9%")),
-         bmi_category = factor(bmi_category, levels = c("<18.5", "18.5-24.9", "25-29.9", "30-39.9", ">=40")))
+         bmi_category = factor(bmi_category, levels = c("<18.5", "18.5-24.9", "25-29.9", "30-39.9", ">=40"))) %>% 
+  dplyr::filter(bmi_category != "Unknown")
 
 nhanes_males_svy <- nhanes_20112018_svy %>% 
   dplyr::filter(female == 0) %>% 
