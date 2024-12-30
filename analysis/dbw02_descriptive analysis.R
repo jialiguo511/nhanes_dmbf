@@ -9,7 +9,12 @@ nhanes_total_svy <- readRDS(paste0(path_nhanes_dmbf_folder, "/working/cleaned/we
                        female == 1 & dm == "newly and undiagnosed diabetes" ~ "female newly and undiagnosed diabetes",
                        female == 0 & dm == "newly and undiagnosed diabetes" ~ "male newly and undiagnosed diabetes",
                        female == 1 & dm == "diagnosed diabetes >1y" ~ "female diagnosed diabetes >1y",
-                       female == 0 & dm == "diagnosed diabetes >1y" ~ "male diagnosed diabetes >1y")
+                       female == 0 & dm == "diagnosed diabetes >1y" ~ "male diagnosed diabetes >1y"),
+    race_num = case_when(race == 1 | race == 2 ~ 1,
+                         race == 3 ~ 2,
+                         race == 4 ~ 3,
+                         race == 6 ~ 4,
+                         TRUE ~ 5)
     ) 
 
 #----------------------------------------------------------------------------------------------------------------
@@ -43,31 +48,66 @@ svy_summary <- nhanes_total_svy %>%
 
 #----------------------------------------------------------------------------------------------------------------
 ### dm vs non-dm by sex
-svy_summary <- nhanes_total_svy %>% 
-  tbl_svysummary(
-    by = dm_sex,
-    missing_text = "Missing",
-    include = c("bmi","fat_percentage","waistcircumference","glycohemoglobin","fasting_glucose",
-                "sbp","dbp","ldl","hdl","triglyceride","total_cholesterol"
-    ),
-    design = ~ age + female + race_eth,
-    type = list(waistcircumference ~ "continuous2",
-                fasting_glucose ~ "continuous2",
-                triglyceride ~ "continuous2",
-                ldl ~ "continuous2",
-                hdl ~ "continuous2",
-                fat_percentage ~ "continuous2",
-                bmi ~ "continuous2",
-                glycohemoglobin ~ "continuous2",
-                sbp ~ "continuous2",
-                dbp ~ "continuous2",
-                total_cholesterol ~ "continuous2"), 
-    statistic = list(all_continuous2() ~ c("{mean} ({sd})","{N_miss_unweighted}"),
-                     glycohemoglobin ~ c("{median} ({p25}, {p75})","{N_nonmiss_unweighted}")),
-    digits = list(all_continuous2() ~ 1, # Setting 1 decimal 
-                  glycohemoglobin ~ 1) 
-  ) %>% 
-  add_n(statistic =  "{N_obs_unweighted}") %>% # See add_n.tbl_summary for more details
-  add_overall() %>%
-  as_gt() %>% 
-  gt::gtsave(filename = "analysis/dbw02_descriptive lab characteristics by dm and sex.docx")
+library(broom)
+
+adjusted_means_list <- list()
+variables <- c("bmi", "fat_percentage", "waistcircumference", "fasting_glucose","glycohemoglobin",
+               "sbp", "dbp", "ldl", "hdl", "triglyceride", "total_cholesterol")
+
+
+for(var in variables) {
+  
+  formula_model <- as.formula(paste(var, "~ age + race_num"))
+  model <- svyglm(formula_model, design = nhanes_total_svy)
+  formula_means <- as.formula(paste("~", var))
+  adjusted_means <- svyby(formula_means, ~dm_sex, nhanes_total_svy, svymean, na.rm = TRUE, adjust =~age + race_num)
+  names(adjusted_means) <- c("dm_sex", "mean", "se")
+  adjusted_means$Variable <- var
+
+  adjusted_means_list[[var]] <- adjusted_means
+}
+
+combined_results <- bind_rows(adjusted_means_list)
+
+wide_df <- combined_results %>%
+  mutate(mean_sd = sprintf("%.1f(%.1f)", mean, se)) %>%  # Create a new column combining mean and standard error
+  select(-mean, -se) %>%  # Remove the original mean and se columns
+  pivot_wider(names_from = dm_sex, values_from = mean_sd, names_sort = TRUE) %>% 
+  write_csv(., "analysis/dbw02_descriptive lab characteristics by dm and sex.csv")
+
+
+
+
+
+
+
+###?????????????????????
+library(quantreg)
+
+quantiles <- c(0.25, 0.50, 0.75)  # Define quantiles
+df1 <- nhanes_total_svy %>% dplyr::filter(dm_sex == "female non-diabetes")
+models <- lapply(quantiles, function(q) {
+  rq(glycohemoglobin ~ age + race, data = df1, weights = nhanes2yweight, tau = q)
+})
+
+# Checking model summaries
+lapply(models, summary)
+
+
+
+
+
+model <- svyglm(bmi~ age + race, design = nhanes_total_svy)
+adjusted_means <- svyby(~bmi, ~dm_sex, nhanes_total_svy, svymean, na.rm = TRUE, adjust =~age + race)
+
+
+
+
+
+
+
+
+
+
+
+

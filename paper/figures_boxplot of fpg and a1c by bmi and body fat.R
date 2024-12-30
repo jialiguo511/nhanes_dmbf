@@ -4,8 +4,7 @@ nhanes_total_svy <- readRDS(paste0(path_nhanes_dmbf_folder, "/working/cleaned/we
   dplyr::filter(bmi <= 60) %>% 
   mutate(glucosef_category = case_when(fasting_glucose < 100 ~ "<100",
                                        fasting_glucose >= 100 & fasting_glucose <= 126 ~ "100-126",
-                                       fasting_glucose > 126 & fasting_glucose <= 200 ~ "126-200",
-                                       TRUE ~ ">200"),
+                                       TRUE ~ ">126"),
          hba1c_category = case_when(glycohemoglobin < 5.7 ~ "<5.7%",
                                     glycohemoglobin >= 5.7 & glycohemoglobin <= 6.5 ~ "5.7%-6.5%",
                                     glycohemoglobin > 6.5 & glycohemoglobin <= 9 ~ "6.5%-9%",
@@ -14,7 +13,7 @@ nhanes_total_svy <- readRDS(paste0(path_nhanes_dmbf_folder, "/working/cleaned/we
                                   bmi>=18.5 & bmi<25 ~ "18.5-24.9",
                                   bmi>=25 & bmi<30 ~ "25-29.9",
                                   TRUE ~ ">=30")) %>% 
-  mutate(glucosef_category = factor(glucosef_category, levels = c("<100", "100-126", "126-200", ">200")),
+  mutate(glucosef_category = factor(glucosef_category, levels = c("<100", "100-126", ">126")),
          hba1c_category = factor(hba1c_category, levels = c("<5.7%", "5.7%-6.5%", "6.5%-9%", ">9%")),
          bmi_category = factor(bmi_category, levels = c("<18.5", "18.5-24.9", "25-29.9", "30-39.9", ">=40")))
  

@@ -53,7 +53,7 @@ nhanes_20112018 <- bind_rows(
          year_broad = case_when(year == '2011-2012' | year == '2013-2014' ~ '2011-2014',
                                 TRUE ~ '2015-2018')) %>% 
   dplyr::filter(pregnant == 2 | pregnant == 3 | is.na(pregnant)) %>% 
-  dplyr::select(-c(citizenship, race, poverty, hhincome, pregnant)) %>% 
+  dplyr::select(-c(citizenship, poverty, hhincome, pregnant)) %>% 
   mutate(nhanes2yweight = mec2yweight/4) 
 
 #   # Refer: https://www.cdc.gov/nchs/data/series/sr_02/sr02-190.pdf >> Page 22 onwards
