@@ -105,20 +105,25 @@ nhanes_ndm <- nhanes_20112018 %>%
 
 #-------------------------------------------------------------------------
 # Total sample (no T2D + new T2D), N = obs = 19842
-nhanes_total <- nhanes_20112018 %>% 
-  mutate(dm = case_when(respondentid %in% nhanes_ndm$respondentid ~ "non-diabetes",
-                        respondentid %in% nhanes_dm_newdiag$respondentid ~ "newly and undiagnosed diabetes",
-                        respondentid %in% nhanes_dm_undiag$respondentid ~ "newly and undiagnosed diabetes",
-                        TRUE ~ "diagnosed diabetes >1y"))
+nhanes_total <- nhanes_20112018 %>%
+  mutate(dm = case_when(
+    respondentid %in% nhanes_ndm$respondentid ~ "non-diabetes",
+    respondentid %in% nhanes_dm_newdiag$respondentid ~ "newly and undiagnosed diabetes",
+    respondentid %in% nhanes_dm_undiag$respondentid ~ "newly and undiagnosed diabetes",
+    TRUE ~ "diagnosed diabetes >1y"),
+    newdm = case_when(
+      dm == "non-diabetes" ~ 0,
+      dm == "newly and undiagnosed diabetes" ~ 1,
+      TRUE ~ NA_integer_
+    ))
 
-# weighted
-nhanes_total_svy = nhanes_total %>% 
-  as_survey_design(.data=.,
-                   ids=psu,
+# Define the survey design, ensuring all variables needed are already in nhanes_total
+nhanes_total_svy <- nhanes_total %>%
+  as_survey_design(ids = psu,
                    strata = pseudostratum,
-                   weights = nhanes2yweight, # Specify the weight variable here
+                   weights = nhanes2yweight,
                    nest = TRUE,
-                   # Both the below work well for most cases
-                   pps = "brewer",variance = "YG")
+                   pps = "brewer",
+                   variance = "YG")
 
 saveRDS(nhanes_total_svy, paste0(path_nhanes_dmbf_folder, "/working/cleaned/weighted sample.RDS"))
