@@ -6,7 +6,7 @@ library(pROC)
 
 nhanes_total_svy <- readRDS(paste0(path_nhanes_dmbf_folder, "/working/cleaned/weighted sample.RDS")) 
 
-bmi_mod <- svyglm(newdm ~ age + female + race_eth + bmi, design = nhanes_total_svy, weight = ipw_fat)
+bmi_mod <- svyglm(newdm ~ age + female + race_eth + bmi, design = nhanes_total_svy)
 bf_mod <- svyglm(newdm ~ age + female + race_eth + fat_percentage, design = nhanes_total_svy)
 bmibf_mod <- svyglm(newdm ~ age + female + race_eth + bmi + fat_percentage, design = nhanes_total_svy)
 

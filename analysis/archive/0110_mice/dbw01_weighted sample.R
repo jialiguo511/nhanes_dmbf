@@ -18,7 +18,6 @@ for(i in 1:mi_dfs$m) {
            fipr = case_when(poverty < 1 ~ "below poverty", 
                             poverty == 1 ~ "at poverty", 
                             poverty > 1 ~ "above poverty"),
-           fipr = as.factor(fipr),
            
            insurance = case_when(insured == 1 ~ "Covered by health insurance",
                                  insured == 2 ~ "No health insurance",
@@ -31,12 +30,11 @@ for(i in 1:mi_dfs$m) {
            dbp = rowMeans(select(., diastolic1, diastolic2, diastolic3, diastolic4), na.rm = TRUE),
            year_broad = case_when(year == '2011-2012' | year == '2013-2014' ~ '2011-2014',
                                   TRUE ~ '2015-2018'),
-           WHtR = waistcircumference/height,
-           
-           dm_age = ifelse(dm_age > 100, NA, dm_age)
+           WHtR = waistcircumference/height
            ) %>% 
     #   # Refer: https://www.cdc.gov/nchs/data/series/sr_02/sr02-190.pdf >> Page 22 onwards
-    mutate(nhanes2yweight = mec2yweight/4) 
+    mutate(nhanes2yweight = mec2yweight/4) %>% 
+    left_join(nhanes_20112018 %>% select(respondentid,gender,age), by=c("respondentid","age"))
   
   
   
@@ -51,7 +49,7 @@ for(i in 1:mi_dfs$m) {
   # Identify diagnosed DM, N = 3032
   nhanes_dm_diag <- nhanes_dm_all %>% 
     group_by(respondentid) %>%
-    dplyr::filter(dm_doc_told == "Yes") %>%
+    dplyr::filter(dm_doc_told == 1) %>%
     ungroup()
   
   # Among diagnosed DM, duration <= 1 year, N = 310
@@ -65,7 +63,7 @@ for(i in 1:mi_dfs$m) {
   # Identify undiagnosed DM based on A1c. Set dm_age = current age, N = 949
   nhanes_dm_undiag <- analytic_df %>%
     group_by(respondentid) %>% 
-    dplyr::filter((is.na(dm_age) & dm_doc_told != "Yes" & (glycohemoglobin >= 6.5 | fasting_glucose >= 126))) %>%
+    dplyr::filter((is.na(dm_age) & dm_doc_told != 1 & (glycohemoglobin >= 6.5 | fasting_glucose >= 126))) %>%
     ungroup() %>% 
     mutate(dm_age = age)
   
