@@ -1,0 +1,25 @@
+variable,diagnosed diabetes >1y,newly and undiagnosed diabetes,non-diabetes,category
+age,61 	 (12.9),53.8 	 (16.2),45 	 (17.3),NA
+dm_age,47.7 	 (14.6),54.5 	 (14.6),NaN 	 (NA),NA
+female,47,48.7,51.9,NA
+education,0.1,0.2,0.1,Refused or don't know
+education,53.4,55.9,64.3,Any college and above
+education,25.6,22.4,22.3,High school only
+education,20.9,21.6,13.3,Less than high school
+fipr,80.8,81,84,above poverty
+fipr,0.4,0.5,0.2,at poverty
+fipr,18.8,18.5,15.8,below poverty
+immigrant,82.3,76,82.3,"Born in 50 US states or Washington, DC"
+immigrant,17.7,23.9,17.7,Other
+immigrant,0,0.1,0,Refused or don't know
+insurance,0,0.2,0.2,
+insurance,90.9,83.4,82.9,Covered by health insurance
+insurance,9,16.5,17,No health insurance
+marital,58.5,55.5,52.2,married
+marital,14.2,20.5,30.8,never married
+marital,27.4,24,17,previously married
+race_eth,5.6,7.9,5.3,Asian
+race_eth,15.2,18.5,15,Hispanic
+race_eth,14.3,13.4,11,NH Black
+race_eth,60.7,56.9,65.3,NH White
+race_eth,4.2,3.3,3.4,Other Race

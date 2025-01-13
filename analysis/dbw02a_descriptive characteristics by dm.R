@@ -7,6 +7,7 @@ nhanes_svy_dfs <- readRDS(paste0(path_nhanes_dmbf_folder, "/working/cleaned/dbw0
 ### continuous variables
 age_list <- vector("list", length(nhanes_svy_dfs))
 dm_age_list <- vector("list", length(nhanes_svy_dfs))
+female_list <- vector("list", length(nhanes_svy_dfs))
 
 for (i in seq_along(nhanes_svy_dfs)) {
   nhanes_total_svy <- nhanes_svy_dfs[[i]]
@@ -18,6 +19,9 @@ for (i in seq_along(nhanes_svy_dfs)) {
   mean_dm_age <- svyby(~dm_age, ~dm, design = nhanes_total_svy, svymean, na.rm = TRUE)
   var_dm_age <- svyby(~dm_age, ~dm, design = nhanes_total_svy, svyvar, na.rm = TRUE)
   
+  female_prop <- svyby(~female, ~dm, nhanes_total_svy, svymean, na.rm = TRUE) %>% 
+    mutate(estimate = female * 100) %>%
+    select(dm, estimate)
   
   age_sum <- merge(mean_age, var_age, by = "dm", all.x = TRUE) %>% 
     rename(estimate = age.x,
@@ -31,6 +35,7 @@ for (i in seq_along(nhanes_svy_dfs)) {
   
   age_list[[i]] <- age_sum
   dm_age_list[[i]] <- dm_age_sum
+  female_list[[i]] <- female_prop
 }
 
 # Combine all results and calculate pooled statistics
@@ -46,7 +51,9 @@ age_results <- bind_rows(age_list) %>%
     D = length(nhanes_svy_dfs),           # number of imputations
     T_D = W_D + (1 + 1/D) * B_D,          # total variance according to Rubin's rules
     pooled_sd = round(sqrt(T_D), 1)       # pooled standard deviation
-  )
+  ) %>% 
+  mutate(estimate = paste0(round(theta_D, 1), " \t (",
+                           round(pooled_sd, 1), ")"))
 
 
 dm_age_results <- bind_rows(dm_age_list) %>%
@@ -61,7 +68,24 @@ dm_age_results <- bind_rows(dm_age_list) %>%
     D = length(nhanes_svy_dfs),           # number of imputations
     T_D = W_D + (1 + 1/D) * B_D,          # total variance according to Rubin's rules
     pooled_sd = round(sqrt(T_D), 1)       # pooled standard deviation
-  )
+  ) %>% 
+  mutate(estimate = paste0(round(theta_D, 1), " \t (",
+                           round(pooled_sd, 1), ")"))
+
+
+female_results <- bind_rows(female_list) %>% 
+  group_by(dm) %>% 
+  summarise(estimate = round(mean(estimate), 1),
+            .groups = 'drop')
+
+
+continuous_results <- bind_rows(
+  age_results %>% select(dm, estimate) %>% mutate(variable = "age"),
+  dm_age_results %>% select(dm, estimate) %>% mutate(variable = "dm_age"),
+  female_results %>% select(dm, estimate) %>% mutate(variable = "female", estimate = as.character(estimate))
+) %>% 
+  pivot_wider(names_from = dm, values_from = estimate, names_sort = TRUE) 
+
 
 
 
@@ -114,13 +138,14 @@ for (i in seq_along(nhanes_svy_dfs)) {
 
 prop_results <- bind_rows(prop_list) %>%
   group_by(variable, category) %>%
-  summarize(`diagnosed diabetes >1y` = round(mean(`diagnosed diabetes >1y`, na.rm = TRUE), 1),
-            `newly and undiagnosed diabetes` = round(mean(`newly and undiagnosed diabetes`, na.rm = TRUE), 1),
-            `non-diabetes` = round(mean(`non-diabetes`, na.rm = TRUE), 1),
+  summarize(`diagnosed diabetes >1y` = as.character(round(mean(`diagnosed diabetes >1y`, na.rm = TRUE), 1)),
+            `newly and undiagnosed diabetes` = as.character(round(mean(`newly and undiagnosed diabetes`, na.rm = TRUE), 1)),
+            `non-diabetes` = as.character(round(mean(`non-diabetes`, na.rm = TRUE), 1)),
             .groups = 'drop')
 
 
-
+all_results <- bind_rows(continuous_results, prop_results) %>% 
+  write_csv(., "analysis/dbw02a_descriptive characteristics of continuous variables by dm.csv")
 
 
 
