@@ -3,11 +3,12 @@ rm(list=ls());gc();source(".Rprofile")
 library(ggplot2)
 
 fig_df <- read_csv("analysis/dbw02c_descriptive characteristics by dm, sex and race.csv") %>% 
-  mutate(sex = factor(sex, levels = c("female", "male")),
-         race_eth = factor(race_eth, levels = c("NHWhite","NHBlack","Hispanic","Asian")),
+  mutate(sex = factor(sex, levels = c("male", "female")),
+         race_eth = factor(race_eth, levels = c("NHBlack","Hispanic","NHWhite","Asian")),
          dm = case_when(dm == "newly and undiagnosed diabetes" ~ "New diabetes",
                         dm == "diagnosed diabetes >1y" ~ "Diabetes>1y",
-                        TRUE ~ "No diabetes")) %>% 
+                        TRUE ~ "No diabetes"),
+         dm = factor(dm, levels = c("No diabetes","New diabetes","Diabetes>1y"))) %>% 
   mutate(value = paste0(round(estimate, 1), " (",
                         round(CI_lower, 1), ", ",
                         round(CI_upper, 1), ")"))
