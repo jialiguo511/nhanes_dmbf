@@ -70,7 +70,7 @@ for (i in seq_along(nhanes_svy_dfs)) {
                            TRUE ~ 0),
            dbp = case_when(dbp>=90 ~ 1,
                            TRUE ~ 0),
-           hdl = case_when(hdl>=60 ~ 1,
+           hdl = case_when(hdl>=35 ~ 1,
                            TRUE ~ 0),
            total_cholesterol = case_when(total_cholesterol>=200 ~ 1,
                            TRUE ~ 0))
