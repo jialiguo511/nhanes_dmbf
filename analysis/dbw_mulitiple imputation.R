@@ -48,24 +48,35 @@ nhanes_20112018 <- bind_rows(
                              marital == 5 | marital == 6 ~"never married",
                              is.na(marital) ~ NA_character_,
                              TRUE ~ "previously married"),
-         dm_doc_told = case_when(dm_doc_told == 1 ~ "Yes",
-                                 dm_doc_told == 2 ~ "No",
-                                 dm_doc_told == 3 ~ "Borderline",
-                                 dm_doc_told == 7 | dm_doc_told == 9 ~ "Refused or don't know",
-                                 TRUE ~ NA_character_),
-         dm_insulin_taking = case_when(dm_insulin_taking == 1 ~ "Yes",
-                                       dm_insulin_taking == 2 ~ "No",
-                                       dm_insulin_taking == 7 | dm_insulin_taking == 9 ~ "Refused or don't know",
-                                       TRUE ~ NA_character_)) %>% 
-  mutate(
-         immigrant = as.factor(immigrant),
+         dm_doc_told = case_when(dm_doc_told == 1 ~ 1,
+                                 dm_doc_told == 2 ~ 0,
+                                 TRUE ~ NA_real_),
+         dm_insulin_taking = case_when(dm_insulin_taking == 1 ~ 1,
+                                       dm_insulin_taking == 2 ~ 0,
+                                       TRUE ~ NA_real_),
+         htn_med_told = case_when(htn_med_told == 1 ~ 1,
+                                  htn_med_told == 2 ~ 0,
+                                  TRUE ~ NA_real_),
+         htn_med_taking = case_when(htn_med_taking == 1 ~ 1,
+                                    htn_med_taking == 2 ~ 0,
+                                    TRUE ~ NA_real_),
+         chol_med_told = case_when(chol_med_told == 1 ~ 1,
+                                   chol_med_told == 2 ~ 0,
+                                   TRUE ~ NA_real_),
+         chol_med_taking = case_when(chol_med_taking == 1 ~ 1,
+                                     chol_med_taking == 2 ~ 0,
+                                     TRUE ~ NA_real_)
+         ) %>% 
+  
+  mutate(immigrant = as.factor(immigrant),
          education = as.factor(education),
          marital = as.factor(marital),
          dm_doc_told = as.factor(dm_doc_told),
-         dm_insulin_taking = as.factor(dm_insulin_taking)
-         # To avoid the warning that 'Imputation method logreg is for categorical data' -- we can convert it back later
-         # female = factor(female,levels=c(0,1))
-         ) 
+         dm_insulin_taking = as.factor(dm_insulin_taking),
+         htn_med_told = as.factor(htn_med_told),
+         htn_med_taking = as.factor(htn_med_taking),
+         chol_med_told = as.factor(chol_med_told),
+         chol_med_taking = as.factor(chol_med_taking)) 
 
 colnames(nhanes_20112018)
 
@@ -79,9 +90,10 @@ continuous_vars <- c("urine_albumin", "urine_creatinine", "alt", "ast", "bun",
                      "ogtt_time", "total_cholesterol", "ldl", "triglyceride", 
                      "fat_percentage", "total_fat", "total_lean", "eGFR")
 
-# proportion_vars <- c("female")
+proportion_vars <- c("dm_doc_told","dm_insulin_taking","htn_med_told","htn_med_taking","chol_med_told",
+                     "chol_med_taking")
 
-grouped_vars <- c("immigrant", "education", "marital", "dm_doc_told", "dm_insulin_taking")
+grouped_vars <- c("immigrant", "education", "marital")
 
 id_vars <- c("respondentid", "psu", "pseudostratum", "intweight", "mec2yweight", "dm_age", "year",
              "insured", "insured_private", "insured_medicare", "insured_medicaid", "dm_family_history",
@@ -94,7 +106,7 @@ before_imputation <- nhanes_20112018  %>%
   dplyr::select(
     any_of(id_vars),
     any_of(continuous_vars),
-    # any_of(proportion_vars),
+    any_of(proportion_vars),
     any_of(grouped_vars)
   )
 
@@ -102,7 +114,7 @@ mi_null <- mice(before_imputation, maxit = 0)
 
 method = mi_null$method
 # method[method == "pmm"] <- "rf" # Takes too long
-# method[proportion_vars] <- "logreg"
+method[proportion_vars] <- "logreg"
 method[grouped_vars] <- "polyreg"
 method[id_vars] <- ""
 

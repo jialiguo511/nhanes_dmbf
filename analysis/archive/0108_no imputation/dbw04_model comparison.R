@@ -39,4 +39,39 @@ delong_bmi_bmibf
 delong_bf_bmibf
 
 
+## Correlations----------------------
+
+sbp ~ age + female + race_eth + bmi + htn_med_told + htn_med_taking
+sbp ~ age + female + race_eth + fat_percentage + htn_med_told + htn_med_taking
+
+dbp ~ age + female + race_eth + bmi + htn_med_told + htn_med_taking
+dbp ~ age + female + race_eth + fat_percentage + htn_med_told + htn_med_taking
+
+hdl ~ age + female + race_eth + bmi + chol_med_told + chol_med_taking
+hdl ~ age + female + race_eth + fat_percentage + chol_med_told + chol_med_taking
+
+total_cholesterol ~ age + female + race_eth + bmi + chol_med_told + chol_med_taking
+total_cholesterol ~ age + female + race_eth + fat_percentage + chol_med_told + chol_med_taking
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
