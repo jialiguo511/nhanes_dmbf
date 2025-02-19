@@ -90,13 +90,14 @@ continuous_vars <- c("urine_albumin", "urine_creatinine", "alt", "ast", "bun",
                      "ogtt_time", "total_cholesterol", "ldl", "triglyceride", 
                      "fat_percentage", "total_fat", "total_lean", "eGFR")
 
-proportion_vars <- c("dm_doc_told","dm_insulin_taking","htn_med_told","htn_med_taking","chol_med_told",
+proportion_vars <- c("dm_insulin_taking","htn_med_told","htn_med_taking","chol_med_told",
                      "chol_med_taking")
 
 grouped_vars <- c("immigrant", "education", "marital")
 
 id_vars <- c("respondentid", "psu", "pseudostratum", "intweight", "mec2yweight", "dm_age", "year",
              "insured", "insured_private", "insured_medicare", "insured_medicaid", "dm_family_history",
+             "dm_doc_told",
              # no missing values
              "race_eth", "race", "gender", "female", "age")
 
