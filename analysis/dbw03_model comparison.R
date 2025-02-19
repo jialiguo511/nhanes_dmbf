@@ -1,7 +1,7 @@
 rm(list=ls());gc();source(".Rprofile")
 
-library(survey)
 library(pROC)
+
 nhanes_svy_dfs <- readRDS(paste0(path_nhanes_dmbf_folder, "/working/cleaned/dbw01_weighted df.RDS")) 
 
 
@@ -53,24 +53,34 @@ auc_sbp_bf <- list()
 auc_dbp_bmi <- list()
 auc_dbp_bf <- list()
 
+auc_ldl_bmi <- list()
+auc_ldl_bf <- list()
 auc_hdl_bmi <- list()
 auc_hdl_bf <- list()
+
+auc_tgl_bmi <- list()
+auc_tgl_bf <- list()
 auc_tcl_bmi <- list()
 auc_tcl_bf <- list()
 
 delong_sbp_bmi_bf <- list()
 delong_dbp_bmi_bf <- list()
-
+delong_ldl_bmi_bf <- list()
 delong_hdl_bmi_bf <- list()
+delong_tgl_bmi_bf <- list()
 delong_tcl_bmi_bf <- list()
 
 for (i in seq_along(nhanes_svy_dfs)) {
   nhanes_total_svy <- nhanes_svy_dfs[[i]] %>% 
-    mutate(sbp = case_when(sbp>=140 ~ 1,
+    mutate(sbp = case_when(sbp>=130 ~ 1,
                            TRUE ~ 0),
-           dbp = case_when(dbp>=90 ~ 1,
+           dbp = case_when(dbp>=80 ~ 1,
                            TRUE ~ 0),
-           hdl = case_when(hdl>=35 ~ 1,
+           ldl = case_when(ldl>=100 ~ 1,
+                           TRUE ~ 0),
+           hdl = case_when(hdl<35 ~ 1,
+                           TRUE ~ 0),
+           triglyceride = case_when(triglyceride>=150 ~ 1,
                            TRUE ~ 0),
            total_cholesterol = case_when(total_cholesterol>=200 ~ 1,
                            TRUE ~ 0))
@@ -81,8 +91,14 @@ for (i in seq_along(nhanes_svy_dfs)) {
   dbp_bmi = svyglm(dbp ~ age + female + race_eth + bmi + htn_med_told + htn_med_taking, design = nhanes_total_svy)
   dbp_bf = svyglm(dbp ~ age + female + race_eth + fat_percentage + htn_med_told + htn_med_taking, design = nhanes_total_svy)
   
+  ldl_bmi = svyglm(ldl ~ age + female + race_eth + bmi + chol_med_told + chol_med_taking, design = nhanes_total_svy)
+  ldl_bf = svyglm(ldl ~ age + female + race_eth + fat_percentage + chol_med_told + chol_med_taking, design = nhanes_total_svy)
+  
   hdl_bmi = svyglm(hdl ~ age + female + race_eth + bmi + chol_med_told + chol_med_taking, design = nhanes_total_svy)
   hdl_bf = svyglm(hdl ~ age + female + race_eth + fat_percentage + chol_med_told + chol_med_taking, design = nhanes_total_svy)
+  
+  tgl_bmi = svyglm(triglyceride ~ age + female + race_eth + bmi + chol_med_told + chol_med_taking, design = nhanes_total_svy)
+  tgl_bf = svyglm(triglyceride ~ age + female + race_eth + fat_percentage + chol_med_told + chol_med_taking, design = nhanes_total_svy)
   
   tcl_bmi = svyglm(total_cholesterol ~ age + female + race_eth + bmi + chol_med_told + chol_med_taking, design = nhanes_total_svy)
   tcl_bf = svyglm(total_cholesterol ~ age + female + race_eth + fat_percentage + chol_med_told + chol_med_taking, design = nhanes_total_svy)
@@ -96,8 +112,13 @@ for (i in seq_along(nhanes_svy_dfs)) {
   test_df$prob_dbp_bmi <- predict(dbp_bmi, newdata = test_df, type = "response")
   test_df$prob_dbp_bf <- predict(dbp_bf, newdata = test_df, type = "response")
   
+  test_df$prob_ldl_bmi <- predict(ldl_bmi, newdata = test_df, type = "response")
+  test_df$prob_ldl_bf <- predict(ldl_bf, newdata = test_df, type = "response")
   test_df$prob_hdl_bmi <- predict(hdl_bmi, newdata = test_df, type = "response")
   test_df$prob_hdl_bf <- predict(hdl_bf, newdata = test_df, type = "response")
+  
+  test_df$prob_tgl_bmi <- predict(tgl_bmi, newdata = test_df, type = "response")
+  test_df$prob_tgl_bf <- predict(tgl_bf, newdata = test_df, type = "response")
   test_df$prob_tcl_bmi <- predict(tcl_bmi, newdata = test_df, type = "response")
   test_df$prob_tcl_bf <- predict(tcl_bf, newdata = test_df, type = "response")
   
@@ -107,8 +128,13 @@ for (i in seq_along(nhanes_svy_dfs)) {
   roc_dbp_bmi <- roc(test_df$dbp, test_df$prob_dbp_bmi)
   roc_dbp_bf <- roc(test_df$dbp, test_df$prob_dbp_bf)
   
+  roc_ldl_bmi <- roc(test_df$ldl, test_df$prob_ldl_bmi)
+  roc_ldl_bf <- roc(test_df$ldl, test_df$prob_ldl_bf)
   roc_hdl_bmi <- roc(test_df$hdl, test_df$prob_hdl_bmi)
   roc_hdl_bf <- roc(test_df$hdl, test_df$prob_hdl_bf)
+  
+  roc_tgl_bmi <- roc(test_df$triglyceride, test_df$prob_tgl_bmi)
+  roc_tgl_bf <- roc(test_df$triglyceride, test_df$prob_tgl_bf)
   roc_tcl_bmi <- roc(test_df$total_cholesterol, test_df$prob_tcl_bmi)
   roc_tcl_bf <- roc(test_df$total_cholesterol, test_df$prob_tcl_bf)
   
@@ -119,15 +145,21 @@ for (i in seq_along(nhanes_svy_dfs)) {
   auc_dbp_bmi[[i]] <- auc(roc_dbp_bmi)
   auc_dbp_bf[[i]] <- auc(roc_dbp_bf)
   
+  auc_ldl_bmi[[i]] <- auc(roc_ldl_bmi)
+  auc_ldl_bf[[i]] <- auc(roc_ldl_bf)
   auc_hdl_bmi[[i]] <- auc(roc_hdl_bmi)
   auc_hdl_bf[[i]] <- auc(roc_hdl_bf)
+  
+  auc_tgl_bmi[[i]] <- auc(roc_tgl_bmi)
+  auc_tgl_bf[[i]] <- auc(roc_tgl_bf)
   auc_tcl_bmi[[i]] <- auc(roc_tcl_bmi)
   auc_tcl_bf[[i]] <- auc(roc_tcl_bf)
   
   delong_sbp_bmi_bf[[i]] <- roc.test(roc_sbp_bmi, roc_sbp_bf, method="delong")
   delong_dbp_bmi_bf[[i]] <- roc.test(roc_dbp_bmi, roc_dbp_bf, method="delong")
-  
+  delong_ldl_bmi_bf[[i]] <- roc.test(roc_ldl_bmi, roc_ldl_bf, method="delong")
   delong_hdl_bmi_bf[[i]] <- roc.test(roc_hdl_bmi, roc_hdl_bf, method="delong")
+  delong_tgl_bmi_bf[[i]] <- roc.test(roc_tgl_bmi, roc_tgl_bf, method="delong")
   delong_tcl_bmi_bf[[i]] <- roc.test(roc_tcl_bmi, roc_tcl_bf, method="delong")
   
   
@@ -138,12 +170,21 @@ auc_sbp_bf <- mean(unlist(auc_sbp_bf))
 auc_dbp_bmi <- mean(unlist(auc_dbp_bmi))
 auc_dbp_bf <- mean(unlist(auc_dbp_bf))
 
+auc_ldl_bmi <- mean(unlist(auc_ldl_bmi))
+auc_ldl_bf <- mean(unlist(auc_ldl_bf))
 auc_hdl_bmi <- mean(unlist(auc_hdl_bmi))
 auc_hdl_bf <- mean(unlist(auc_hdl_bf))
+
+auc_tgl_bmi <- mean(unlist(auc_tgl_bmi))
+auc_tgl_bf <- mean(unlist(auc_tgl_bf))
 auc_tcl_bmi <- mean(unlist(auc_tcl_bmi))
 auc_tcl_bf <- mean(unlist(auc_tcl_bf))
 
 delong_sbp_bmi_bf[[1]]
 delong_dbp_bmi_bf[[2]]
+
+delong_ldl_bmi_bf[[1]]
 delong_hdl_bmi_bf[[1]]
+
+delong_tgl_bmi_bf[[1]]
 delong_tcl_bmi_bf[[1]]

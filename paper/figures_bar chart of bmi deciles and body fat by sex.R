@@ -24,11 +24,19 @@ fig_df <- bind_rows(weight_data_list) %>%
     .groups = 'drop'
   ) %>% 
   mutate(
+    bmi_decile = ntile(bmi, 10),
     bmi_grp = case_when(
-      bmi >= 25 & bmi < 30 ~ "Overweight",
-      bmi >= 30 ~ "Obese",
-      TRUE ~ "Lean"
-      ),
+      bmi_decile == 1 ~ "13.4-21.4",
+      bmi_decile == 2 ~ "21.4-23.4",
+      bmi_decile == 3 ~ "23.4-25.0",
+      bmi_decile == 4 ~ "25.0-26.5",
+      bmi_decile == 5 ~ "26.5-28.0",
+      bmi_decile == 6 ~ "28.0-29.6",
+      bmi_decile == 7 ~ "29.6-31.6",
+      bmi_decile == 8 ~ "31.6-34.0",
+      bmi_decile == 9 ~ "34.0-38.3",
+      bmi_decile == 10 ~ "38.3-86.2",
+    ), 
     fat_percentage_grp = case_when(
       female == 0 & fat_percentage >= 20 & fat_percentage <= 24.9 ~ "Overweight",
       female == 1 & fat_percentage >= 30 & fat_percentage <= 34.9 ~ "Overweight",
@@ -37,7 +45,7 @@ fig_df <- bind_rows(weight_data_list) %>%
       female == 0 & fat_percentage < 20 ~ "Lean",
       TRUE ~ "Lean"
     )
-         )
+  )
 
 plot_data <- fig_df %>%
   group_by(bmi_grp, fat_percentage_grp) %>%
@@ -47,8 +55,7 @@ plot_data <- fig_df %>%
     .groups = 'drop'
   ) %>%
   arrange(bmi_grp, desc(fat_percentage_grp)) %>% 
-  mutate(bmi_grp = factor(bmi_grp, levels = c("Lean", "Overweight", "Obese"))
-         ) %>% 
+  # mutate(bmi_grp = factor(bmi_grp, levels = c("1", "2", "3", "4", "5", "6", "7", "8", "9", "10"))) %>% 
   group_by(bmi_grp) %>%
   mutate(
     female_prop = round((female_n / sum(female_n)) * 100, 1),
@@ -85,9 +92,9 @@ fig_male <- ggplot(male_df, aes(x = bmi_grp, y = male_prop, fill = fat_percentag
     text = element_text(size = 11),
     axis.title.x = element_text(size = 11, hjust = 1, vjust = 10), 
     axis.title.y = element_text(size = 11, margin = margin(t = 0, r = 8, b = 0, l = 2)),
-    axis.text.x = element_text(size = 11, vjust = 4), 
+    axis.text.x = element_text(size = 11, angle = 45, hjust = 0.6), 
     axis.text.y = element_text(size = 11),  
-    legend.position = c(0.35, 1),  
+    legend.position = c(0.22, 1),  
     legend.justification = c(1, 1),  
     legend.background = element_rect(fill = "white", colour = "black"), 
     legend.text = element_text(size = 11),  
@@ -101,9 +108,10 @@ fig_male <- ggplot(male_df, aes(x = bmi_grp, y = male_prop, fill = fat_percentag
     axis.line = element_blank()  
   ) +
   geom_hline(yintercept = 0, colour = "black", size = 0.5) +  
-  geom_vline(xintercept = 0.5, colour = "black", size = 0.5) +  
-  scale_x_discrete(limits = c("Lean", "Overweight", "Obese")) +
-  scale_y_continuous(breaks = seq(0, 100, by = 20), limits = c(0, 100))  
+  geom_vline(xintercept = 0.5, colour = "black", size = 0.5) 
+# +  
+#   scale_x_discrete(limits = c("1", "2", "3", "4", "5", "6", "7", "8", "9", "10")) +
+#   scale_y_continuous(breaks = seq(0, 100, by = 20), limits = c(0, 101))  
 
 
 fig_female <- ggplot(female_df, aes(x = bmi_grp, y = female_prop, fill = fat_percentage_grp)) +
@@ -116,9 +124,9 @@ fig_female <- ggplot(female_df, aes(x = bmi_grp, y = female_prop, fill = fat_per
     text = element_text(size = 11),
     axis.title.x = element_text(size = 11, hjust = 1, vjust = 10), 
     axis.title.y = element_text(size = 11, margin = margin(t = 0, r = 8, b = 0, l = 2)),
-    axis.text.x = element_text(size = 11, vjust = 4), 
+    axis.text.x = element_text(size = 11, angle = 45, hjust = 0.6), 
     axis.text.y = element_text(size = 11, hjust = 1),  
-    legend.position = c(0.35, 1),  
+    legend.position = c(0.22, 1),  
     legend.justification = c(1, 1),  
     legend.background = element_rect(fill = "white", colour = "black"), 
     legend.text = element_text(size = 11),   
@@ -132,15 +140,16 @@ fig_female <- ggplot(female_df, aes(x = bmi_grp, y = female_prop, fill = fat_per
     axis.line = element_blank()  
   ) +
   geom_hline(yintercept = 0, colour = "black", size = 0.5) +  
-  geom_vline(xintercept = 0.5, colour = "black", size = 0.5) +  
-  scale_x_discrete(limits = c("Lean", "Overweight", "Obese")) +
-  scale_y_continuous(breaks = seq(0, 100, by = 20), limits = c(0, 100))  
+  geom_vline(xintercept = 0.5, colour = "black", size = 0.5) 
+# +  
+#   scale_x_discrete(limits = c("1", "2", "3", "4", "5", "6", "7", "8", "9", "10")) +
+#   scale_y_continuous(breaks = seq(0, 100, by = 20), limits = c(0, 101))  
 
 
 library(patchwork)
 
 combined_plot <- fig_male / fig_female 
 
-ggsave(combined_plot, filename=paste0(path_nhanes_dmbf_folder, "/figures/barchart of body fat in bmi by sex.png"),width=7.5, height = 8)
-  
+ggsave(combined_plot, filename=paste0(path_nhanes_dmbf_folder, "/figures/barchart of body fat in bmi deciles by sex.png"),width=12, height = 8)
+
 

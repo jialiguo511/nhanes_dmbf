@@ -51,7 +51,7 @@ for(i in 1:mi_dfs$m) {
   # Identify diagnosed DM, N = 3032
   nhanes_dm_diag <- nhanes_dm_all %>% 
     group_by(respondentid) %>%
-    dplyr::filter(dm_doc_told == "Yes") %>%
+    dplyr::filter(dm_doc_told == 1) %>%
     ungroup()
   
   # Among diagnosed DM, duration <= 1 year, N = 310
@@ -65,7 +65,7 @@ for(i in 1:mi_dfs$m) {
   # Identify undiagnosed DM based on A1c. Set dm_age = current age, N = 949
   nhanes_dm_undiag <- analytic_df %>%
     group_by(respondentid) %>% 
-    dplyr::filter((is.na(dm_age) & dm_doc_told != "Yes" & (glycohemoglobin >= 6.5 | fasting_glucose >= 126))) %>%
+    dplyr::filter((is.na(dm_age) & dm_doc_told != 1 & (glycohemoglobin >= 6.5 | fasting_glucose >= 126))) %>%
     ungroup() %>% 
     mutate(dm_age = age)
   
