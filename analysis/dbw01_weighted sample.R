@@ -20,7 +20,7 @@ for(i in 1:mi_dfs$m) {
                             poverty > 1 ~ "above poverty"),
            fipr = as.factor(fipr),
            
-           insurance = case_when(insured == 1 ~ "Covered by health insurance",
+         insurance = case_when(insured == 1 ~ "Covered by health insurance",
                                  insured == 2 ~ "No health insurance",
                                  TRUE ~ ""),
            insurance_type = case_when(insured_private == 1 ~ "Privately Insured",
@@ -105,3 +105,4 @@ for(i in 1:mi_dfs$m) {
 
 saveRDS(nhanes_svy_dfs, paste0(path_nhanes_dmbf_folder, "/working/cleaned/dbw01_weighted df.RDS"))
 
+svytotal(~dm, nhanes_svy_dfs[[i]])
