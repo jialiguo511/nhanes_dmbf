@@ -161,10 +161,3 @@ results <- bind_rows(
   pool_results_lm(tc4_sum) %>% mutate(model = "Total_cholesterol_BF_trt"),) %>% 
   write_csv(.,"analysis/dbw04_linear regression pooled results with multiple imputation.csv")
 
-
-
-
-
-
-
-

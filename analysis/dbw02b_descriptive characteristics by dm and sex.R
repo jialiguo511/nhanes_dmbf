@@ -168,7 +168,6 @@ for (i in 1:length(nhanes_svy_dfs)) {
 }
 
 
-
 pool_ad <- function(results_list) {
   # Bind the results and calculate Rubin's rules
   pooled_results <- bind_rows(results_list) %>%
@@ -196,6 +195,11 @@ pool_ad <- function(results_list) {
                         round(L, 1), ", ",
                         round(U, 1), ")"))
   
+  # save 2 digits for A1c
+  # mutate(estimate = paste0(round(theta_D, 12, " \t (",
+  #                          round(L, 2), ", ",
+  #                          round(U, 2), ")"))
+
   return(pooled_results)
 }
 
@@ -217,13 +221,3 @@ all_results <- bind_rows(
   pivot_wider(names_from = dm_sex, values_from = estimate, names_sort = TRUE) %>% 
   write_csv(., "analysis/dbw02b_descriptive characteristics by dm and sex.csv")
   
-
-
-
-
-
-
-
-
-
-

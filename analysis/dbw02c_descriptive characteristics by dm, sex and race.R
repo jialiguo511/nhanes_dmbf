@@ -112,7 +112,3 @@ all_results <- bind_rows(
   write_csv(., "analysis/dbw02c_descriptive characteristics by dm, sex and race.csv")
 
 
-
-
-
-
