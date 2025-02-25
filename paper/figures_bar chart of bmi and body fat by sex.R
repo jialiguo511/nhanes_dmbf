@@ -79,7 +79,7 @@ fig_male <- ggplot(male_df, aes(x = bmi_grp, y = male_prop, fill = fat_percentag
   geom_bar(stat = "identity", position = "dodge", colour = "black") +  
   geom_text(aes(label = male_prop, y = male_prop + 1), position = position_dodge(width = 0.9), vjust = -0.1, size = 4) +  
   scale_fill_manual(values = c("Lean(<20)" = "white", "Overweight(20-24.9)" = "grey", "Obese(≥25)" = "black")) +
-  labs(x = "BMI", y = "Proportion (%)", fill = "BF%", title = "MEN") +
+  labs(x = "BMI", y = "Proportion (%)", fill = "Body Fat %", title = "MEN") +
   theme_minimal() +
   theme(
     text = element_text(size = 11),
@@ -110,7 +110,7 @@ fig_female <- ggplot(female_df, aes(x = bmi_grp, y = female_prop, fill = fat_per
   geom_bar(stat = "identity", position = "dodge", colour = "black") +  
   geom_text(aes(label = female_prop, y = female_prop + 1), position = position_dodge(width = 0.9), vjust = -0.1, size = 4) +  
   scale_fill_manual(values = c("Lean(<30)" = "white", "Overweight(30-34.9)" = "grey", "Obese(≥35)" = "black")) +
-  labs(x = "BMI", y = "Proportion (%)", fill = "BF%", title = "WOMEN") +
+  labs(x = "BMI", y = "Proportion (%)", fill = "Body Fat %", title = "WOMEN") +
   theme_minimal() +
   theme(
     text = element_text(size = 11),
