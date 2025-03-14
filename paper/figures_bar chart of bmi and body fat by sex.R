@@ -11,13 +11,13 @@ for (i in 1:length(nhanes_svy_dfs)) {
   df <- nhanes_svy_dfs[[i]]
   
   nhanes_total_svy <- df %>%
-    select(respondentid, female, bmi, fat_percentage)
+    select(respondentid, female, race_eth, bmi, fat_percentage)
   
   weight_data_list[[i]] <- as.data.frame(nhanes_total_svy)
 }
 
 fig_df <- bind_rows(weight_data_list) %>%
-  group_by(respondentid, female) %>% 
+  group_by(respondentid, female, race_eth) %>% 
   summarise(
     bmi = mean(bmi, na.rm = TRUE),
     fat_percentage = mean(fat_percentage, na.rm = TRUE),
@@ -25,8 +25,12 @@ fig_df <- bind_rows(weight_data_list) %>%
   ) %>% 
   mutate(
     bmi_grp = case_when(
-      bmi >= 25 & bmi < 30 ~ "Overweight",
-      bmi >= 30 ~ "Obese",
+      race_eth == "Asian" & bmi < 23 ~ "Lean",
+      race_eth == "Asian" & bmi >= 23 & bmi < 25 ~ "Overweight",
+      race_eth == "Asian" & bmi >= 25 ~ "Obese",
+      
+      race_eth != "Asian" & bmi >= 25 & bmi < 30 ~ "Overweight",
+      race_eth != "Asian" & bmi >= 30 ~ "Obese",
       TRUE ~ "Lean"
       ),
     fat_percentage_grp = case_when(
