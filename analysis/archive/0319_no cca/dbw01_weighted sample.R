@@ -10,7 +10,6 @@ for(i in 1:mi_dfs$m) {
   df <- complete(mi_dfs, action = i)
   
   analytic_df <- df %>% 
-    dplyr::filter(!is.na(dm_doc_told)) %>% 
     # mutate(dm = case_when(dm_doc_told == 1 | glycohemoglobin >= 6.5 | fasting_glucose >= 126 ~ "diabetes",
     #                       TRUE ~ "non-diabetes")) %>% 
     mutate(

@@ -3,7 +3,7 @@ rm(list=ls());gc();source(".Rprofile")
 library(survey)
 library(mitools)
 
-nhanes_svy_dfs <- readRDS(paste0(path_nhanes_dmbf_folder, "/working/cleaned/dbw02_weighted df.RDS")) 
+nhanes_svy_dfs <- readRDS(paste0(path_nhanes_dmbf_folder, "/working/cleaned/dbw01_weighted df.RDS")) 
 
 weight_data_list <- list()
 
