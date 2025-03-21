@@ -16,25 +16,25 @@ for (i in 1:length(nhanes_svy_dfs)) {
   nhanes_total_svy <- df %>% 
     mutate(
       dm_year = case_when(
-        year == "2011-2012" & dm == "normal" ~ "2011-2012 normal",
-        year == "2013-2014" & dm == "normal" ~ "2013-2014 normal",
-        year == "2015-2016" & dm == "normal" ~ "2015-2016 normal",
-        year == "2017-2018" & dm == "normal" ~ "2017-2018 normal",
+        year == "2011-2012" & dm == "NoDM" ~ "2011-2012 NoDM",
+        year == "2013-2014" & dm == "NoDM" ~ "2013-2014 NoDM",
+        year == "2015-2016" & dm == "NoDM" ~ "2015-2016 NoDM",
+        year == "2017-2018" & dm == "NoDM" ~ "2017-2018 NoDM",
         
-        year == "2011-2012" & dm == "prediabetes" ~ "2011-2012 prediabetes",
-        year == "2013-2014" & dm == "prediabetes" ~ "2013-2014 prediabetes",
-        year == "2015-2016" & dm == "prediabetes" ~ "2015-2016 prediabetes",
-        year == "2017-2018" & dm == "prediabetes" ~ "2017-2018 prediabetes",
+        year == "2011-2012" & dm == "PreDM" ~ "2011-2012 PreDM",
+        year == "2013-2014" & dm == "PreDM" ~ "2013-2014 PreDM",
+        year == "2015-2016" & dm == "PreDM" ~ "2015-2016 PreDM",
+        year == "2017-2018" & dm == "PreDM" ~ "2017-2018 PreDM",
 
-        year == "2011-2012" & dm == "newly and undiagnosed diabetes" ~ "2011-2012 newly and undiagnosed diabetes",
-        year == "2013-2014" & dm == "newly and undiagnosed diabetes" ~ "2013-2014 newly and undiagnosed diabetes",
-        year == "2015-2016" & dm == "newly and undiagnosed diabetes" ~ "2015-2016 newly and undiagnosed diabetes",
-        year == "2017-2018" & dm == "newly and undiagnosed diabetes" ~ "2017-2018 newly and undiagnosed diabetes",
+        year == "2011-2012" & dm == "NewDM" ~ "2011-2012 NewDM",
+        year == "2013-2014" & dm == "NewDM" ~ "2013-2014 NewDM",
+        year == "2015-2016" & dm == "NewDM" ~ "2015-2016 NewDM",
+        year == "2017-2018" & dm == "NewDM" ~ "2017-2018 NewDM",
       
-        year == "2011-2012" & dm == "diagnosed diabetes >1y" ~ "2011-2012 diagnosed diabetes >1y",
-        year == "2013-2014" & dm == "diagnosed diabetes >1y" ~ "2013-2014 diagnosed diabetes >1y",
-        year == "2015-2016" & dm == "diagnosed diabetes >1y" ~ "2015-2016 diagnosed diabetes >1y",
-        year == "2017-2018" & dm == "diagnosed diabetes >1y" ~ "2017-2018 diagnosed diabetes >1y"
+        year == "2011-2012" & dm == "DM" ~ "2011-2012 DM",
+        year == "2013-2014" & dm == "DM" ~ "2013-2014 DM",
+        year == "2015-2016" & dm == "DM" ~ "2015-2016 DM",
+        year == "2017-2018" & dm == "DM" ~ "2017-2018 DM"
       )
     ) 
   

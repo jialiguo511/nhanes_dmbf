@@ -1,4 +1,4 @@
-variable,diagnosed diabetes >1y,newly and undiagnosed diabetes,normal,prediabetes,category
+variable,DM,NewDM,NoDM,PreDM,category
 age,61.2 	 (12.6),55.5 	 (15.3),39.9 	 (16.1),50.3 	 (16.7),NA
 dm_age,48.2 	 (13.4),55.6 	 (14.5),NaN 	 (NA),NaN 	 (NA),NA
 female,47.3,46.4,57.9,45.4,NA

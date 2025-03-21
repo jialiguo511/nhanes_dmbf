@@ -138,10 +138,10 @@ for (i in seq_along(nhanes_svy_dfs)) {
 
 prop_results <- bind_rows(prop_list) %>%
   group_by(variable, category) %>%
-  summarize(`normal` = as.character(round(mean(`normal`, na.rm = TRUE), 1)),
-            `prediabetes` = as.character(round(mean(`prediabetes`, na.rm = TRUE), 1)),
-            `newly and undiagnosed diabetes` = as.character(round(mean(`newly and undiagnosed diabetes`, na.rm = TRUE), 1)),
-            `diagnosed diabetes >1y` = as.character(round(mean(`diagnosed diabetes >1y`, na.rm = TRUE), 1)),
+  summarize(`NoDM` = as.character(round(mean(`NoDM`, na.rm = TRUE), 1)),
+            `PreDM` = as.character(round(mean(`PreDM`, na.rm = TRUE), 1)),
+            `NewDM` = as.character(round(mean(`NewDM`, na.rm = TRUE), 1)),
+            `DM` = as.character(round(mean(`DM`, na.rm = TRUE), 1)),
             .groups = 'drop')
 
 

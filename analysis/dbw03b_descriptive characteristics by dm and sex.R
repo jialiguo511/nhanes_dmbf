@@ -25,14 +25,14 @@ for (i in 1:length(nhanes_svy_dfs)) {
   
   nhanes_total_svy <- df %>% 
     mutate(
-      dm_sex = case_when(female == 1 & dm == "normal" ~ "female normal",
-                         female == 0 & dm == "normal" ~ "male normal",
-                         female == 1 & dm == "prediabetes" ~ "female prediabetes",
-                         female == 0 & dm == "prediabetes" ~ "male prediabetes",
-                         female == 1 & dm == "newly and undiagnosed diabetes" ~ "female newly and undiagnosed diabetes",
-                         female == 0 & dm == "newly and undiagnosed diabetes" ~ "male newly and undiagnosed diabetes",
-                         female == 1 & dm == "diagnosed diabetes >1y" ~ "female diagnosed diabetes >1y",
-                         female == 0 & dm == "diagnosed diabetes >1y" ~ "male diagnosed diabetes >1y")
+      dm_sex = case_when(female == 1 & dm == "NoDM" ~ "female NoDM",
+                         female == 0 & dm == "NoDM" ~ "male NoDM",
+                         female == 1 & dm == "PreDM" ~ "female PreDM",
+                         female == 0 & dm == "PreDM" ~ "male PreDM",
+                         female == 1 & dm == "NewDM" ~ "female NewDM",
+                         female == 0 & dm == "NewDM" ~ "male NewDM",
+                         female == 1 & dm == "DM" ~ "female DM",
+                         female == 0 & dm == "DM" ~ "male DM")
     ) 
   
   

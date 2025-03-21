@@ -46,8 +46,8 @@ for(i in 1:mi_dfs$m) {
     ungroup() %>% 
     mutate(dm_age = age)
   
-  # Normal, N = 3,682
-  nhanes_normal <- analytic_df %>%
+  # NoDM, N = 3,682
+  nhanes_NoDM <- analytic_df %>%
     group_by(respondentid) %>% 
     dplyr::filter(dm_doc_told == 0) %>% 
     dplyr::filter(glycohemoglobin < 5.7 & fasting_glucose < 100) %>%
@@ -57,25 +57,25 @@ for(i in 1:mi_dfs$m) {
   # Total sample, N = obs = 9,910
   nhanes_total <- analytic_df %>%
     mutate(dm = case_when(
-      respondentid %in% nhanes_dm_newdiag$respondentid ~ "newly and undiagnosed diabetes",
-      respondentid %in% nhanes_dm_undiag$respondentid ~ "newly and undiagnosed diabetes",
-      respondentid %in% nhanes_dm_olddiag$respondentid ~ "diagnosed diabetes >1y",
-      respondentid %in% nhanes_normal$respondentid ~ "normal",
-      TRUE ~ "prediabetes"),
+      respondentid %in% nhanes_dm_newdiag$respondentid ~ "NewDM",
+      respondentid %in% nhanes_dm_undiag$respondentid ~ "NewDM",
+      respondentid %in% nhanes_dm_olddiag$respondentid ~ "DM",
+      respondentid %in% nhanes_NoDM$respondentid ~ "NoDM",
+      TRUE ~ "PreDM"),
       newdm = case_when(
-        dm == "normal" ~ 0,
-        dm == "newly and undiagnosed diabetes" ~ 1,
+        dm == "NoDM" ~ 0,
+        dm == "NewDM" ~ 1,
         TRUE ~ NA_integer_
       )) %>% 
     mutate(
-      dm_sex = case_when(female == 1 & dm == "normal" ~ "female normal",
-                         female == 0 & dm == "normal" ~ "male normal",
-                         female == 1 & dm == "prediabetes" ~ "female prediabetes",
-                         female == 0 & dm == "prediabetes" ~ "male prediabetes",
-                         female == 1 & dm == "newly and undiagnosed diabetes" ~ "female newly and undiagnosed diabetes",
-                         female == 0 & dm == "newly and undiagnosed diabetes" ~ "male newly and undiagnosed diabetes",
-                         female == 1 & dm == "diagnosed diabetes >1y" ~ "female diagnosed diabetes >1y",
-                         female == 0 & dm == "diagnosed diabetes >1y" ~ "male diagnosed diabetes >1y")
+      dm_sex = case_when(female == 1 & dm == "NoDM" ~ "female NoDM",
+                         female == 0 & dm == "NoDM" ~ "male NoDM",
+                         female == 1 & dm == "PreDM" ~ "female PreDM",
+                         female == 0 & dm == "PreDM" ~ "male PreDM",
+                         female == 1 & dm == "NewDM" ~ "female NewDM",
+                         female == 0 & dm == "NewDM" ~ "male NewDM",
+                         female == 1 & dm == "DM" ~ "female DM",
+                         female == 0 & dm == "DM" ~ "male DM")
     ) 
   
   nhanes_total_svy <- nhanes_total %>%
