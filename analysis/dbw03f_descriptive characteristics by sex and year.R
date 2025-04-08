@@ -15,35 +15,25 @@ for (i in 1:length(nhanes_svy_dfs)) {
   
   nhanes_total_svy <- df %>% 
     mutate(
-      dm_year = case_when(
-        year == "2011-2012" & dm == "NoDM" ~ "2011-2012 NoDM",
-        year == "2013-2014" & dm == "NoDM" ~ "2013-2014 NoDM",
-        year == "2015-2016" & dm == "NoDM" ~ "2015-2016 NoDM",
-        year == "2017-2018" & dm == "NoDM" ~ "2017-2018 NoDM",
+      sex_year = case_when(
+        year == "2011-2012" & female == 1 ~ "2011-2012 female",
+        year == "2013-2014" & female == 1 ~ "2013-2014 female",
+        year == "2015-2016" & female == 1 ~ "2015-2016 female",
+        year == "2017-2018" & female == 1 ~ "2017-2018 female",
         
-        year == "2011-2012" & dm == "PreDM" ~ "2011-2012 PreDM",
-        year == "2013-2014" & dm == "PreDM" ~ "2013-2014 PreDM",
-        year == "2015-2016" & dm == "PreDM" ~ "2015-2016 PreDM",
-        year == "2017-2018" & dm == "PreDM" ~ "2017-2018 PreDM",
-
-        year == "2011-2012" & dm == "NewDM" ~ "2011-2012 NewDM",
-        year == "2013-2014" & dm == "NewDM" ~ "2013-2014 NewDM",
-        year == "2015-2016" & dm == "NewDM" ~ "2015-2016 NewDM",
-        year == "2017-2018" & dm == "NewDM" ~ "2017-2018 NewDM",
-      
-        year == "2011-2012" & dm == "DM" ~ "2011-2012 DM",
-        year == "2013-2014" & dm == "DM" ~ "2013-2014 DM",
-        year == "2015-2016" & dm == "DM" ~ "2015-2016 DM",
-        year == "2017-2018" & dm == "DM" ~ "2017-2018 DM"
+        year == "2011-2012" & female == 0 ~ "2011-2012 male",
+        year == "2013-2014" & female == 0 ~ "2013-2014 male",
+        year == "2015-2016" & female == 0 ~ "2015-2016 male",
+        year == "2017-2018" & female == 0 ~ "2017-2018 male"
       )
     ) 
   
   
-  bmi_mod <- svyglm(bmi ~ age + race_eth + dm_year, design = nhanes_total_svy)
+  bmi_mod <- svyglm(bmi ~ age + sex_year, design = nhanes_total_svy)
   # Calculate marginal (adjusted) means of BMI by dm_sex
   bmi_emm <- emmeans(
     object = bmi_mod, 
-    specs  = ~ dm_year, 
+    specs  = ~ sex_year, 
     data   = nhanes_total_svy$variables  # <-- specify the underlying data
   )
   
@@ -51,10 +41,10 @@ for (i in 1:length(nhanes_svy_dfs)) {
   bmi_list[[i]] <- bmi_emm_df
   
   
-  fat_mod <- svyglm(fat_percentage ~ age + race_eth + dm_year, design = nhanes_total_svy)
+  fat_mod <- svyglm(fat_percentage ~ age + sex_year, design = nhanes_total_svy)
   fat_emm <- emmeans(
     object = fat_mod, 
-    specs  = ~ dm_year, 
+    specs  = ~ sex_year, 
     data   = nhanes_total_svy$variables  # <-- specify the underlying data
   )
   
@@ -69,7 +59,7 @@ pool_ad <- function(results_list) {
   # Bind the results and calculate Rubin's rules
   pooled_results <- bind_rows(results_list) %>%
     mutate(W_d = SE^2) %>%
-    group_by(dm_year) %>%
+    group_by(sex_year) %>%
     summarise(
       theta_D = mean(emmean, na.rm = TRUE),               # pooled mean
       W_D = mean(W_d, na.rm = TRUE),                      # average within-imputation variance
@@ -94,14 +84,14 @@ pool_ad <- function(results_list) {
 
 
 all_results <- bind_rows(
-  pool_ad(bmi_list) %>% select(dm_year, theta_D, L, U) %>% 
+  pool_ad(bmi_list) %>% select(sex_year, theta_D, L, U) %>% 
     mutate(variable = "BMI"), 
-  pool_ad(fat_list) %>% select(dm_year, theta_D, L, U) %>% 
+  pool_ad(fat_list) %>% select(sex_year, theta_D, L, U) %>% 
     mutate(variable = "Fat percentage")
 ) %>% 
-  separate(dm_year, into = c("year", "dm"), sep = " ", extra = "merge") %>% 
+  separate(sex_year, into = c("year", "dm"), sep = " ", extra = "merge") %>% 
   rename(estimate = theta_D,
          CI_lower = L, 
          CI_upper = U) %>% 
-  write_csv(., "analysis/dbw03d_descriptive characteristics by dm and year.csv")
+  write_csv(., "analysis/dbw03f_descriptive characteristics by sex and year.csv")
 

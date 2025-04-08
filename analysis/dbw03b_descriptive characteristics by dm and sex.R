@@ -35,7 +35,6 @@ for (i in 1:length(nhanes_svy_dfs)) {
                          female == 0 & dm == "DM" ~ "male DM")
     ) 
   
-  
   bmi_mod <- svyglm(bmi ~ age + race_eth + dm_sex, design = nhanes_total_svy)
   # Calculate marginal (adjusted) means of BMI by dm_sex
   bmi_emm <- emmeans(
@@ -46,7 +45,7 @@ for (i in 1:length(nhanes_svy_dfs)) {
   
   bmi_emm_df <- as.data.frame(summary(bmi_emm))
   bmi_list[[i]] <- bmi_emm_df
-  
+
   
   fat_mod <- svyglm(fat_percentage ~ age + race_eth + dm_sex, design = nhanes_total_svy)
   fat_emm <- emmeans(
@@ -223,3 +222,56 @@ all_results <- bind_rows(
   pivot_wider(names_from = dm_sex, values_from = estimate, names_sort = TRUE) %>% 
   write_csv(., "analysis/dbw03b_descriptive characteristics by dm and sex.csv")
   
+
+
+
+#------------------------------------------------------------------------------------
+# continuous variables: Survey-weighted ANOVA/Wald test
+# categorical variables: Rao–Scott chi-square
+
+nhanes_all <- do.call(rbind, lapply(nhanes_svy_dfs, function(design_obj) design_obj$variables))
+
+nhanes_all_svy <- nhanes_all %>%
+  as_survey_design(ids = psu,
+                   strata = pseudostratum,
+                   weights = nhanes2yweight,
+                   nest = TRUE,
+                   pps = "brewer",
+                   variance = "YG") %>% 
+  mutate(
+    dm_sex = case_when(female == 1 & dm == "NoDM" ~ "female NoDM",
+                       female == 0 & dm == "NoDM" ~ "male NoDM",
+                       female == 1 & dm == "PreDM" ~ "female PreDM",
+                       female == 0 & dm == "PreDM" ~ "male PreDM",
+                       female == 1 & dm == "NewDM" ~ "female NewDM",
+                       female == 0 & dm == "NewDM" ~ "male NewDM",
+                       female == 1 & dm == "DM" ~ "female DM",
+                       female == 0 & dm == "DM" ~ "male DM")
+  )
+
+bmi_test <- svyglm(bmi ~ dm_sex, design = nhanes_all_svy)
+fat_test <- svyglm(fat_percentage ~ dm_sex, design = nhanes_all_svy)
+wt_test <- svyglm(waistcircumference ~ dm_sex, design = nhanes_all_svy)
+whtr_test <- svyglm(WHtR ~ dm_sex, design = nhanes_all_svy)
+fpg_test <- svyglm(fasting_glucose ~ dm_sex, design = nhanes_all_svy)
+a1c_test <- svyglm(glycohemoglobin ~ dm_sex, design = nhanes_all_svy)
+sbp_test <- svyglm(sbp ~ dm_sex, design = nhanes_all_svy)
+dbp_test <- svyglm(dbp ~ dm_sex, design = nhanes_all_svy)
+ldl_test <- svyglm(ldl ~ dm_sex, design = nhanes_all_svy)
+hdl_test <- svyglm(hdl ~ dm_sex, design = nhanes_all_svy)
+tgl_test <- svyglm(triglyceride ~ dm_sex, design = nhanes_all_svy)
+tc_test <- svyglm(total_cholesterol ~ dm_sex, design = nhanes_all_svy)
+
+bmi_result <- regTermTest(bmi_test, ~ dm_sex)
+fat_result <- regTermTest(fat_test, ~ dm_sex)
+wt_result <- regTermTest(wt_test, ~ dm_sex)
+whtr_result <- regTermTest(whtr_test, ~ dm_sex)
+fpg_result <- regTermTest(fpg_test, ~ dm_sex)
+a1c_result <- regTermTest(a1c_test, ~ dm_sex)
+sbp_result <- regTermTest(sbp_test, ~ dm_sex)
+dbp_result <- regTermTest(dbp_test, ~ dm_sex)
+ldl_result <- regTermTest(ldl_test, ~ dm_sex)
+hdl_result <- regTermTest(hdl_test, ~ dm_sex)
+tgl_result <- regTermTest(tgl_test, ~ dm_sex)
+tc_result <- regTermTest(tc_test, ~ dm_sex)
+

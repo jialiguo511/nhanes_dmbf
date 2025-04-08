@@ -16,8 +16,11 @@ for (i in seq_along(nhanes_svy_dfs)) {
   mean_age <- svyby(~age, ~dm, design = nhanes_total_svy, svymean, na.rm = TRUE)
   var_age <- svyby(~age, ~dm, design = nhanes_total_svy, svyvar, na.rm = TRUE)
   
+  age_ttest <- svyttest(dm_age ~ factor(dm), design = nhanes_total_svy)
+  
   mean_dm_age <- svyby(~dm_age, ~dm, design = nhanes_total_svy, svymean, na.rm = TRUE)
   var_dm_age <- svyby(~dm_age, ~dm, design = nhanes_total_svy, svyvar, na.rm = TRUE)
+
   
   female_prop <- svyby(~female, ~dm, nhanes_total_svy, svymean, na.rm = TRUE) %>% 
     mutate(estimate = female * 100) %>%
@@ -36,6 +39,7 @@ for (i in seq_along(nhanes_svy_dfs)) {
   age_list[[i]] <- age_sum
   dm_age_list[[i]] <- dm_age_sum
   female_list[[i]] <- female_prop
+  
 }
 
 # Combine all results and calculate pooled statistics
@@ -149,5 +153,66 @@ all_results <- bind_rows(continuous_results, prop_results) %>%
   write_csv(., "analysis/dbw03a_descriptive characteristics by dm.csv")
 
 
+#------------------------------------------------------------------------------------
+# continuous variables: Survey-weighted ANOVA/Wald test
+# categorical variables: Rao–Scott chi-square
+
+library(lmtest)
+
+age_result <- vector("list", length(nhanes_svy_dfs))
+dm_age_result <- vector("list", length(nhanes_svy_dfs))
+female_result <- vector("list", length(nhanes_svy_dfs))
+race_result <- vector("list", length(nhanes_svy_dfs))
+fipr_result <- vector("list", length(nhanes_svy_dfs))
+imm_result <- vector("list", length(nhanes_svy_dfs))
+edu_result <- vector("list", length(nhanes_svy_dfs))
+mari_result <- vector("list", length(nhanes_svy_dfs))
+insu_result <- vector("list", length(nhanes_svy_dfs))
+
+for (i in seq_along(nhanes_svy_dfs)) {
+  nhanes_total_svy <- nhanes_svy_dfs[[i]]
+  
+  # continuous variables
+  age_test <- svyglm(age ~ dm, design = nhanes_total_svy)
+  dm_age_test <- svyglm(dm_age ~ dm, design = nhanes_total_svy)
+  
+  age_result[[i]] <- regTermTest(age_test, ~ dm)
+  dm_age_result[[i]] <- regTermTest(dm_age_test, ~ dm)
+  
+  # categorical variables
+  female_result[[i]] <- svychisq(~ female + dm, design = nhanes_total_svy, statistic = "F")
+  race_result[[i]] <- svychisq(~ race_eth + dm, design = nhanes_total_svy, statistic = "F")
+  fipr_result[[i]] <- svychisq(~ fipr + dm, design = nhanes_total_svy, statistic = "F")
+  imm_result[[i]] <- svychisq(~ immigrant + dm, design = nhanes_total_svy, statistic = "F")
+  edu_result[[i]] <- svychisq(~ education + dm, design = nhanes_total_svy, statistic = "F")
+  mari_result[[i]] <- svychisq(~ marital + dm, design = nhanes_total_svy, statistic = "F")
+  insu_result[[i]] <- svychisq(~ insurance + dm, design = nhanes_total_svy, statistic = "F")
+
+}
+
+# combine all, finalize p-value --------------------------------------------
+nhanes_all <- do.call(rbind, lapply(nhanes_svy_dfs, function(design_obj) design_obj$variables))
+
+nhanes_all_svy <- nhanes_all %>%
+  as_survey_design(ids = psu,
+                   strata = pseudostratum,
+                   weights = nhanes2yweight,
+                   nest = TRUE,
+                   pps = "brewer",
+                   variance = "YG")
+
+age_test <- svyglm(age ~ dm, design = nhanes_all_svy)
+dm_age_test <- svyglm(dm_age ~ dm, design = nhanes_total_svy)
+
+age_result <- regTermTest(age_test, ~ dm)
+dm_age_result <- regTermTest(dm_age_test, ~ dm)
+
+female_result <- svychisq(~ female + dm, design = nhanes_all_svy, statistic = "F")
+race_result <- svychisq(~ race_eth + dm, design = nhanes_all_svy, statistic = "F")
+fipr_result <- svychisq(~ fipr + dm, design = nhanes_all_svy, statistic = "F")
+imm_result <- svychisq(~ immigrant + dm, design = nhanes_all_svy, statistic = "F")
+edu_result <- svychisq(~ education + dm, design = nhanes_all_svy, statistic = "F")
+mari_result <- svychisq(~ marital + dm, design = nhanes_all_svy, statistic = "F")
+insu_result <- svychisq(~ insurance + dm, design = nhanes_all_svy, statistic = "F")
 
 
