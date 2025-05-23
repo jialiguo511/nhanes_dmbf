@@ -4,10 +4,12 @@ library(survey)
 library(broom)
 library(emmeans)
 
-nhanes_svy_dfs <- readRDS(paste0(path_nhanes_dmbf_folder, "/working/cleaned/dbw02_weighted df.RDS")) 
+nhanes_svy_dfs <- readRDS(paste0(path_nhanes_dmbf_folder, "/working/cleaned/dbw02_weighted df one dm group.RDS")) 
 
 bmi_list <- list()
 fat_list <- list()
+visfat_list <- list()
+subfat_list <- list()
 wt_list <- list()
 whtr_list <- list()
 fpg_list <- list()
@@ -56,6 +58,29 @@ for (i in 1:length(nhanes_svy_dfs)) {
   
   fat_emm_df <- as.data.frame(summary(fat_emm))
   fat_list[[i]] <- fat_emm_df
+  
+  
+  visfat_mod <- svyglm(visceral_fat ~ age + race_eth + dm_sex, design = nhanes_total_svy)
+  # Calculate marginal (adjusted) means of BMI by dm_sex
+  visfat_emm <- emmeans(
+    object = visfat_mod, 
+    specs  = ~ dm_sex, 
+    data   = nhanes_total_svy$variables  # <-- specify the underlying data
+  )
+  
+  visfat_emm_df <- as.data.frame(summary(visfat_emm))
+  visfat_list[[i]] <- visfat_emm_df
+  
+  
+  subfat_mod <- svyglm(subcutaneous_fat ~ age + race_eth + dm_sex, design = nhanes_total_svy)
+  subfat_emm <- emmeans(
+    object = subfat_mod, 
+    specs  = ~ dm_sex, 
+    data   = nhanes_total_svy$variables  # <-- specify the underlying data
+  )
+  
+  subfat_emm_df <- as.data.frame(summary(subfat_emm))
+  subfat_list[[i]] <- subfat_emm_df
   
   
   wt_mod <- svyglm(waistcircumference ~ age + race_eth + dm_sex, design = nhanes_total_svy)
@@ -208,6 +233,8 @@ pool_ad <- function(results_list) {
 all_results <- bind_rows(
   pool_ad(bmi_list) %>% select(dm_sex, estimate) %>% mutate(variable = "BMI"), 
   pool_ad(fat_list) %>% select(dm_sex, estimate) %>% mutate(variable = "Fat percentage"), 
+  pool_ad(visfat_list) %>% select(dm_sex, estimate) %>% mutate(variable = "Visceral fat mass"), 
+  pool_ad(subfat_list) %>% select(dm_sex, estimate) %>% mutate(variable = "Subcutaneous fat mass"), 
   pool_ad(wt_list) %>% select(dm_sex, estimate) %>% mutate(variable = "Waistcircumference"),
   pool_ad(whtr_list) %>% select(dm_sex, estimate) %>% mutate(variable = "Waist-to-Height Ratio"),
   pool_ad(fpg_list) %>% select(dm_sex, estimate) %>% mutate(variable = "Fasting glucose"), 
@@ -243,14 +270,14 @@ nhanes_all_svy <- nhanes_all %>%
                        female == 0 & dm == "NoDM" ~ "male NoDM",
                        female == 1 & dm == "PreDM" ~ "female PreDM",
                        female == 0 & dm == "PreDM" ~ "male PreDM",
-                       female == 1 & dm == "NewDM" ~ "female NewDM",
-                       female == 0 & dm == "NewDM" ~ "male NewDM",
                        female == 1 & dm == "DM" ~ "female DM",
                        female == 0 & dm == "DM" ~ "male DM")
   )
 
 bmi_test <- svyglm(bmi ~ dm_sex, design = nhanes_all_svy)
 fat_test <- svyglm(fat_percentage ~ dm_sex, design = nhanes_all_svy)
+visfat_test <- svyglm(visceral_fat ~ dm_sex, design = nhanes_all_svy)
+subfat_test <- svyglm(subcutaneous_fat ~ dm_sex, design = nhanes_all_svy)
 wt_test <- svyglm(waistcircumference ~ dm_sex, design = nhanes_all_svy)
 whtr_test <- svyglm(WHtR ~ dm_sex, design = nhanes_all_svy)
 fpg_test <- svyglm(fasting_glucose ~ dm_sex, design = nhanes_all_svy)
@@ -264,6 +291,8 @@ tc_test <- svyglm(total_cholesterol ~ dm_sex, design = nhanes_all_svy)
 
 bmi_result <- regTermTest(bmi_test, ~ dm_sex)
 fat_result <- regTermTest(fat_test, ~ dm_sex)
+visfat_result <- regTermTest(visfat_test, ~ dm_sex)
+subfat_result <- regTermTest(subfat_test, ~ dm_sex)
 wt_result <- regTermTest(wt_test, ~ dm_sex)
 whtr_result <- regTermTest(whtr_test, ~ dm_sex)
 fpg_result <- regTermTest(fpg_test, ~ dm_sex)

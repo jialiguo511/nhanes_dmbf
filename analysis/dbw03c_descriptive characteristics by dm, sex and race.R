@@ -4,11 +4,12 @@ library(survey)
 library(broom)
 library(emmeans)
 
-nhanes_svy_dfs <- readRDS(paste0(path_nhanes_dmbf_folder, "/working/cleaned/dbw02_weighted df.RDS")) 
+nhanes_svy_dfs <- readRDS(paste0(path_nhanes_dmbf_folder, "/working/cleaned/dbw02_weighted df one dm group.RDS")) 
 
 bmi_list <- list()
 fat_list <- list()
-
+visfat_list <- list()
+subfat_list <- list()
 
 for (i in 1:length(nhanes_svy_dfs)) {
   df <- nhanes_svy_dfs[[i]] 
@@ -33,14 +34,6 @@ for (i in 1:length(nhanes_svy_dfs)) {
         female == 0 & race_eth == "Hispanic" & dm == "PreDM" ~ "male Hispanic PreDM",
         female == 1 & race_eth == "Asian" & dm == "PreDM" ~ "female Asian PreDM",
         female == 0 & race_eth == "Asian" & dm == "PreDM" ~ "male Asian PreDM",
-        female == 1 & race_eth == "NH White" & dm == "NewDM" ~ "female NHWhite NewDM",
-        female == 0 & race_eth == "NH White" & dm == "NewDM" ~ "male NHWhite NewDM",
-        female == 1 & race_eth == "NH Black" & dm == "NewDM" ~ "female NHBlack NewDM",
-        female == 0 & race_eth == "NH Black" & dm == "NewDM" ~ "male NHBlack NewDM",
-        female == 1 & race_eth == "Hispanic" & dm == "NewDM" ~ "female Hispanic NewDM",
-        female == 0 & race_eth == "Hispanic" & dm == "NewDM" ~ "male Hispanic NewDM",
-        female == 1 & race_eth == "Asian" & dm == "NewDM" ~ "female Asian NewDM",
-        female == 0 & race_eth == "Asian" & dm == "NewDM" ~ "male Asian NewDM",
         female == 1 & race_eth == "NH White" & dm == "DM" ~ "female NHWhite DM",
         female == 0 & race_eth == "NH White" & dm == "DM" ~ "male NHWhite DM",
         female == 1 & race_eth == "NH Black" & dm == "DM" ~ "female NHBlack DM",
@@ -74,6 +67,29 @@ for (i in 1:length(nhanes_svy_dfs)) {
   
   fat_emm_df <- as.data.frame(summary(fat_emm))
   fat_list[[i]] <- fat_emm_df
+  
+  
+  visfat_mod <- svyglm(visceral_fat ~ age + dm_race_sex, design = nhanes_total_svy)
+  # Calculate marginal (adjusted) means of BMI by dm_sex
+  visfat_emm <- emmeans(
+    object = visfat_mod, 
+    specs  = ~ dm_race_sex, 
+    data   = nhanes_total_svy$variables  # <-- specify the underlying data
+  )
+  
+  visfat_emm_df <- as.data.frame(summary(visfat_emm))
+  visfat_list[[i]] <- visfat_emm_df
+  
+  
+  subfat_mod <- svyglm(subcutaneous_fat ~ age + dm_race_sex, design = nhanes_total_svy)
+  subfat_emm <- emmeans(
+    object = subfat_mod, 
+    specs  = ~ dm_race_sex, 
+    data   = nhanes_total_svy$variables  # <-- specify the underlying data
+  )
+  
+  subfat_emm_df <- as.data.frame(summary(subfat_emm))
+  subfat_list[[i]] <- subfat_emm_df
   
   
 }
@@ -111,7 +127,11 @@ all_results <- bind_rows(
   pool_ad(bmi_list) %>% select(dm_race_sex, theta_D, L, U) %>% 
     mutate(variable = "BMI"), 
   pool_ad(fat_list) %>% select(dm_race_sex, theta_D, L, U) %>% 
-    mutate(variable = "Fat percentage")
+    mutate(variable = "Fat percentage"),
+  pool_ad(visfat_list) %>% select(dm_race_sex, theta_D, L, U) %>% 
+    mutate(variable = "Visceral fat mass"),
+  pool_ad(subfat_list) %>% select(dm_race_sex, theta_D, L, U) %>% 
+    mutate(variable = "Subcutaneous fat mass")
 ) %>% 
   separate(dm_race_sex, into = c("sex", "race_eth", "dm"), sep = " ", extra = "merge") %>% 
   rename(estimate = theta_D,

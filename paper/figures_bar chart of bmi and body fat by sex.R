@@ -3,7 +3,7 @@ rm(list=ls());gc();source(".Rprofile")
 library(survey)
 library(mitools)
 
-nhanes_svy_dfs <- readRDS(paste0(path_nhanes_dmbf_folder, "/working/cleaned/dbw02_weighted df.RDS")) 
+nhanes_svy_dfs <- readRDS(paste0(path_nhanes_dmbf_folder, "/working/cleaned/dbw02_weighted df one dm group.RDS")) 
 
 weight_data_list <- list()
 
@@ -35,11 +35,11 @@ fig_df <- bind_rows(weight_data_list) %>%
       TRUE ~ "Lean/Normal"
       ),
     fat_percentage_grp = case_when(
-      female == 0 & fat_percentage <= 25 ~ "Lean/Normal",
-      female == 0 & fat_percentage > 25 & fat_percentage <= 30 ~ "Overweight",
-      female == 0 & fat_percentage > 30 ~ "Obese",
-      female == 1 & fat_percentage > 35 & fat_percentage <= 40 ~ "Overweight",
-      female == 1 & fat_percentage > 40 ~ "Obese",
+      female == 0 & fat_percentage < 25 ~ "Lean/Normal",
+      female == 0 & fat_percentage >= 25 & fat_percentage < 30 ~ "Overweight",
+      female == 0 & fat_percentage >= 30 ~ "Obese",
+      female == 1 & fat_percentage >= 35 & fat_percentage < 40 ~ "Overweight",
+      female == 1 & fat_percentage >= 40 ~ "Obese",
       TRUE ~ "Lean/Normal"
     )
          )
@@ -64,26 +64,26 @@ plot_data <- fig_df %>%
 male_df <- plot_data %>% 
   select(-c("female_n","female_prop")) %>% 
   mutate(fat_percentage_grp = case_when(
-    fat_percentage_grp == "Lean/Normal" ~ "Lean/Normal (≤25)",
+    fat_percentage_grp == "Lean/Normal" ~ "Lean/Normal (<25)",
     fat_percentage_grp == "Overweight" ~ "Overweight (25-30)",
-    TRUE ~ "Obese (>30)"
+    TRUE ~ "Obese (≥30)"
   ),
-  fat_percentage_grp = factor(fat_percentage_grp, levels = c("Lean/Normal (≤25)", "Overweight (25-30)", "Obese (>30)")))
+  fat_percentage_grp = factor(fat_percentage_grp, levels = c("Lean/Normal (<25)", "Overweight (25-30)", "Obese (≥30)")))
 
 female_df <- plot_data %>% 
   select(-c("male_n","male_prop")) %>% 
   mutate(fat_percentage_grp = case_when(
-    fat_percentage_grp == "Lean/Normal" ~ "Lean/Normal (≤35)",
+    fat_percentage_grp == "Lean/Normal" ~ "Lean/Normal (<35)",
     fat_percentage_grp == "Overweight" ~ "Overweight (35-40)",
-    TRUE ~ "Obese (>40)"
+    TRUE ~ "Obese (≥40)"
   ),
-  fat_percentage_grp = factor(fat_percentage_grp, levels = c("Lean/Normal (≤35)", "Overweight (35-40)", "Obese (>40)")))
+  fat_percentage_grp = factor(fat_percentage_grp, levels = c("Lean/Normal (<35)", "Overweight (35-40)", "Obese (≥40)")))
 
 
 fig_male <- ggplot(male_df, aes(x = bmi_grp, y = male_prop, fill = fat_percentage_grp)) +
   geom_bar(stat = "identity", position = "dodge", colour = "black") +  
   geom_text(aes(label = male_prop, y = male_prop + 1), position = position_dodge(width = 0.9), vjust = -0.1, size = 4) +  
-  scale_fill_manual(values = c("Lean/Normal (≤25)" = "white", "Overweight (25-30)" = "grey", "Obese (>30)" = "black")) +
+  scale_fill_manual(values = c("Lean/Normal (<25)" = "white", "Overweight (25-30)" = "grey", "Obese (≥30)" = "black")) +
   labs(x = "BMI", y = "Proportion (%)", fill = "Body Fat %", title = "MEN") +
   theme_minimal() +
   theme(
@@ -114,7 +114,7 @@ fig_male <- ggplot(male_df, aes(x = bmi_grp, y = male_prop, fill = fat_percentag
 fig_female <- ggplot(female_df, aes(x = bmi_grp, y = female_prop, fill = fat_percentage_grp)) +
   geom_bar(stat = "identity", position = "dodge", colour = "black") +  
   geom_text(aes(label = female_prop, y = female_prop + 1), position = position_dodge(width = 0.9), vjust = -0.1, size = 4) +  
-  scale_fill_manual(values = c("Lean/Normal (≤35)" = "white", "Overweight (35-40)" = "grey", "Obese (>40)" = "black")) +
+  scale_fill_manual(values = c("Lean/Normal (<35)" = "white", "Overweight (35-40)" = "grey", "Obese (≥40)" = "black")) +
   labs(x = "BMI", y = "Proportion (%)", fill = "Body Fat %", title = "WOMEN") +
   theme_minimal() +
   theme(
@@ -146,6 +146,6 @@ library(patchwork)
 
 combined_plot <- fig_male / fig_female 
 
-ggsave(combined_plot, filename=paste0(path_nhanes_dmbf_folder, "/figures/barchart of body fat in bmi by sex.png"),width=8, height = 11)
+ggsave(combined_plot, filename=paste0(path_nhanes_dmbf_folder, "/figures/one dm group/barchart of body fat in bmi by sex.png"),width=8, height = 11)
   
 

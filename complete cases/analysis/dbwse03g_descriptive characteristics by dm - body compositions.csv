@@ -1,0 +1,22 @@
+dm,estimate,variable
+DM,"32.55 	 (31.87, 33.24)",BMI
+NoDM,"25.98 	 (25.55, 26.41)",BMI
+PreDM,"29.01 	 (28.62, 29.39)",BMI
+DM,"35.1 	 (34.5, 35.7)",Fat percentage
+NoDM,"30.86 	 (30.43, 31.28)",Fat percentage
+PreDM,"33.3 	 (32.92, 33.68)",Fat percentage
+DM,"671.72 	 (644.55, 698.89)",Visceral fat mass
+NoDM,"371.93 	 (358.89, 384.96)",Visceral fat mass
+PreDM,"492.07 	 (478.45, 505.69)",Visceral fat mass
+DM,"166.34 	 (160.91, 171.77)",Fasting glucose
+NoDM,"91.52 	 (90.84, 92.2)",Fasting glucose
+PreDM,"104.15 	 (103.36, 104.95)",Fasting glucose
+DM,"7.42 	 (7.26, 7.58)",Glycohemoglobin
+NoDM,"5.25 	 (5.23, 5.28)",Glycohemoglobin
+PreDM,"5.5 	 (5.46, 5.53)",Glycohemoglobin
+DM,"107.21 	 (105.59, 108.82)",Waistcircumference
+NoDM,"89.54 	 (88.53, 90.54)",Waistcircumference
+PreDM,"97.24 	 (96.25, 98.22)",Waistcircumference
+DM,"0.64 	 (0.63, 0.65)",Waist-to-Height Ratio
+NoDM,"0.53 	 (0.53, 0.54)",Waist-to-Height Ratio
+PreDM,"0.58 	 (0.58, 0.59)",Waist-to-Height Ratio

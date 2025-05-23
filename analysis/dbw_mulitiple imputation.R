@@ -13,7 +13,8 @@ continuous_vars <- c("urine_albumin", "urine_creatinine", "alt", "ast", "bun",
                      "diastolic4", "poverty", "a1c", "fasting_length_hr", 
                       "hdl", "insulin_level", "glucose2h",
                      "ogtt_time", "total_cholesterol", "ldl", "triglyceride", 
-                     "fat_percentage", "total_fat", "total_lean", "eGFR")
+                     "fat_percentage", "total_fat", "total_lean", "eGFR",
+                     "visceral_fat","subcutaneous_fat")
 
 proportion_vars <- c("dm_insulin_taking","htn_med_told","htn_med_taking","chol_med_told",
                      "chol_med_taking")

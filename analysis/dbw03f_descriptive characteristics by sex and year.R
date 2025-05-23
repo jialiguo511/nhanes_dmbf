@@ -4,10 +4,12 @@ library(survey)
 library(broom)
 library(emmeans)
 
-nhanes_svy_dfs <- readRDS(paste0(path_nhanes_dmbf_folder, "/working/cleaned/dbw02_weighted df.RDS")) 
+nhanes_svy_dfs <- readRDS(paste0(path_nhanes_dmbf_folder, "/working/cleaned/dbw02_weighted df one dm group.RDS")) 
 
 bmi_list <- list()
 fat_list <- list()
+visfat_list <- list()
+subfat_list <- list()
 
 
 for (i in 1:length(nhanes_svy_dfs)) {
@@ -52,6 +54,28 @@ for (i in 1:length(nhanes_svy_dfs)) {
   fat_list[[i]] <- fat_emm_df
   
   
+  visfat_mod <- svyglm(visceral_fat ~ age + sex_year, design = nhanes_total_svy)
+  # Calculate marginal (adjusted) means of BMI by dm_sex
+  visfat_emm <- emmeans(
+    object = visfat_mod, 
+    specs  = ~ sex_year, 
+    data   = nhanes_total_svy$variables  # <-- specify the underlying data
+  )
+  
+  visfat_emm_df <- as.data.frame(summary(visfat_emm))
+  visfat_list[[i]] <- visfat_emm_df
+  
+  
+  subfat_mod <- svyglm(subcutaneous_fat ~ age + sex_year, design = nhanes_total_svy)
+  subfat_emm <- emmeans(
+    object = subfat_mod, 
+    specs  = ~ sex_year, 
+    data   = nhanes_total_svy$variables  # <-- specify the underlying data
+  )
+  
+  subfat_emm_df <- as.data.frame(summary(subfat_emm))
+  subfat_list[[i]] <- subfat_emm_df
+  
 }
 
 
@@ -87,7 +111,11 @@ all_results <- bind_rows(
   pool_ad(bmi_list) %>% select(sex_year, theta_D, L, U) %>% 
     mutate(variable = "BMI"), 
   pool_ad(fat_list) %>% select(sex_year, theta_D, L, U) %>% 
-    mutate(variable = "Fat percentage")
+    mutate(variable = "Fat percentage"),
+  pool_ad(visfat_list) %>% select(sex_year, theta_D, L, U) %>% 
+    mutate(variable = "Visceral fat mass"),
+  pool_ad(subfat_list) %>% select(sex_year, theta_D, L, U) %>% 
+    mutate(variable = "Subcutaneous fat mass")
 ) %>% 
   separate(sex_year, into = c("year", "dm"), sep = " ", extra = "merge") %>% 
   rename(estimate = theta_D,

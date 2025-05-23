@@ -80,9 +80,11 @@ nhanes_total <- bind_rows(
          htn_med_told = as.factor(htn_med_told),
          htn_med_taking = as.factor(htn_med_taking),
          chol_med_told = as.factor(chol_med_told),
-         chol_med_taking = as.factor(chol_med_taking))
+         chol_med_taking = as.factor(chol_med_taking)) %>% 
+  # set outliers to NA
+  mutate(visceral_fat = ifelse(visceral_fat > 1500, NA, visceral_fat),
+         subcutaneous_fat = ifelse(subcutaneous_fat > 4000, NA, subcutaneous_fat))
   
 
 saveRDS(nhanes_total, paste0(path_nhanes_dmbf_folder, "/working/cleaned/dbw01_unweighted sample.RDS"))
-
 

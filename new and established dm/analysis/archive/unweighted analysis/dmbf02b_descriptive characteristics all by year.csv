@@ -1,0 +1,541 @@
+year_broad,variable,est,value,type,group
+2011-2014,age,mean,47.492598756240696,Continuous,NA
+2011-2014,age,sd,18.475313612668366,Continuous,NA
+2011-2014,age,median,47,Continuous,NA
+2011-2014,age,q25,32,Continuous,NA
+2011-2014,age,q75,62,Continuous,NA
+2011-2014,age,min,18,Continuous,NA
+2011-2014,age,max,80,Continuous,NA
+2011-2014,age,freq,11417,Continuous,NA
+2011-2014,age,missing,0,Continuous,NA
+2011-2014,dm_age,mean,59.96250901225667,Continuous,NA
+2011-2014,dm_age,sd,98.25724567633397,Continuous,NA
+2011-2014,dm_age,median,50,Continuous,NA
+2011-2014,dm_age,q25,40,Continuous,NA
+2011-2014,dm_age,q75,60,Continuous,NA
+2011-2014,dm_age,min,1,Continuous,NA
+2011-2014,dm_age,max,999,Continuous,NA
+2011-2014,dm_age,freq,1387,Continuous,NA
+2011-2014,dm_age,missing,10030,Continuous,NA
+2011-2014,waistcircumference,mean,98.05197503260668,Continuous,NA
+2011-2014,waistcircumference,sd,16.665818003227354,Continuous,NA
+2011-2014,waistcircumference,median,96.6,Continuous,NA
+2011-2014,waistcircumference,q25,86,Continuous,NA
+2011-2014,waistcircumference,q75,107.8,Continuous,NA
+2011-2014,waistcircumference,min,55.5,Continuous,NA
+2011-2014,waistcircumference,max,177.9,Continuous,NA
+2011-2014,waistcircumference,freq,10734,Continuous,NA
+2011-2014,waistcircumference,missing,683,Continuous,NA
+2011-2014,fasting_glucose,mean,107.43073716126587,Continuous,NA
+2011-2014,fasting_glucose,sd,34.361863564613884,Continuous,NA
+2011-2014,fasting_glucose,median,99,Continuous,NA
+2011-2014,fasting_glucose,q25,92,Continuous,NA
+2011-2014,fasting_glucose,q75,109,Continuous,NA
+2011-2014,fasting_glucose,min,39,Continuous,NA
+2011-2014,fasting_glucose,max,421,Continuous,NA
+2011-2014,fasting_glucose,freq,5277,Continuous,NA
+2011-2014,fasting_glucose,missing,6140,Continuous,NA
+2011-2014,triglyceride,mean,122.3530538004978,Continuous,NA
+2011-2014,triglyceride,sd,109.6618797762525,Continuous,NA
+2011-2014,triglyceride,median,98,Continuous,NA
+2011-2014,triglyceride,q25,68,Continuous,NA
+2011-2014,triglyceride,q75,145.5,Continuous,NA
+2011-2014,triglyceride,min,14,Continuous,NA
+2011-2014,triglyceride,max,4233,Continuous,NA
+2011-2014,triglyceride,freq,5223,Continuous,NA
+2011-2014,triglyceride,missing,6194,Continuous,NA
+2011-2014,ldl,mean,111.44306015183959,Continuous,NA
+2011-2014,ldl,sd,35.062804119033636,Continuous,NA
+2011-2014,ldl,median,109,Continuous,NA
+2011-2014,ldl,q25,86,Continuous,NA
+2011-2014,ldl,q75,133,Continuous,NA
+2011-2014,ldl,min,9,Continuous,NA
+2011-2014,ldl,max,375,Continuous,NA
+2011-2014,ldl,freq,5137,Continuous,NA
+2011-2014,ldl,missing,6280,Continuous,NA
+2011-2014,hdl,mean,52.42674505412467,Continuous,NA
+2011-2014,hdl,sd,15.271600813324673,Continuous,NA
+2011-2014,hdl,median,50,Continuous,NA
+2011-2014,hdl,q25,42,Continuous,NA
+2011-2014,hdl,q75,61,Continuous,NA
+2011-2014,hdl,min,10,Continuous,NA
+2011-2014,hdl,max,175,Continuous,NA
+2011-2014,hdl,freq,10716,Continuous,NA
+2011-2014,hdl,missing,701,Continuous,NA
+2011-2014,total_fat,mean,26921.14166928639,Continuous,NA
+2011-2014,total_fat,sd,11940.433848420083,Continuous,NA
+2011-2014,total_fat,median,24759.449999999997,Continuous,NA
+2011-2014,total_fat,q25,18481.2,Continuous,NA
+2011-2014,total_fat,q75,32831.75,Continuous,NA
+2011-2014,total_fat,min,4902,Continuous,NA
+2011-2014,total_fat,max,102288.7,Continuous,NA
+2011-2014,total_fat,freq,6362,Continuous,NA
+2011-2014,total_fat,missing,5055,Continuous,NA
+2011-2014,fat_percentage,mean,32.48055642879598,Continuous,NA
+2011-2014,fat_percentage,sd,8.62974081178451,Continuous,NA
+2011-2014,fat_percentage,median,32.2,Continuous,NA
+2011-2014,fat_percentage,q25,26,Continuous,NA
+2011-2014,fat_percentage,q75,39.3,Continuous,NA
+2011-2014,fat_percentage,min,12.1,Continuous,NA
+2011-2014,fat_percentage,max,55.4,Continuous,NA
+2011-2014,fat_percentage,freq,6362,Continuous,NA
+2011-2014,fat_percentage,missing,5055,Continuous,NA
+2011-2014,bmi,mean,28.76786952270909,Continuous,NA
+2011-2014,bmi,sd,7.042232567919285,Continuous,NA
+2011-2014,bmi,median,27.6,Continuous,NA
+2011-2014,bmi,q25,23.8,Continuous,NA
+2011-2014,bmi,q75,32.2,Continuous,NA
+2011-2014,bmi,min,13.4,Continuous,NA
+2011-2014,bmi,max,82.9,Continuous,NA
+2011-2014,bmi,freq,11251,Continuous,NA
+2011-2014,bmi,missing,166,Continuous,NA
+2011-2014,glycohemoglobin,mean,5.74592830882353,Continuous,NA
+2011-2014,glycohemoglobin,sd,1.0929610258529532,Continuous,NA
+2011-2014,glycohemoglobin,median,5.5,Continuous,NA
+2011-2014,glycohemoglobin,q25,5.2,Continuous,NA
+2011-2014,glycohemoglobin,q75,5.9,Continuous,NA
+2011-2014,glycohemoglobin,min,3.5,Continuous,NA
+2011-2014,glycohemoglobin,max,17.8,Continuous,NA
+2011-2014,glycohemoglobin,freq,10880,Continuous,NA
+2011-2014,glycohemoglobin,missing,537,Continuous,NA
+2011-2014,sbp,mean,122.99075510142019,Continuous,NA
+2011-2014,sbp,sd,18.092431745412604,Continuous,NA
+2011-2014,sbp,median,120,Continuous,NA
+2011-2014,sbp,q25,110.66666666666667,Continuous,NA
+2011-2014,sbp,q75,132,Continuous,NA
+2011-2014,sbp,min,64.66666666666667,Continuous,NA
+2011-2014,sbp,max,234.66666666666666,Continuous,NA
+2011-2014,sbp,freq,10961,Continuous,NA
+2011-2014,sbp,missing,456,Continuous,NA
+2011-2014,dbp,mean,69.83073320560776,Continuous,NA
+2011-2014,dbp,sd,12.759219581842169,Continuous,NA
+2011-2014,dbp,median,70.66666666666667,Continuous,NA
+2011-2014,dbp,q25,63.333333333333336,Continuous,NA
+2011-2014,dbp,q75,77.33333333333333,Continuous,NA
+2011-2014,dbp,min,0,Continuous,NA
+2011-2014,dbp,max,130,Continuous,NA
+2011-2014,dbp,freq,10961,Continuous,NA
+2011-2014,dbp,missing,456,Continuous,NA
+2015-2018,age,mean,49.134613658799246,Continuous,NA
+2015-2018,age,sd,18.539130049238302,Continuous,NA
+2015-2018,age,median,50,Continuous,NA
+2015-2018,age,q25,33,Continuous,NA
+2015-2018,age,q75,64,Continuous,NA
+2015-2018,age,min,18,Continuous,NA
+2015-2018,age,max,80,Continuous,NA
+2015-2018,age,freq,11143,Continuous,NA
+2015-2018,age,missing,0,Continuous,NA
+2015-2018,dm_age,mean,60.588665447897625,Continuous,NA
+2015-2018,dm_age,sd,102.54931992846689,Continuous,NA
+2015-2018,dm_age,median,50,Continuous,NA
+2015-2018,dm_age,q25,40,Continuous,NA
+2015-2018,dm_age,q75,60,Continuous,NA
+2015-2018,dm_age,min,3,Continuous,NA
+2015-2018,dm_age,max,999,Continuous,NA
+2015-2018,dm_age,freq,1641,Continuous,NA
+2015-2018,dm_age,missing,9502,Continuous,NA
+2015-2018,waistcircumference,mean,99.83924365725227,Continuous,NA
+2015-2018,waistcircumference,sd,17.05178587072819,Continuous,NA
+2015-2018,waistcircumference,median,98.5,Continuous,NA
+2015-2018,waistcircumference,q25,87.7,Continuous,NA
+2015-2018,waistcircumference,q75,110,Continuous,NA
+2015-2018,waistcircumference,min,56.4,Continuous,NA
+2015-2018,waistcircumference,max,171.6,Continuous,NA
+2015-2018,waistcircumference,freq,10445,Continuous,NA
+2015-2018,waistcircumference,missing,698,Continuous,NA
+2015-2018,fasting_glucose,mean,113.44367588932806,Continuous,NA
+2015-2018,fasting_glucose,sd,39.10280859191998,Continuous,NA
+2015-2018,fasting_glucose,median,103,Continuous,NA
+2015-2018,fasting_glucose,q25,96,Continuous,NA
+2015-2018,fasting_glucose,q75,114,Continuous,NA
+2015-2018,fasting_glucose,min,21,Continuous,NA
+2015-2018,fasting_glucose,max,479,Continuous,NA
+2015-2018,fasting_glucose,freq,5060,Continuous,NA
+2015-2018,fasting_glucose,missing,6083,Continuous,NA
+2015-2018,triglyceride,mean,112.34019118869493,Continuous,NA
+2015-2018,triglyceride,sd,99.0747615596267,Continuous,NA
+2015-2018,triglyceride,median,91,Continuous,NA
+2015-2018,triglyceride,q25,61,Continuous,NA
+2015-2018,triglyceride,q75,136,Continuous,NA
+2015-2018,triglyceride,min,10,Continuous,NA
+2015-2018,triglyceride,max,2684,Continuous,NA
+2015-2018,triglyceride,freq,4812,Continuous,NA
+2015-2018,triglyceride,missing,6331,Continuous,NA
+2015-2018,ldl,mean,111.42020497803807,Continuous,NA
+2015-2018,ldl,sd,36.17807771502831,Continuous,NA
+2015-2018,ldl,median,108,Continuous,NA
+2015-2018,ldl,q25,86,Continuous,NA
+2015-2018,ldl,q75,133,Continuous,NA
+2015-2018,ldl,min,20,Continuous,NA
+2015-2018,ldl,max,359,Continuous,NA
+2015-2018,ldl,freq,4781,Continuous,NA
+2015-2018,ldl,missing,6362,Continuous,NA
+2015-2018,hdl,mean,53.55529006976966,Continuous,NA
+2015-2018,hdl,sd,16.528419778091163,Continuous,NA
+2015-2018,hdl,median,51,Continuous,NA
+2015-2018,hdl,q25,42,Continuous,NA
+2015-2018,hdl,q75,62,Continuous,NA
+2015-2018,hdl,min,6,Continuous,NA
+2015-2018,hdl,max,226,Continuous,NA
+2015-2018,hdl,freq,10463,Continuous,NA
+2015-2018,hdl,missing,680,Continuous,NA
+2015-2018,total_fat,mean,27333.220754026355,Continuous,NA
+2015-2018,total_fat,sd,11921.654232106095,Continuous,NA
+2015-2018,total_fat,median,25246.6,Continuous,NA
+2015-2018,total_fat,q25,18783.35,Continuous,NA
+2015-2018,total_fat,q75,33814.8,Continuous,NA
+2015-2018,total_fat,min,5812.6,Continuous,NA
+2015-2018,total_fat,max,86890.2,Continuous,NA
+2015-2018,total_fat,freq,5464,Continuous,NA
+2015-2018,total_fat,missing,5679,Continuous,NA
+2015-2018,fat_percentage,mean,33.02928257686676,Continuous,NA
+2015-2018,fat_percentage,sd,8.712770275710366,Continuous,NA
+2015-2018,fat_percentage,median,32.9,Continuous,NA
+2015-2018,fat_percentage,q25,26.6,Continuous,NA
+2015-2018,fat_percentage,q75,40.1,Continuous,NA
+2015-2018,fat_percentage,min,11.7,Continuous,NA
+2015-2018,fat_percentage,max,56.1,Continuous,NA
+2015-2018,fat_percentage,freq,5464,Continuous,NA
+2015-2018,fat_percentage,missing,5679,Continuous,NA
+2015-2018,bmi,mean,29.523058694859643,Continuous,NA
+2015-2018,bmi,sd,7.273591178055405,Continuous,NA
+2015-2018,bmi,median,28.4,Continuous,NA
+2015-2018,bmi,q25,24.4,Continuous,NA
+2015-2018,bmi,q75,33.3,Continuous,NA
+2015-2018,bmi,min,14.2,Continuous,NA
+2015-2018,bmi,max,86.2,Continuous,NA
+2015-2018,bmi,freq,10972,Continuous,NA
+2015-2018,bmi,missing,171,Continuous,NA
+2015-2018,glycohemoglobin,mean,5.83589428975932,Continuous,NA
+2015-2018,glycohemoglobin,sd,1.1297009433512801,Continuous,NA
+2015-2018,glycohemoglobin,median,5.6,Continuous,NA
+2015-2018,glycohemoglobin,q25,5.3,Continuous,NA
+2015-2018,glycohemoglobin,q75,5.9,Continuous,NA
+2015-2018,glycohemoglobin,min,3.8,Continuous,NA
+2015-2018,glycohemoglobin,max,17,Continuous,NA
+2015-2018,glycohemoglobin,freq,10595,Continuous,NA
+2015-2018,glycohemoglobin,missing,548,Continuous,NA
+2015-2018,sbp,mean,125.78333177613753,Continuous,NA
+2015-2018,sbp,sd,19.1830405786709,Continuous,NA
+2015-2018,sbp,median,123,Continuous,NA
+2015-2018,sbp,q25,112.66666666666667,Continuous,NA
+2015-2018,sbp,q75,135.33333333333334,Continuous,NA
+2015-2018,sbp,min,72.66666666666667,Continuous,NA
+2015-2018,sbp,max,238,Continuous,NA
+2015-2018,sbp,freq,10703,Continuous,NA
+2015-2018,sbp,missing,440,Continuous,NA
+2015-2018,dbp,mean,70.85963437042574,Continuous,NA
+2015-2018,dbp,sd,12.791664697445475,Continuous,NA
+2015-2018,dbp,median,71.33333333333333,Continuous,NA
+2015-2018,dbp,q25,63.333333333333336,Continuous,NA
+2015-2018,dbp,q75,78,Continuous,NA
+2015-2018,dbp,min,0,Continuous,NA
+2015-2018,dbp,max,138.66666666666666,Continuous,NA
+2015-2018,dbp,freq,10703,Continuous,NA
+2015-2018,dbp,missing,440,Continuous,NA
+Total,age,mean,48.303634751773046,Continuous,NA
+Total,age,sd,18.524652044333788,Continuous,NA
+Total,age,median,48,Continuous,NA
+Total,age,q25,32,Continuous,NA
+Total,age,q75,63,Continuous,NA
+Total,age,min,18,Continuous,NA
+Total,age,max,80,Continuous,NA
+Total,age,freq,22560,Continuous,NA
+Total,age,missing,0,Continuous,NA
+Total,dm_age,mean,60.30184940554822,Continuous,NA
+Total,dm_age,sd,100.59001381171004,Continuous,NA
+Total,dm_age,median,50,Continuous,NA
+Total,dm_age,q25,40,Continuous,NA
+Total,dm_age,q75,60,Continuous,NA
+Total,dm_age,min,1,Continuous,NA
+Total,dm_age,max,999,Continuous,NA
+Total,dm_age,freq,3028,Continuous,NA
+Total,dm_age,missing,19532,Continuous,NA
+Total,waistcircumference,mean,98.9334151754096,Continuous,NA
+Total,waistcircumference,sd,16.880542027006264,Continuous,NA
+Total,waistcircumference,median,97.5,Continuous,NA
+Total,waistcircumference,q25,86.7,Continuous,NA
+Total,waistcircumference,q75,108.9,Continuous,NA
+Total,waistcircumference,min,55.5,Continuous,NA
+Total,waistcircumference,max,177.9,Continuous,NA
+Total,waistcircumference,freq,21179,Continuous,NA
+Total,waistcircumference,missing,1381,Continuous,NA
+Total,fasting_glucose,mean,110.37409306375157,Continuous,NA
+Total,fasting_glucose,sd,36.87997012488999,Continuous,NA
+Total,fasting_glucose,median,101,Continuous,NA
+Total,fasting_glucose,q25,94,Continuous,NA
+Total,fasting_glucose,q75,112,Continuous,NA
+Total,fasting_glucose,min,21,Continuous,NA
+Total,fasting_glucose,max,479,Continuous,NA
+Total,fasting_glucose,freq,10337,Continuous,NA
+Total,fasting_glucose,missing,12223,Continuous,NA
+Total,triglyceride,mean,117.55166915794719,Continuous,NA
+Total,triglyceride,sd,104.8330316102598,Continuous,NA
+Total,triglyceride,median,95,Continuous,NA
+Total,triglyceride,q25,65,Continuous,NA
+Total,triglyceride,q75,140,Continuous,NA
+Total,triglyceride,min,10,Continuous,NA
+Total,triglyceride,max,4233,Continuous,NA
+Total,triglyceride,freq,10035,Continuous,NA
+Total,triglyceride,missing,12525,Continuous,NA
+Total,ldl,mean,111.43204275055454,Continuous,NA
+Total,ldl,sd,35.60298897735409,Continuous,NA
+Total,ldl,median,108.5,Continuous,NA
+Total,ldl,q25,86,Continuous,NA
+Total,ldl,q75,133,Continuous,NA
+Total,ldl,min,9,Continuous,NA
+Total,ldl,max,375,Continuous,NA
+Total,ldl,freq,9918,Continuous,NA
+Total,ldl,missing,12642,Continuous,NA
+Total,hdl,mean,52.984276878039566,Continuous,NA
+Total,hdl,sd,15.914550373762877,Continuous,NA
+Total,hdl,median,50,Continuous,NA
+Total,hdl,q25,42,Continuous,NA
+Total,hdl,q75,61,Continuous,NA
+Total,hdl,min,6,Continuous,NA
+Total,hdl,max,226,Continuous,NA
+Total,hdl,freq,21179,Continuous,NA
+Total,hdl,missing,1381,Continuous,NA
+Total,total_fat,mean,27111.535726365633,Continuous,NA
+Total,total_fat,sd,11933.025116157305,Continuous,NA
+Total,total_fat,median,24979.4,Continuous,NA
+Total,total_fat,q25,18602.975,Continuous,NA
+Total,total_fat,q75,33259.625,Continuous,NA
+Total,total_fat,min,4902,Continuous,NA
+Total,total_fat,max,102288.7,Continuous,NA
+Total,total_fat,freq,11826,Continuous,NA
+Total,total_fat,missing,10734,Continuous,NA
+Total,fat_percentage,mean,32.73408591239642,Continuous,NA
+Total,fat_percentage,sd,8.672151389506109,Continuous,NA
+Total,fat_percentage,median,32.5,Continuous,NA
+Total,fat_percentage,q25,26.3,Continuous,NA
+Total,fat_percentage,q75,39.7,Continuous,NA
+Total,fat_percentage,min,11.7,Continuous,NA
+Total,fat_percentage,max,56.1,Continuous,NA
+Total,fat_percentage,freq,11826,Continuous,NA
+Total,fat_percentage,missing,10734,Continuous,NA
+Total,bmi,mean,29.140723574674887,Continuous,NA
+Total,bmi,sd,7.167185473942861,Continuous,NA
+Total,bmi,median,28,Continuous,NA
+Total,bmi,q25,24.1,Continuous,NA
+Total,bmi,q75,32.7,Continuous,NA
+Total,bmi,min,13.4,Continuous,NA
+Total,bmi,max,86.2,Continuous,NA
+Total,bmi,freq,22223,Continuous,NA
+Total,bmi,missing,337,Continuous,NA
+Total,glycohemoglobin,mean,5.790314318975553,Continuous,NA
+Total,glycohemoglobin,sd,1.11212310346442,Continuous,NA
+Total,glycohemoglobin,median,5.5,Continuous,NA
+Total,glycohemoglobin,q25,5.2,Continuous,NA
+Total,glycohemoglobin,q75,5.9,Continuous,NA
+Total,glycohemoglobin,min,3.5,Continuous,NA
+Total,glycohemoglobin,max,17.8,Continuous,NA
+Total,glycohemoglobin,freq,21475,Continuous,NA
+Total,glycohemoglobin,missing,1085,Continuous,NA
+Total,sbp,mean,124.37041482028557,Continuous,NA
+Total,sbp,sd,18.691010396272738,Continuous,NA
+Total,sbp,median,121.33333333333333,Continuous,NA
+Total,sbp,q25,111.33333333333333,Continuous,NA
+Total,sbp,q75,134,Continuous,NA
+Total,sbp,min,64.66666666666667,Continuous,NA
+Total,sbp,max,238,Continuous,NA
+Total,sbp,freq,21664,Continuous,NA
+Total,sbp,missing,896,Continuous,NA
+Total,dbp,mean,70.33905711472181,Continuous,NA
+Total,dbp,sd,12.785317688211597,Continuous,NA
+Total,dbp,median,70.66666666666667,Continuous,NA
+Total,dbp,q25,63.333333333333336,Continuous,NA
+Total,dbp,q75,78,Continuous,NA
+Total,dbp,min,0,Continuous,NA
+Total,dbp,max,138.66666666666666,Continuous,NA
+Total,dbp,freq,21664,Continuous,NA
+Total,dbp,missing,896,Continuous,NA
+2011-2014,dm,proportion,NA,Proportion,NA
+2011-2014,dm,freq,11417,Proportion,NA
+2011-2014,dm,missing,0,Proportion,NA
+2015-2018,dm,proportion,NA,Proportion,NA
+2015-2018,dm,freq,11143,Proportion,NA
+2015-2018,dm,missing,0,Proportion,NA
+Total,dm,proportion,NA,Proportion,NA
+Total,dm,freq,22560,Proportion,NA
+Total,dm,missing,0,Proportion,NA
+2011-2014,gender,proportion,50.99413155820268,Grouped,Female
+2011-2014,gender,freq,5822,Grouped,Female
+2011-2014,gender,proportion,49.00586844179732,Grouped,Male
+2011-2014,gender,freq,5595,Grouped,Male
+2015-2018,gender,proportion,51.26088127075294,Grouped,Female
+2015-2018,gender,freq,5712,Grouped,Female
+2015-2018,gender,proportion,48.73911872924706,Grouped,Male
+2015-2018,gender,freq,5431,Grouped,Male
+Total,gender,proportion,51.1258865248227,Grouped,Female
+Total,gender,freq,11534,Grouped,Female
+Total,gender,proportion,48.8741134751773,Grouped,Male
+Total,gender,freq,11026,Grouped,Male
+2011-2014,race_eth,proportion,12.639047035123061,Grouped,Asian
+2011-2014,race_eth,freq,1443,Grouped,Asian
+2011-2014,race_eth,proportion,21.695716913374792,Grouped,Hispanic
+2011-2014,race_eth,freq,2477,Grouped,Hispanic
+2011-2014,race_eth,proportion,23.56135587282123,Grouped,NH Black
+2011-2014,race_eth,freq,2690,Grouped,NH Black
+2011-2014,race_eth,proportion,39.099588333187356,Grouped,NH White
+2011-2014,race_eth,freq,4464,Grouped,NH White
+2011-2014,race_eth,proportion,3.004291845493562,Grouped,Other Race
+2011-2014,race_eth,freq,343,Grouped,Other Race
+2015-2018,race_eth,proportion,13.066499147446828,Grouped,Asian
+2015-2018,race_eth,freq,1456,Grouped,Asian
+2015-2018,race_eth,proportion,26.931706003769182,Grouped,Hispanic
+2015-2018,race_eth,freq,3001,Grouped,Hispanic
+2015-2018,race_eth,proportion,22.247150677555418,Grouped,NH Black
+2015-2018,race_eth,freq,2479,Grouped,NH Black
+2015-2018,race_eth,proportion,33.258547967333755,Grouped,NH White
+2015-2018,race_eth,freq,3706,Grouped,NH White
+2015-2018,race_eth,proportion,4.496096203894822,Grouped,Other Race
+2015-2018,race_eth,freq,501,Grouped,Other Race
+Total,race_eth,proportion,12.85017730496454,Grouped,Asian
+Total,race_eth,freq,2899,Grouped,Asian
+Total,race_eth,proportion,24.28191489361702,Grouped,Hispanic
+Total,race_eth,freq,5478,Grouped,Hispanic
+Total,race_eth,proportion,22.91223404255319,Grouped,NH Black
+Total,race_eth,freq,5169,Grouped,NH Black
+Total,race_eth,proportion,36.2145390070922,Grouped,NH White
+Total,race_eth,freq,8170,Grouped,NH White
+Total,race_eth,proportion,3.7411347517730498,Grouped,Other Race
+Total,race_eth,freq,844,Grouped,Other Race
+2011-2014,fipr,proportion,74.72328244274809,Grouped,above poverty
+2011-2014,fipr,freq,7831,Grouped,above poverty
+2011-2014,fipr,proportion,0.2862595419847328,Grouped,at poverty
+2011-2014,fipr,freq,30,Grouped,at poverty
+2011-2014,fipr,proportion,24.990458015267176,Grouped,below poverty
+2011-2014,fipr,freq,2619,Grouped,below poverty
+2015-2018,fipr,proportion,78.38745800671893,Grouped,above poverty
+2015-2018,fipr,freq,7700,Grouped,above poverty
+2015-2018,fipr,proportion,0.41738776341239947,Grouped,at poverty
+2015-2018,fipr,freq,41,Grouped,at poverty
+2015-2018,fipr,proportion,21.195154229868674,Grouped,below poverty
+2015-2018,fipr,freq,2082,Grouped,below poverty
+Total,fipr,proportion,76.49608432251391,Grouped,above poverty
+Total,fipr,freq,15531,Grouped,above poverty
+Total,fipr,proportion,0.3497020144806186,Grouped,at poverty
+Total,fipr,freq,71,Grouped,at poverty
+Total,fipr,proportion,23.154213663005468,Grouped,below poverty
+Total,fipr,freq,4701,Grouped,below poverty
+2011-2014,bmi_category,proportion,29.955329771393536,Grouped,18.5-24.9
+2011-2014,bmi_category,freq,3420,Grouped,18.5-24.9
+2011-2014,bmi_category,proportion,31.15529473592012,Grouped,25-29.9
+2011-2014,bmi_category,freq,3557,Grouped,25-29.9
+2011-2014,bmi_category,proportion,28.44880441446965,Grouped,30-39.9
+2011-2014,bmi_category,freq,3248,Grouped,30-39.9
+2011-2014,bmi_category,proportion,2.0408163265306123,Grouped,<18.5
+2011-2014,bmi_category,freq,233,Grouped,<18.5
+2011-2014,bmi_category,proportion,8.399754751686082,Grouped,>= 40
+2011-2014,bmi_category,freq,959,Grouped,>= 40
+2015-2018,bmi_category,proportion,25.89069370905501,Grouped,18.5-24.9
+2015-2018,bmi_category,freq,2885,Grouped,18.5-24.9
+2015-2018,bmi_category,proportion,31.19447186574531,Grouped,25-29.9
+2015-2018,bmi_category,freq,3476,Grouped,25-29.9
+2015-2018,bmi_category,proportion,31.445750695503904,Grouped,30-39.9
+2015-2018,bmi_category,freq,3504,Grouped,30-39.9
+2015-2018,bmi_category,proportion,1.6781836130306023,Grouped,<18.5
+2015-2018,bmi_category,freq,187,Grouped,<18.5
+2015-2018,bmi_category,proportion,9.79090011666517,Grouped,>= 40
+2015-2018,bmi_category,freq,1091,Grouped,>= 40
+Total,bmi_category,proportion,27.947695035460992,Grouped,18.5-24.9
+Total,bmi_category,freq,6305,Grouped,18.5-24.9
+Total,bmi_category,proportion,31.17464539007092,Grouped,25-29.9
+Total,bmi_category,freq,7033,Grouped,25-29.9
+Total,bmi_category,proportion,29.929078014184398,Grouped,30-39.9
+Total,bmi_category,freq,6752,Grouped,30-39.9
+Total,bmi_category,proportion,1.8617021276595744,Grouped,<18.5
+Total,bmi_category,freq,420,Grouped,<18.5
+Total,bmi_category,proportion,9.086879432624114,Grouped,>= 40
+Total,bmi_category,freq,2050,Grouped,>= 40
+2011-2014,immigrant,proportion,0.07882981518787772,Grouped,
+2011-2014,immigrant,freq,9,Grouped,
+2011-2014,immigrant,proportion,70.74537969694316,Grouped,"Born in 50 US states or Washington, DC"
+2011-2014,immigrant,freq,8077,Grouped,"Born in 50 US states or Washington, DC"
+2011-2014,immigrant,proportion,29.175790487868966,Grouped,Other
+2011-2014,immigrant,freq,3331,Grouped,Other
+2015-2018,immigrant,proportion,0.03589697567979898,Grouped,
+2015-2018,immigrant,freq,4,Grouped,
+2015-2018,immigrant,proportion,68.02476891321906,Grouped,"Born in 50 US states or Washington, DC"
+2015-2018,immigrant,freq,7580,Grouped,"Born in 50 US states or Washington, DC"
+2015-2018,immigrant,proportion,31.93933411110114,Grouped,Other
+2015-2018,immigrant,freq,3559,Grouped,Other
+Total,immigrant,proportion,0.057624113475177305,Grouped,
+Total,immigrant,freq,13,Grouped,
+Total,immigrant,proportion,69.40159574468085,Grouped,"Born in 50 US states or Washington, DC"
+Total,immigrant,freq,15657,Grouped,"Born in 50 US states or Washington, DC"
+Total,immigrant,proportion,30.54078014184397,Grouped,Other
+Total,immigrant,freq,6890,Grouped,Other
+2011-2014,education,proportion,5.6144346150477356,Grouped,
+2011-2014,education,freq,641,Grouped,
+2011-2014,education,proportion,52.386791626521855,Grouped,Any college and above
+2011-2014,education,freq,5981,Grouped,Any college and above
+2011-2014,education,proportion,20.592099500744503,Grouped,High school only
+2011-2014,education,freq,2351,Grouped,High school only
+2011-2014,education,proportion,21.406674257685907,Grouped,Less than high school
+2011-2014,education,freq,2444,Grouped,Less than high school
+2015-2018,education,proportion,4.881988692452661,Grouped,
+2015-2018,education,freq,544,Grouped,
+2015-2018,education,proportion,52.61599210266535,Grouped,Any college and above
+2015-2018,education,freq,5863,Grouped,Any college and above
+2015-2018,education,proportion,21.636902090998834,Grouped,High school only
+2015-2018,education,freq,2411,Grouped,High school only
+2015-2018,education,proportion,20.865117113883155,Grouped,Less than high school
+2015-2018,education,freq,2325,Grouped,Less than high school
+Total,education,proportion,5.252659574468085,Grouped,
+Total,education,freq,1185,Grouped,
+Total,education,proportion,52.5,Grouped,Any college and above
+Total,education,freq,11844,Grouped,Any college and above
+Total,education,proportion,21.108156028368793,Grouped,High school only
+Total,education,freq,4762,Grouped,High school only
+Total,education,proportion,21.13918439716312,Grouped,Less than high school
+Total,education,freq,4769,Grouped,Less than high school
+2011-2014,marital,proportion,5.5356047998598585,Grouped,
+2011-2014,marital,freq,632,Grouped,
+2011-2014,marital,proportion,47.24533590260138,Grouped,married
+2011-2014,marital,freq,5394,Grouped,married
+2011-2014,marital,proportion,26.07515109047911,Grouped,never married
+2011-2014,marital,freq,2977,Grouped,never married
+2011-2014,marital,proportion,21.14390820705965,Grouped,previously married
+2011-2014,marital,freq,2414,Grouped,previously married
+2015-2018,marital,proportion,4.747375033653415,Grouped,
+2015-2018,marital,freq,529,Grouped,
+2015-2018,marital,proportion,47.76092614197254,Grouped,married
+2015-2018,marital,freq,5322,Grouped,married
+2015-2018,marital,proportion,26.186843758413353,Grouped,never married
+2015-2018,marital,freq,2918,Grouped,never married
+2015-2018,marital,proportion,21.304855065960695,Grouped,previously married
+2015-2018,marital,freq,2374,Grouped,previously married
+Total,marital,proportion,5.1462765957446805,Grouped,
+Total,marital,freq,1161,Grouped,
+Total,marital,proportion,47.5,Grouped,married
+Total,marital,freq,10716,Grouped,married
+Total,marital,proportion,26.13031914893617,Grouped,never married
+Total,marital,freq,5895,Grouped,never married
+Total,marital,proportion,21.22340425531915,Grouped,previously married
+Total,marital,freq,4788,Grouped,previously married
+2011-2014,insurance,proportion,0.14014189366733817,Grouped,
+2011-2014,insurance,freq,16,Grouped,
+2011-2014,insurance,proportion,77.42839625120435,Grouped,Covered by health insurance
+2011-2014,insurance,freq,8840,Grouped,Covered by health insurance
+2011-2014,insurance,proportion,22.43146185512832,Grouped,No health insurance
+2011-2014,insurance,freq,2561,Grouped,No health insurance
+2015-2018,insurance,proportion,0.26025307367854256,Grouped,
+2015-2018,insurance,freq,29,Grouped,
+2015-2018,insurance,proportion,83.37970026025307,Grouped,Covered by health insurance
+2015-2018,insurance,freq,9291,Grouped,Covered by health insurance
+2015-2018,insurance,proportion,16.360046666068385,Grouped,No health insurance
+2015-2018,insurance,freq,1823,Grouped,No health insurance
+Total,insurance,proportion,0.19946808510638298,Grouped,
+Total,insurance,freq,45,Grouped,
+Total,insurance,proportion,80.36790780141844,Grouped,Covered by health insurance
+Total,insurance,freq,18131,Grouped,Covered by health insurance
+Total,insurance,proportion,19.43262411347518,Grouped,No health insurance
+Total,insurance,freq,4384,Grouped,No health insurance
+2011-2014,insurance_type,proportion,100,Grouped,
+2011-2014,insurance_type,freq,11417,Grouped,
+2015-2018,insurance_type,proportion,100,Grouped,
+2015-2018,insurance_type,freq,11143,Grouped,
+Total,insurance_type,proportion,100,Grouped,
+Total,insurance_type,freq,22560,Grouped,

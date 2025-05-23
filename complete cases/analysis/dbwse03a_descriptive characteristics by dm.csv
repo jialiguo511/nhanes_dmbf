@@ -1,0 +1,25 @@
+variable,DM,NoDM,PreDM,category
+age,47.4 	 (9.2),35.1 	 (11.9),41 	 (11.7),NA
+dm_age,40.3 	 (10.8),NaN 	 (NA),NaN 	 (NA),NA
+female,43.6,55.8,41,NA
+education,0,0.1,0.1,Refused or don't know
+education,52.2,68.7,61.4,Any college and above
+education,26.6,19.3,23.3,High school only
+education,21.2,12,15.2,Less than high school
+fipr,77,81.7,82.1,above poverty
+fipr,0.3,0.4,0.1,at poverty
+fipr,22.6,18,17.9,below poverty
+immigrant,74.1,82.4,77.3,"Born in 50 US states or Washington, DC"
+immigrant,25.8,17.5,22.7,Other
+immigrant,0.2,0.1,0,Refused or don't know
+insurance,0,0,0.1,
+insurance,79.9,80,77,Covered by health insurance
+insurance,20.1,20,22.9,No health insurance
+marital,55.4,46.1,54.6,married
+marital,27.8,43,31,never married
+marital,16.9,10.9,14.4,previously married
+race_eth,6.6,5.9,6.1,Asian
+race_eth,24.4,16.2,19.5,Hispanic
+race_eth,16.1,9.7,10.2,NH Black
+race_eth,49.7,64.9,60.3,NH White
+race_eth,3.2,3.3,3.9,Other Race

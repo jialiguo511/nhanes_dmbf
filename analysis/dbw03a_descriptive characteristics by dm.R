@@ -2,7 +2,7 @@ rm(list=ls());gc();source(".Rprofile")
 
 library(survey)
 
-nhanes_svy_dfs <- readRDS(paste0(path_nhanes_dmbf_folder, "/working/cleaned/dbw02_weighted df.RDS")) 
+nhanes_svy_dfs <- readRDS(paste0(path_nhanes_dmbf_folder, "/working/cleaned/dbw02_weighted df one dm group.RDS")) 
 
 ### continuous variables
 age_list <- vector("list", length(nhanes_svy_dfs))
@@ -15,8 +15,6 @@ for (i in seq_along(nhanes_svy_dfs)) {
   # Calculate means and variances
   mean_age <- svyby(~age, ~dm, design = nhanes_total_svy, svymean, na.rm = TRUE)
   var_age <- svyby(~age, ~dm, design = nhanes_total_svy, svyvar, na.rm = TRUE)
-  
-  age_ttest <- svyttest(dm_age ~ factor(dm), design = nhanes_total_svy)
   
   mean_dm_age <- svyby(~dm_age, ~dm, design = nhanes_total_svy, svymean, na.rm = TRUE)
   var_dm_age <- svyby(~dm_age, ~dm, design = nhanes_total_svy, svyvar, na.rm = TRUE)
@@ -144,7 +142,6 @@ prop_results <- bind_rows(prop_list) %>%
   group_by(variable, category) %>%
   summarize(`NoDM` = as.character(round(mean(`NoDM`, na.rm = TRUE), 1)),
             `PreDM` = as.character(round(mean(`PreDM`, na.rm = TRUE), 1)),
-            `NewDM` = as.character(round(mean(`NewDM`, na.rm = TRUE), 1)),
             `DM` = as.character(round(mean(`DM`, na.rm = TRUE), 1)),
             .groups = 'drop')
 
@@ -160,7 +157,6 @@ all_results <- bind_rows(continuous_results, prop_results) %>%
 library(lmtest)
 
 age_result <- vector("list", length(nhanes_svy_dfs))
-dm_age_result <- vector("list", length(nhanes_svy_dfs))
 female_result <- vector("list", length(nhanes_svy_dfs))
 race_result <- vector("list", length(nhanes_svy_dfs))
 fipr_result <- vector("list", length(nhanes_svy_dfs))
@@ -174,10 +170,8 @@ for (i in seq_along(nhanes_svy_dfs)) {
   
   # continuous variables
   age_test <- svyglm(age ~ dm, design = nhanes_total_svy)
-  dm_age_test <- svyglm(dm_age ~ dm, design = nhanes_total_svy)
   
   age_result[[i]] <- regTermTest(age_test, ~ dm)
-  dm_age_result[[i]] <- regTermTest(dm_age_test, ~ dm)
   
   # categorical variables
   female_result[[i]] <- svychisq(~ female + dm, design = nhanes_total_svy, statistic = "F")
@@ -202,10 +196,8 @@ nhanes_all_svy <- nhanes_all %>%
                    variance = "YG")
 
 age_test <- svyglm(age ~ dm, design = nhanes_all_svy)
-dm_age_test <- svyglm(dm_age ~ dm, design = nhanes_total_svy)
 
 age_result <- regTermTest(age_test, ~ dm)
-dm_age_result <- regTermTest(dm_age_test, ~ dm)
 
 female_result <- svychisq(~ female + dm, design = nhanes_all_svy, statistic = "F")
 race_result <- svychisq(~ race_eth + dm, design = nhanes_all_svy, statistic = "F")

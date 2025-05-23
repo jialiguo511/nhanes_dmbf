@@ -3,7 +3,7 @@ rm(list=ls());gc();source(".Rprofile")
 library(survey)
 library(mitools)
 
-nhanes_svy_dfs <- readRDS(paste0(path_nhanes_dmbf_folder, "/working/cleaned/dbw02_weighted df.RDS")) 
+nhanes_svy_dfs <- readRDS(paste0(path_nhanes_dmbf_folder, "/working/cleaned/dbw02_weighted df one dm group.RDS")) 
 
 weight_data_list <- list()
 
@@ -148,6 +148,6 @@ library(patchwork)
 
 combined_plot <- fig_male / fig_female 
 
-ggsave(combined_plot, filename=paste0(path_nhanes_dmbf_folder, "/figures/barchart of body fat in bmi deciles by sex.png"),width=12, height = 12)
+ggsave(combined_plot, filename=paste0(path_nhanes_dmbf_folder, "/figures/one dm group/barchart of body fat in bmi deciles by sex.png"),width=12, height = 12)
 
 
