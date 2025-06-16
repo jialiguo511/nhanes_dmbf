@@ -10,6 +10,8 @@ bmi_list <- list()
 fat_list <- list()
 visfat_list <- list()
 subfat_list <- list()
+wt_list <- list()
+whtr_list <- list()
 
 for (i in 1:length(nhanes_svy_dfs)) {
   df <- nhanes_svy_dfs[[i]] 
@@ -92,6 +94,27 @@ for (i in 1:length(nhanes_svy_dfs)) {
   subfat_list[[i]] <- subfat_emm_df
   
   
+  wt_mod <- svyglm(waistcircumference ~ age + dm_race_sex, design = nhanes_total_svy)
+  wt_emm <- emmeans(
+    object = wt_mod, 
+    specs  = ~ dm_race_sex, 
+    data   = nhanes_total_svy$variables  # <-- specify the underlying data
+  )
+  
+  wt_emm_df <- as.data.frame(summary(wt_emm))
+  wt_list[[i]] <- wt_emm_df
+  
+  
+  whtr_mod <- svyglm(WHtR ~ age + dm_race_sex, design = nhanes_total_svy)
+  whtr_emm <- emmeans(
+    object = whtr_mod, 
+    specs  = ~ dm_race_sex, 
+    data   = nhanes_total_svy$variables  # <-- specify the underlying data
+  )
+  
+  whtr_emm_df <- as.data.frame(summary(whtr_emm))
+  whtr_list[[i]] <- whtr_emm_df
+  
 }
 
 
@@ -131,7 +154,11 @@ all_results <- bind_rows(
   pool_ad(visfat_list) %>% select(dm_race_sex, theta_D, L, U) %>% 
     mutate(variable = "Visceral fat mass"),
   pool_ad(subfat_list) %>% select(dm_race_sex, theta_D, L, U) %>% 
-    mutate(variable = "Subcutaneous fat mass")
+    mutate(variable = "Subcutaneous fat mass"),
+  pool_ad(wt_list) %>% select(dm_race_sex, theta_D, L, U) %>% 
+    mutate(variable = "Waist circumference"),
+  pool_ad(whtr_list) %>% select(dm_race_sex, theta_D, L, U) %>% 
+    mutate(variable = "Waist-to-Height ratio")
 ) %>% 
   separate(dm_race_sex, into = c("sex", "race_eth", "dm"), sep = " ", extra = "merge") %>% 
   rename(estimate = theta_D,
