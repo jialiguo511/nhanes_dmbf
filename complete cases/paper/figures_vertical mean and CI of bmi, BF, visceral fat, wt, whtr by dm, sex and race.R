@@ -47,7 +47,7 @@ fat_plot <- ggplot(fat_racesex, aes(x = dm, y = estimate, fill = dm)) +
     name = "Diabetes status",
     values = c(NoDM = "red", PreDM = "blue", DM = "darkgreen")
   ) +
-  labs(x = NULL, y = "BMI (kg/m²)") +
+  labs(x = NULL, y = "Total Body Fat (%)") +
   theme_minimal(base_size = 14) +
   theme(
     panel.border = element_rect(color = "black", fill = NA, linewidth = 0.5),
@@ -72,7 +72,7 @@ visfat_plot <- ggplot(visfat_racesex, aes(x = dm, y = estimate, fill = dm)) +
     name = "Diabetes status",
     values = c(NoDM = "red", PreDM = "blue", DM = "darkgreen")
   ) +
-  labs(x = NULL, y = "BMI (kg/m²)") +
+  labs(x = NULL, y = "Visceral fat mass (g)") +
   theme_minimal(base_size = 14) +
   theme(
     panel.border = element_rect(color = "black", fill = NA, linewidth = 0.5),
@@ -96,7 +96,7 @@ wt_plot <- ggplot(wt_racesex, aes(x = dm, y = estimate, fill = dm)) +
     name = "Diabetes status",
     values = c(NoDM = "red", PreDM = "blue", DM = "darkgreen")
   ) +
-  labs(x = NULL, y = "BMI (kg/m²)") +
+  labs(x = NULL, y = "Waist circumference (cm)") +
   theme_minimal(base_size = 14) +
   theme(
     panel.border = element_rect(color = "black", fill = NA, linewidth = 0.5),
@@ -129,7 +129,7 @@ whtr_plot <- ggplot(whtr_racesex, aes(x = dm, y = estimate, fill = dm)) +
     name = "Diabetes status",
     values = c(NoDM = "red", PreDM = "blue", DM = "darkgreen")
   ) +
-  labs(x = NULL, y = "BMI (kg/m²)") +
+  labs(x = NULL, y = "Waist-to-Height ratio") +
   theme_minimal(base_size = 14) +
   theme(
     panel.border = element_rect(color = "black", fill = NA, linewidth = 0.5),
