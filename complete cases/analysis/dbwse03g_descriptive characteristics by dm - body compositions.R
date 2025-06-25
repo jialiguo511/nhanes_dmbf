@@ -123,24 +123,24 @@ pool_ad <- function(results_list) {
       L = theta_D + qt(p = 0.025, df = nu2) * sqrt(T_D), # Lower 95% CI
       U = theta_D + qt(p = 0.975, df = nu2) * sqrt(T_D), # Upper 95% CI
       sqrt_T_D = sqrt(T_D)                               # Square root of total variance
-    ) %>% 
-    mutate(estimate = paste0(round(theta_D, 1), " \t (",
-                             round(L, 1), ", ",
-                             round(U, 1), ")"))
+    ) 
   
   return(pooled_results)
 }
 
 
 all_results <- bind_rows(
-  pool_ad(bmi_list) %>% select(dm, estimate) %>% mutate(variable = "BMI"), 
-  pool_ad(fat_list) %>% select(dm, estimate) %>% mutate(variable = "Fat percentage"), 
-  pool_ad(visfat_list) %>% select(dm, estimate) %>% mutate(variable = "Visceral fat mass"),
-  pool_ad(fpg_list) %>% select(dm, estimate) %>% mutate(variable = "Fasting glucose"), 
-  pool_ad(a1c_list) %>% select(dm, estimate) %>% mutate(variable = "Glycohemoglobin"),
-  pool_ad(wt_list) %>% select(dm, estimate) %>% mutate(variable = "Waistcircumference"),
-  pool_ad(whtr_list) %>% select(dm, estimate) %>% mutate(variable = "Waist-to-Height Ratio")
+  pool_ad(bmi_list) %>% select(dm, theta_D, L, U) %>% mutate(variable = "BMI"), 
+  pool_ad(fat_list) %>% select(dm, theta_D, L, U) %>% mutate(variable = "Fat percentage"), 
+  pool_ad(visfat_list) %>% select(dm, theta_D, L, U) %>% mutate(variable = "Visceral fat mass"),
+  pool_ad(fpg_list) %>% select(dm, theta_D, L, U) %>% mutate(variable = "Fasting glucose"), 
+  pool_ad(a1c_list) %>% select(dm, theta_D, L, U) %>% mutate(variable = "Glycohemoglobin"),
+  pool_ad(wt_list) %>% select(dm, theta_D, L, U) %>% mutate(variable = "Waistcircumference"),
+  pool_ad(whtr_list) %>% select(dm, theta_D, L, U) %>% mutate(variable = "Waist-to-Height Ratio")
 ) %>% 
+  rename(estimate = theta_D,
+         CI_lower = L, 
+         CI_upper = U) %>% 
   write_csv(., "complete cases/analysis/dbwse03g_descriptive characteristics by dm - body compositions.csv")
 
 
