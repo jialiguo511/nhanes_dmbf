@@ -16,7 +16,14 @@ nhanes_svy_dfs <- readRDS(
 # -------------------------------
 # Settings
 # -------------------------------
-bmi_var <- "bmi"
+measurements <- c(
+  "bmi" = "BMI (kg/m²)",
+  "fat_percentage" = "Body Fat (%)",
+  "visceral_fat" = "Visceral Fat (g)",
+  "waistcircumference" = "Waist Circumference (cm)",
+  "WHtR" = "Waist Circumference to Height Ratio"
+)
+
 dm_var  <- "dm"       # diabetes status
 
 probs <- seq(0.1, 0.9, by = 0.1)
@@ -97,18 +104,28 @@ extract_one_design <- function(des, bmi_var, dm_var, probs) {
 }
 
 # -------------------------------
-# 1) Extract all imputations
+# 1) Loop through each measurement
 # -------------------------------
-all_imp <- lapply(
-  nhanes_svy_dfs,
-  extract_one_design,
-  bmi_var = bmi_var,
-  dm_var  = dm_var,
-  probs   = probs
-)
-
-all_imp_df <- bind_rows(all_imp, .id = "imp") %>%
-  mutate(imp = as.integer(imp))
+for (meas_idx in seq_along(measurements)) {
+  
+  meas_var <- names(measurements)[meas_idx]
+  meas_label <- measurements[meas_idx]
+  
+  cat("\n=== Processing:", meas_label, "===")
+  
+  # -------------------------------
+  # Extract all imputations
+  # -------------------------------
+  all_imp <- lapply(
+    nhanes_svy_dfs,
+    extract_one_design,
+    bmi_var = meas_var,
+    dm_var  = dm_var,
+    probs   = probs
+  )
+  
+  all_imp_df <- bind_rows(all_imp, .id = "imp") %>%
+    mutate(imp = as.integer(imp))
 
 # -------------------------------
 # 2) Rubin combine across imputations
@@ -154,8 +171,10 @@ mean_df <- mean_df %>%
 q_df <- q_df %>%
   left_join(group_df %>% select(dm, x), by = "dm")
 
-# Extract 10th and 90th deciles for each group
+# Extract key deciles for each group
 decile_10th <- q_df %>% dplyr::filter(prob == 0.1)
+decile_25th <- q_df %>% dplyr::filter(prob == 0.2)
+decile_75th <- q_df %>% dplyr::filter(prob == 0.8)
 decile_90th <- q_df %>% dplyr::filter(prob == 0.9)
 
 # Create data for bar ranges (from 10th to 90th decile)
@@ -166,10 +185,12 @@ bar_df <- decile_10th %>%
     by = "dm"
   )
 
-# Create label data (mean, 10th, 90th)
+# Create label data (mean, 10th, 25th, 75th, 90th)
 label_df <- bind_rows(
   mean_df %>% mutate(label_type = "Mean"),
   decile_10th %>% mutate(label_type = "10th"),
+  decile_25th %>% mutate(label_type = "25th"),
+  decile_75th %>% mutate(label_type = "75th"),
   decile_90th %>% mutate(label_type = "90th")
 ) %>%
   mutate(
@@ -214,16 +235,17 @@ p <- ggplot() +
     linewidth = 1,
     color = "red"
   ) +
-  # Labels for mean, 10th, and 90th
+  # Labels for mean, 10th, 25th, 75th, and 90th
   geom_text(
     data = label_df,
     aes(x = x_nudge, y = est, label = label, color = label_type),
     hjust = 0,
-    size = 3,
+    size = 3.5,
     fontface = "bold"
   ) +
   scale_color_manual(
-    values = c("Mean" = "red", "10th" = "darkblue", "90th" = "darkblue"),
+    values = c("Mean" = "red", "10th" = "darkblue", "25th" = "purple",
+               "75th" = "purple", "90th" = "darkblue"),
     name = ""
   ) +
   scale_x_continuous(
@@ -233,19 +255,24 @@ p <- ggplot() +
   ) +
   labs(
     x = NULL,
-    y = "BMI (kg/m²)",
-    title = "Survey-weighted BMI: Mean and Deciles (10th-90th) by Diabetes Status",
+    y = meas_label,
+    title = paste0("Survey-weighted ", meas_label, ":\n", "Mean and Deciles (10th-90th) by Diabetes Status"),
     subtitle = "Bars show 10th-90th decile range; horizontal lines show each decile; red line = mean"
   ) +
-  theme_classic(base_size = 12) +
+  theme_classic(base_size = 15) +
   theme(
     axis.text.x = element_text(angle = 0, hjust = 0.5),
-    plot.title = element_text(face = "bold", size = 13),
-    plot.subtitle = element_text(size = 10),
+    plot.title = element_text(face = "bold", size = 16),
+    plot.subtitle = element_text(size = 12),
     legend.position = "bottom"
   )
-
-print(p)
-
-# Save plot
-# ggsave("bmi_deciles_by_dm.png", p, width = 8, height = 6, dpi = 300)
+  
+  print(p)
+  
+  # Save plot
+  plot_filename <- paste0(gsub("[^A-Za-z0-9]", "_", meas_label), "_deciles_by_dm.png")
+  ggsave(filename = paste0(path_nhanes_dmbf_folder, "/figures/complete cases/", plot_filename),
+         plot = p, width = 8, height = 6, dpi = 300)
+  cat("\nSaved:", plot_filename)
+  
+} # End loop over measurements
