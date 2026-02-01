@@ -1,0 +1,11 @@
+outcome,model_type,added_predictor,Brier,N
+DM vs NoDM,base,bmi_only,0.08178115867950037,5168
+DM vs NoDM,incremental,fat_percentage,0.0816795905802596,5168
+DM vs NoDM,incremental,visceral_fat,0.07908845771511015,5168
+DM vs NoDM,incremental,waistcircumference,0.07947200853510904,5168
+DM vs NoDM,incremental,WHtR,0.08009595567123919,5168
+PreDM vs NoDM,base,bmi_only,0.22783281975908815,5168
+PreDM vs NoDM,incremental,fat_percentage,0.22763127227693397,5168
+PreDM vs NoDM,incremental,visceral_fat,0.22782149123541007,5168
+PreDM vs NoDM,incremental,waistcircumference,0.22781588237110534,5168
+PreDM vs NoDM,incremental,WHtR,0.22762150340670392,5168
