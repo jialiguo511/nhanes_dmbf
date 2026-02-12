@@ -1,6 +1,7 @@
 rm(list=ls());gc();source(".Rprofile")
 
 library(ggplot2)
+library(patchwork)
 
 fig_df <- read_csv("complete cases/analysis/dbwse03c_descriptive characteristics by dm, sex and race.csv")  %>% 
   mutate(sex = factor(sex, levels = c("male", "female"), labels = c("MEN","WOMEN")),
@@ -23,18 +24,17 @@ bmi_plot <- ggplot(bmi_racesex, aes(x = dm, y = estimate, shape = dm)) +
   facet_grid(sex ~ race_eth, scales = "fixed") +
   scale_shape_manual(name = "Diabetes status", values = shape_vals) +
   scale_color_manual(name = "Diabetes status", values = color_vals) +
-  labs(x = NULL, y = "BMI (kg/m²)") +
+  labs(x = NULL, y = "BMI (kg/m²)", subtitle = "A. Body Mass Index (BMI)") +
   theme_minimal(base_size = 14) +
   theme(
     panel.border = element_rect(color = "black", fill = NA, linewidth = 0.5),
     panel.spacing = unit(0.8, "lines"),
     legend.position = "bottom",
     legend.title = element_text(hjust = 0.5),
+    plot.subtitle = element_text(face = "bold", size = 15, hjust = 0),
     strip.background = element_rect(fill = "grey95", color = "black", linewidth = 0.5),
     strip.text = element_text(size = 12)
   )
-
-ggsave(bmi_plot, filename=paste0(path_nhanes_dmbf_folder,"/figures/complete cases/vertical mean and ci of bmi by dm, sex and race.jpg"),width=8,height =6)
 
 
 fat_racesex <-  fig_df %>% dplyr::filter(variable == "Fat percentage")
@@ -45,19 +45,17 @@ fat_plot <- ggplot(fat_racesex, aes(x = dm, y = estimate, shape = dm, color = dm
   facet_grid(sex ~ race_eth, scales = "fixed") +
   scale_shape_manual(name = "Diabetes status", values = shape_vals) +
   scale_color_manual(name = "Diabetes status", values = color_vals) +
-  labs(x = NULL, y = "Total Body Fat (%)") +
+  labs(x = NULL, y = "Total Body Fat (%)", subtitle = "B. Total Body Fat (%TBF)") +
   theme_minimal(base_size = 14) +
   theme(
     panel.border = element_rect(color = "black", fill = NA, linewidth = 0.5),
     panel.spacing = unit(0.8, "lines"),
     legend.position = "bottom",
     legend.title = element_text(hjust = 0.5),
+    plot.subtitle = element_text(face = "bold", size = 15, hjust = 0),
     strip.background = element_rect(fill = "grey95", color = "black", linewidth = 0.5),
     strip.text = element_text(size = 12)
   )
-
-
-ggsave(fat_plot, filename=paste0(path_nhanes_dmbf_folder,"/figures/complete cases/vertical mean and ci of bf by dm, sex and race.jpg"),width=8,height =6)
 
 
 visfat_racesex <- fig_df %>% dplyr::filter(variable == "Visceral fat mass")
@@ -68,19 +66,17 @@ visfat_plot <- ggplot(visfat_racesex, aes(x = dm, y = estimate, shape = dm, colo
   facet_grid(sex ~ race_eth, scales = "fixed") +
   scale_shape_manual(name = "Diabetes status", values = shape_vals) +
   scale_color_manual(name = "Diabetes status", values = color_vals) +
-  labs(x = NULL, y = "Visceral fat mass (g)") +
+  labs(x = NULL, y = "Visceral fat mass (g)", subtitle = "C. Visceral Fat (VF)") +
   theme_minimal(base_size = 14) +
   theme(
     panel.border = element_rect(color = "black", fill = NA, linewidth = 0.5),
     panel.spacing = unit(0.8, "lines"),
     legend.position = "bottom",
     legend.title = element_text(hjust = 0.5),
+    plot.subtitle = element_text(face = "bold", size = 15, hjust = 0),
     strip.background = element_rect(fill = "grey95", color = "black", linewidth = 0.5),
     strip.text = element_text(size = 12)
   )
-
-
-ggsave(visfat_plot, filename=paste0(path_nhanes_dmbf_folder,"/figures/complete cases/vertical mean and ci of visceral fat by dm, sex and race.jpg"),width=8,height =6)
 
 wt_racesex <- fig_df %>% dplyr::filter(variable == "Waist circumference")
 
@@ -90,19 +86,17 @@ wt_plot <- ggplot(wt_racesex, aes(x = dm, y = estimate, shape = dm, color = dm))
   facet_grid(sex ~ race_eth, scales = "fixed") +
   scale_shape_manual(name = "Diabetes status", values = shape_vals) +
   scale_color_manual(name = "Diabetes status", values = color_vals) +
-  labs(x = NULL, y = "Waist circumference (cm)") +
+  labs(x = NULL, y = "Waist circumference (cm)", subtitle = "D. Waist Circumference (WC)") +
   theme_minimal(base_size = 14) +
   theme(
     panel.border = element_rect(color = "black", fill = NA, linewidth = 0.5),
     panel.spacing = unit(0.8, "lines"),
     legend.position = "bottom",
     legend.title = element_text(hjust = 0.5),
+    plot.subtitle = element_text(face = "bold", size = 15, hjust = 0),
     strip.background = element_rect(fill = "grey95", color = "black", linewidth = 0.5),
     strip.text = element_text(size = 12)
   )
-
-
-ggsave(wt_plot, filename=paste0(path_nhanes_dmbf_folder,"/figures/complete cases/vertical mean and ci of wt by dm, sex and race.jpg"),width=8,height =6)
 
 
 fig_df <- read_csv("complete cases/analysis/dbwse03c_descriptive characteristics by dm, sex and race.csv") %>% 
@@ -121,18 +115,25 @@ whtr_plot <- ggplot(whtr_racesex, aes(x = dm, y = estimate, shape = dm, color = 
   facet_grid(sex ~ race_eth, scales = "fixed") +
   scale_shape_manual(name = "Diabetes status", values = shape_vals) +
   scale_color_manual(name = "Diabetes status", values = color_vals) +
-  labs(x = NULL, y = "Waist-to-Height ratio") +
+  labs(x = NULL, y = "Waist-to-Height ratio", subtitle = "E. Waist-to-Height Ratio (WTHR)") +
   theme_minimal(base_size = 14) +
   theme(
     panel.border = element_rect(color = "black", fill = NA, linewidth = 0.5),
     panel.spacing = unit(0.8, "lines"),
     legend.position = "bottom",
     legend.title = element_text(hjust = 0.5),
+    plot.subtitle = element_text(face = "bold", size = 15, hjust = 0),
     strip.background = element_rect(fill = "grey95", color = "black", linewidth = 0.5),
     strip.text = element_text(size = 12)
   )
 
+# Combine all plots into 2x3 grid
+combined_plot <- wrap_plots(list(bmi_plot, fat_plot, visfat_plot, wt_plot, whtr_plot), 
+                             ncol = 3, nrow = 2, guides = "collect") &
+  theme(legend.position = "bottom")
 
-ggsave(whtr_plot, filename=paste0(path_nhanes_dmbf_folder,"/figures/complete cases/vertical mean and ci of whtr by dm, sex and race.jpg"),width=8,height =6)
 
+ggsave(combined_plot, 
+       filename = paste0(path_nhanes_dmbf_folder, "/figures/complete cases/combined_vertical_mean_ci_by_dm_sex_race.png"),
+       width = 22, height = 14, dpi = 300)
 

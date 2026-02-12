@@ -4,6 +4,7 @@ library(survey)
 library(ggplot2)
 library(dplyr)
 library(tidyr)
+library(patchwork)
 
 # -------------------------------
 # Load survey-weighted data (10 imputations)
@@ -22,6 +23,15 @@ measurements <- c(
   "visceral_fat" = "Visceral Fat (g)",
   "waistcircumference" = "Waist Circumference (cm)",
   "WHtR" = "Waist Circumference to Height Ratio"
+)
+
+# Panel labels for combined figure
+panel_labels <- c(
+  "bmi" = "A. Body Mass Index (BMI)",
+  "fat_percentage" = "B. Total Body Fat (%TBF)",
+  "visceral_fat" = "C. Visceral Fat (VF)",
+  "waistcircumference" = "D. Waist Circumference (WC)",
+  "WHtR" = "E. Waist-to-Height Ratio (WTHR)"
 )
 
 sex_var <- "female"   # 0 = Male, 1 = Female
@@ -110,8 +120,10 @@ extract_one_design <- function(des, bmi_var, sex_var, dm_var, probs) {
 }
 
 # -------------------------------
-# 1) Loop through each measurement
+# 1) Loop through each measurement and store plots
 # -------------------------------
+plot_list <- list()
+
 for (meas_idx in seq_along(measurements)) {
   
   meas_var <- names(measurements)[meas_idx]
@@ -174,7 +186,7 @@ q_df <- combined %>%
 mean_df <- mean_df %>%
   mutate(
     group = interaction(sex_label, dm_label, sep = " | "),
-    x = row_number()
+    x = row_number() * 2.5  # Increase spacing between bars
   )
 
 # Extract just the mapping we need
@@ -211,14 +223,14 @@ label_df <- bind_rows(
   decile_90th %>% mutate(label_type = "90th")
 ) %>%
   mutate(
-    label = sprintf("%.1f", est),
-    x_nudge = x + 0.4  # position labels to the right of bars
+    label = ifelse(meas_var == "WHtR", sprintf("%.2f", est), sprintf("%.1f", est)),
+    x_nudge = x + 0.6  # position labels to the right of bars
   )
 
 # -------------------------------
 # 4) Plot
 # -------------------------------
-bar_width <- 0.7
+bar_width <- 1.0
 
 p <- ggplot() +
   # Bars showing 10th-90th decile range
@@ -257,7 +269,7 @@ p <- ggplot() +
     data = label_df,
     aes(x = x_nudge, y = est, label = label, color = label_type),
     hjust = 0,
-    size = 4,
+    size = 4.5,
     fontface = "bold"
   ) +
   scale_color_manual(
@@ -268,28 +280,40 @@ p <- ggplot() +
   scale_x_continuous(
     breaks = group_df$x,
     labels = as.character(group_df$group),
-    expand = expansion(mult = c(0.05, 0.15))
+    expand = expansion(mult = c(0.05, 0.25))
   ) +
   labs(
     x = NULL,
     y = meas_label,
-    title = paste0("Survey-weighted ", meas_label, ": Mean and Deciles (10th-90th) by Sex and Diabetes Status"),
-    subtitle = "Bars show 10th-90th decile range; horizontal lines show each decile; red line = mean"
+    subtitle = panel_labels[meas_var]
   ) +
-  theme_classic(base_size = 15) +
+  theme_classic(base_size = 14) +
   theme(
-    axis.text.x = element_text(angle = 25, hjust = 1),
-    plot.title = element_text(face = "bold", size = 16),
-    plot.subtitle = element_text(size = 12),
-    legend.position = "bottom"
+    axis.text.x = element_text(angle = 25, hjust = 1, size = 12),
+    axis.text.y = element_text(size = 12),
+    axis.title = element_text(size = 13),
+    plot.subtitle = element_text(face = "bold", size = 15, hjust = 0),
+    legend.position = "bottom",
+    legend.text = element_text(size = 11),
+    legend.title = element_text(size = 11)
   )
   
-  print(p)
-  
-  # Save plot
-  plot_filename <- paste0(gsub("[^A-Za-z0-9]", "_", meas_label), "_deciles_by_sex_dm.png")
-  ggsave(filename = paste0(path_nhanes_dmbf_folder, "/figures/complete cases/", plot_filename), 
-         plot = p, width = 12, height = 8.5, dpi = 300)
-  cat("\nSaved:", plot_filename)
+  # Store plot in list
+  plot_list[[meas_var]] <- p
+  cat("\n  Created plot for:", panel_labels[meas_var])
   
 } # End loop over measurements
+
+# -------------------------------
+# 5) Combine all plots into 3x2 grid
+# -------------------------------
+combined_plot <- wrap_plots(plot_list, ncol = 3, nrow = 2, guides = "collect") &
+  theme(legend.position = "bottom")
+
+print(combined_plot)
+
+# Save combined figure
+combined_filename <- "combined_deciles_by_sex_dm.png"
+ggsave(filename = paste0(path_nhanes_dmbf_folder, "/figures/complete cases/", combined_filename), 
+       plot = combined_plot, width = 20, height = 14, dpi = 300)
+cat("\n\nSaved combined figure:", combined_filename)
