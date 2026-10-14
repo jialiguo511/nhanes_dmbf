@@ -1,7 +1,11 @@
-rm(list=ls());gc();source(".Rprofile")
+rm(list = ls()); gc()
 
 library(ggplot2)
 library(patchwork)
+library(dplyr)
+library(readr)
+
+analysis_output_dir <- "/Users/jialiguo/jialiguo/NHANES Adiposity"
 
 fig_df <- read_csv("complete cases/analysis/dbwse03c_descriptive characteristics by dm, sex and race.csv")  %>% 
   mutate(sex = factor(sex, levels = c("male", "female"), labels = c("MEN","WOMEN")),
@@ -19,83 +23,99 @@ color_vals <- c(NoDM = "red", PreDM = "blue", DM = "darkgreen")
 bmi_racesex <- fig_df %>% dplyr::filter(variable == "BMI")
 
 bmi_plot <- ggplot(bmi_racesex, aes(x = dm, y = estimate, shape = dm)) +
-  geom_point(size = 3, aes(color = dm)) +
-  geom_errorbar(aes(ymin = CI_lower, ymax = CI_upper, color = dm), width = 0.2) +
+  geom_point(size = 4, aes(color = dm)) +
+  geom_errorbar(aes(ymin = CI_lower, ymax = CI_upper, color = dm), width = 0.2, linewidth = 0.8) +
   facet_grid(sex ~ race_eth, scales = "fixed") +
   scale_shape_manual(name = "Diabetes status", values = shape_vals) +
   scale_color_manual(name = "Diabetes status", values = color_vals) +
   labs(x = NULL, y = "BMI (kg/m²)", subtitle = "A. Body Mass Index (BMI)") +
-  theme_minimal(base_size = 14) +
+  theme_minimal(base_size = 18) +
   theme(
     panel.border = element_rect(color = "black", fill = NA, linewidth = 0.5),
     panel.spacing = unit(0.8, "lines"),
     legend.position = "bottom",
-    legend.title = element_text(hjust = 0.5),
-    plot.subtitle = element_text(face = "bold", size = 15, hjust = 0),
+    legend.title = element_text(size = 16, hjust = 0.5),
+    legend.text = element_text(size = 16),
+    axis.text.x = element_text(size = 14, angle = 45, hjust = 1, vjust = 1),
+    axis.text.y = element_text(size = 16),
+    axis.title.y = element_text(size = 18),
+    plot.subtitle = element_text(face = "bold", size = 20, hjust = 0),
     strip.background = element_rect(fill = "grey95", color = "black", linewidth = 0.5),
-    strip.text = element_text(size = 12)
+    strip.text = element_text(size = 16)
   )
 
 
 fat_racesex <-  fig_df %>% dplyr::filter(variable == "Fat percentage")
 
 fat_plot <- ggplot(fat_racesex, aes(x = dm, y = estimate, shape = dm, color = dm)) +
-  geom_point(size = 3) +
-  geom_errorbar(aes(ymin = CI_lower, ymax = CI_upper), width = 0.2) +
+  geom_point(size = 4) +
+  geom_errorbar(aes(ymin = CI_lower, ymax = CI_upper), width = 0.2, linewidth = 0.8) +
   facet_grid(sex ~ race_eth, scales = "fixed") +
   scale_shape_manual(name = "Diabetes status", values = shape_vals) +
   scale_color_manual(name = "Diabetes status", values = color_vals) +
   labs(x = NULL, y = "Total Body Fat (%)", subtitle = "B. Total Body Fat (%TBF)") +
-  theme_minimal(base_size = 14) +
+  theme_minimal(base_size = 18) +
   theme(
     panel.border = element_rect(color = "black", fill = NA, linewidth = 0.5),
     panel.spacing = unit(0.8, "lines"),
     legend.position = "bottom",
-    legend.title = element_text(hjust = 0.5),
-    plot.subtitle = element_text(face = "bold", size = 15, hjust = 0),
+    legend.title = element_text(size = 16, hjust = 0.5),
+    legend.text = element_text(size = 16),
+    axis.text.x = element_text(size = 14, angle = 45, hjust = 1, vjust = 1),
+    axis.text.y = element_text(size = 16),
+    axis.title.y = element_text(size = 18),
+    plot.subtitle = element_text(face = "bold", size = 20, hjust = 0),
     strip.background = element_rect(fill = "grey95", color = "black", linewidth = 0.5),
-    strip.text = element_text(size = 12)
+    strip.text = element_text(size = 16)
   )
 
 
 visfat_racesex <- fig_df %>% dplyr::filter(variable == "Visceral fat mass")
 
 visfat_plot <- ggplot(visfat_racesex, aes(x = dm, y = estimate, shape = dm, color = dm)) +
-  geom_point(size = 3) +
-  geom_errorbar(aes(ymin = CI_lower, ymax = CI_upper), width = 0.2) +
+  geom_point(size = 4) +
+  geom_errorbar(aes(ymin = CI_lower, ymax = CI_upper), width = 0.2, linewidth = 0.8) +
   facet_grid(sex ~ race_eth, scales = "fixed") +
   scale_shape_manual(name = "Diabetes status", values = shape_vals) +
   scale_color_manual(name = "Diabetes status", values = color_vals) +
   labs(x = NULL, y = "Visceral fat mass (g)", subtitle = "C. Visceral Fat (VF)") +
-  theme_minimal(base_size = 14) +
+  theme_minimal(base_size = 18) +
   theme(
     panel.border = element_rect(color = "black", fill = NA, linewidth = 0.5),
     panel.spacing = unit(0.8, "lines"),
     legend.position = "bottom",
-    legend.title = element_text(hjust = 0.5),
-    plot.subtitle = element_text(face = "bold", size = 15, hjust = 0),
+    legend.title = element_text(size = 16, hjust = 0.5),
+    legend.text = element_text(size = 16),
+    axis.text.x = element_text(size = 14, angle = 45, hjust = 1, vjust = 1),
+    axis.text.y = element_text(size = 16),
+    axis.title.y = element_text(size = 18),
+    plot.subtitle = element_text(face = "bold", size = 20, hjust = 0),
     strip.background = element_rect(fill = "grey95", color = "black", linewidth = 0.5),
-    strip.text = element_text(size = 12)
+    strip.text = element_text(size = 16)
   )
 
 wt_racesex <- fig_df %>% dplyr::filter(variable == "Waist circumference")
 
 wt_plot <- ggplot(wt_racesex, aes(x = dm, y = estimate, shape = dm, color = dm)) +
-  geom_point(size = 3) +
-  geom_errorbar(aes(ymin = CI_lower, ymax = CI_upper), width = 0.2) +
+  geom_point(size = 4) +
+  geom_errorbar(aes(ymin = CI_lower, ymax = CI_upper), width = 0.2, linewidth = 0.8) +
   facet_grid(sex ~ race_eth, scales = "fixed") +
   scale_shape_manual(name = "Diabetes status", values = shape_vals) +
   scale_color_manual(name = "Diabetes status", values = color_vals) +
   labs(x = NULL, y = "Waist circumference (cm)", subtitle = "D. Waist Circumference (WC)") +
-  theme_minimal(base_size = 14) +
+  theme_minimal(base_size = 18) +
   theme(
     panel.border = element_rect(color = "black", fill = NA, linewidth = 0.5),
     panel.spacing = unit(0.8, "lines"),
     legend.position = "bottom",
-    legend.title = element_text(hjust = 0.5),
-    plot.subtitle = element_text(face = "bold", size = 15, hjust = 0),
+    legend.title = element_text(size = 16, hjust = 0.5),
+    legend.text = element_text(size = 16),
+    axis.text.x = element_text(size = 14, angle = 45, hjust = 1, vjust = 1),
+    axis.text.y = element_text(size = 16),
+    axis.title.y = element_text(size = 18),
+    plot.subtitle = element_text(face = "bold", size = 20, hjust = 0),
     strip.background = element_rect(fill = "grey95", color = "black", linewidth = 0.5),
-    strip.text = element_text(size = 12)
+    strip.text = element_text(size = 16)
   )
 
 
@@ -110,21 +130,25 @@ fig_df <- read_csv("complete cases/analysis/dbwse03c_descriptive characteristics
 whtr_racesex <- fig_df %>% dplyr::filter(variable == "Waist-to-Height ratio")
 
 whtr_plot <- ggplot(whtr_racesex, aes(x = dm, y = estimate, shape = dm, color = dm)) +
-  geom_point(size = 3) +
-  geom_errorbar(aes(ymin = CI_lower, ymax = CI_upper), width = 0.2) +
+  geom_point(size = 4) +
+  geom_errorbar(aes(ymin = CI_lower, ymax = CI_upper), width = 0.2, linewidth = 0.8) +
   facet_grid(sex ~ race_eth, scales = "fixed") +
   scale_shape_manual(name = "Diabetes status", values = shape_vals) +
   scale_color_manual(name = "Diabetes status", values = color_vals) +
   labs(x = NULL, y = "Waist-to-Height ratio", subtitle = "E. Waist-to-Height Ratio (WTHR)") +
-  theme_minimal(base_size = 14) +
+  theme_minimal(base_size = 18) +
   theme(
     panel.border = element_rect(color = "black", fill = NA, linewidth = 0.5),
     panel.spacing = unit(0.8, "lines"),
     legend.position = "bottom",
-    legend.title = element_text(hjust = 0.5),
-    plot.subtitle = element_text(face = "bold", size = 15, hjust = 0),
+    legend.title = element_text(size = 16, hjust = 0.5),
+    legend.text = element_text(size = 16),
+    axis.text.x = element_text(size = 14, angle = 45, hjust = 1, vjust = 1),
+    axis.text.y = element_text(size = 16),
+    axis.title.y = element_text(size = 18),
+    plot.subtitle = element_text(face = "bold", size = 20, hjust = 0),
     strip.background = element_rect(fill = "grey95", color = "black", linewidth = 0.5),
-    strip.text = element_text(size = 12)
+    strip.text = element_text(size = 16)
   )
 
 # Combine all plots into 2x3 grid
@@ -134,6 +158,6 @@ combined_plot <- wrap_plots(list(bmi_plot, fat_plot, visfat_plot, wt_plot, whtr_
 
 
 ggsave(combined_plot, 
-       filename = paste0(path_nhanes_dmbf_folder, "/figures/complete cases/combined_vertical_mean_ci_by_dm_sex_race.png"),
+       filename = file.path(analysis_output_dir, "figures", "combined_vertical_mean_ci_by_dm_sex_race.png"),
        width = 22, height = 14, dpi = 300)
 

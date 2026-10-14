@@ -1,4 +1,4 @@
-rm(list=ls());gc();source(".Rprofile")
+rm(list = ls()); gc()
 
 library(survey)
 library(ggplot2)
@@ -8,11 +8,19 @@ library(tidyr)
 # -------------------------------
 # Load survey-weighted data (10 imputations)
 # -------------------------------
-nhanes_svy_dfs <- readRDS(
-  paste0(path_nhanes_dmbf_folder,
-         "/working/cleaned/dbwse02_weighted df with complete cases.RDS")
+# nhanes_svy_dfs <- readRDS(
+#   paste0(path_nhanes_dmbf_folder,
+#          "/working/cleaned/dbwse02_weighted df with complete cases.RDS")
+# )
+
+icloud_project_dir <- file.path(
+  "/Users/jialiguo/jialiguo/NHANES Adiposity"
 )
 
+nhanes_svy_dfs <- readRDS(file.path(
+  icloud_project_dir,
+  "dbwse02_weighted df with complete cases.RDS"
+))
 # -------------------------------
 # Settings
 # -------------------------------
@@ -211,14 +219,18 @@ for (meas_idx in seq_along(measurements)) {
     decile_90th %>% mutate(label_type = "90th")
   ) %>%
     mutate(
-      label = sprintf("%.1f", est),
-      x_nudge = x + 0.4  # position labels to the right of bars
+      label = if (meas_var == "WHtR") {
+        sprintf("%.2f", est)
+      } else {
+        sprintf("%.1f", est)
+      },
+      x_nudge = x + 0.25  # keep labels just to the right of each bar
     )
   
   # -------------------------------
   # 4) Plot
   # -------------------------------
-  bar_width <- 0.5
+  bar_width <- 0.35
   
   p <- ggplot() +
     # Bars showing 10th-90th decile range
@@ -253,12 +265,24 @@ for (meas_idx in seq_along(measurements)) {
       color = "red"
     ) +
     # Labels for mean, 10th, 25th, 75th, 90th
-    geom_text(
+    ggrepel::geom_text_repel(
       data = label_df,
       aes(x = x_nudge, y = est, label = label, color = label_type),
       hjust = 0,
-      size = 4.5,
-      fontface = "bold"
+      size = 6.5,
+      fontface = "bold",
+      direction = "y",
+      box.padding = 0.2,
+      point.padding = 0.05,
+      force = 4,
+      force_pull = 1,
+      max.overlaps = Inf,
+      max.time = 5,
+      max.iter = 100000,
+      min.segment.length = 0,
+      segment.color = "grey65",
+      segment.size = 0.25,
+      seed = 123
     ) +
     scale_color_manual(
       values = c("Mean" = "red", "10th" = "darkblue", "25th" = "purple", 
@@ -272,13 +296,14 @@ for (meas_idx in seq_along(measurements)) {
     ) +
     labs(
       x = NULL,
-      y = meas_label,
-      subtitle = "Bars show 10th-90th decile range; horizontal lines show each decile; red line = mean"
+      y = meas_label
     ) +
-    theme_classic(base_size = 15) +
+    theme_classic(base_size = 20) +
     theme(
-      axis.text.x = element_text(angle = 25, hjust = 1),
-      plot.subtitle = element_text(size = 12),
+      axis.text.x = element_text(size = 18, angle = 25, hjust = 1),
+      axis.text.y = element_text(size = 18),
+      axis.title.y = element_text(size = 20),
+      legend.text = element_text(size = 18),
       legend.position = "bottom"
     )
   
@@ -286,8 +311,10 @@ for (meas_idx in seq_along(measurements)) {
   
   # Save plot
   plot_filename <- paste0(gsub("[^A-Za-z0-9]", "_", meas_label), "_deciles_by_sex_dm.png")
-  ggsave(filename = paste0(path_nhanes_dmbf_folder, "/figures/complete cases/", plot_filename), 
-         plot = p, width = 8, height = 7, dpi = 300)
+  # ggsave(filename = paste0(path_nhanes_dmbf_folder, "/figures/complete cases/", plot_filename), 
+  #        plot = p, width = 8, height = 7, dpi = 300)
+  ggsave(filename = file.path(icloud_project_dir, "figures", plot_filename),
+         plot = p, width = 8, height = 8, dpi = 300)
   cat("\nSaved:", plot_filename)
   
 } # End loop over measurements

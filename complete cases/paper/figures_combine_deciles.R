@@ -1,11 +1,16 @@
-rm(list=ls());gc();source(".Rprofile")
+rm(list = ls()); gc()
 
 library(magick)
 
 # -------------------------------
 # File paths for the individual figures
 # -------------------------------
-fig_dir <- paste0(path_nhanes_dmbf_folder, "/figures/complete cases/")
+# fig_dir <- paste0(path_nhanes_dmbf_folder, "/figures/complete cases/")
+icloud_project_dir <- file.path(
+  "/Users/jialiguo/jialiguo/NHANES Adiposity"
+)
+
+fig_dir <- paste0(icloud_project_dir, "/figures/")
 
 # List all PNG files in the directory
 all_files <- list.files(fig_dir, pattern = ".*_deciles_by_sex_dm\\.png$", full.names = TRUE)
@@ -58,7 +63,7 @@ combined_row2 <- image_append(row2, stack = FALSE)
 combined_plot <- image_append(c(combined_row1, combined_row2), stack = TRUE)
 
 # Save combined figure
-combined_filename <- "combined_deciles_by_sex_dm.png"
+combined_filename <- "Figure1_combined_deciles_by_sex_dm.png"
 image_write(combined_plot, 
             paste0(fig_dir, combined_filename))
 

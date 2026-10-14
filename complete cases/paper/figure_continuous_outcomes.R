@@ -1,8 +1,10 @@
-rm(list=ls());gc();source(".Rprofile")
+rm(list = ls()); gc()
 
 library(tidyverse)
 library(ggplot2)
 library(patchwork)
+
+analysis_output_dir <- "/Users/jialiguo/jialiguo/NHANES Adiposity"
 
 # Load spline analysis results
 spline_results <- read_csv("complete cases/analysis/dbwse06_spline_models.csv")
@@ -38,8 +40,8 @@ p_beta <- ggplot(plot_data_beta, aes(y = predictor_label, x = beta_linear,
                                       xmin = CI_low, xmax = CI_high,
                                       color = model_label, shape = model_label)) +
   geom_vline(xintercept = 0, linetype = "dashed", color = "gray50", linewidth = 0.5) +
-  geom_errorbarh(height = 0.2, position = position_dodge(width = 0.5), linewidth = 0.8) +
-  geom_point(size = 3, position = position_dodge(width = 0.5)) +
+  geom_errorbarh(height = 0.2, position = position_dodge(width = 0.5), linewidth = 1) +
+  geom_point(size = 5, position = position_dodge(width = 0.5)) +
   facet_wrap(~outcome_label, ncol = 2, scales = "free_x") +
   scale_color_manual(values = c("Single-metric" = "#2166AC", "Incremental (BMI+)" = "#D6604D")) +
   scale_shape_manual(values = c("Single-metric" = 16, "Incremental (BMI+)" = 17)) +
@@ -50,12 +52,17 @@ p_beta <- ggplot(plot_data_beta, aes(y = predictor_label, x = beta_linear,
     color = "Model type",
     shape = "Model type"
   ) +
-  theme_bw(base_size = 11) +
+  theme_bw(base_size = 19) +
   theme(
     legend.position = "bottom",
-    legend.title = element_text(face = "bold"),
+    plot.title = element_text(face = "bold", size = 21),
+    axis.title.x = element_text(size = 23),
+    axis.text.x = element_text(size = 21),
+    axis.text.y = element_text(size = 17),
+    legend.title = element_text(face = "bold", size = 18),
+    legend.text = element_text(size = 17),
     strip.background = element_rect(fill = "gray90"),
-    strip.text = element_text(face = "bold", size = 11),
+    strip.text = element_text(face = "bold", size = 18),
     panel.grid.minor = element_blank()
   )
 
@@ -88,7 +95,12 @@ plot_data_nonlin <- spline_results %>%
       p_nonlinearity < 0.05 ~ "*",
       TRUE ~ "ns"
     ),
-    neg_log_p = -log10(p_nonlinearity)
+    neg_log_p = -pchisq(
+      LR_statistic,
+      df = LR_df,
+      lower.tail = FALSE,
+      log.p = TRUE
+    ) / log(10)
   )
 
 p_nonlin <- ggplot(plot_data_nonlin, aes(x = predictor_label, y = neg_log_p, 
@@ -96,64 +108,61 @@ p_nonlin <- ggplot(plot_data_nonlin, aes(x = predictor_label, y = neg_log_p,
   geom_hline(yintercept = -log10(0.05), linetype = "dashed", color = "red", linewidth = 0.5) +
   geom_col(position = position_dodge(width = 0.8), width = 0.7) +
   geom_text(aes(label = sig_label), position = position_dodge(width = 0.8), 
-            vjust = -0.5, size = 4) +
-  facet_wrap(~outcome_label, ncol = 2) +
+            vjust = -0.5, size = 6, fontface = "bold") +
+  facet_wrap(~outcome_label, ncol = 2, scales = "free_y") +
   scale_fill_manual(values = c("Single-metric" = "#2166AC", "Incremental (BMI+)" = "#D6604D")) +
+  scale_y_continuous(expand = expansion(mult = c(0, 0.12))) +
   labs(
     title = "Evidence for nonlinear associations (Likelihood Ratio test)",
     x = NULL,
     y = expression(-log[10](P[nonlinearity])),
     fill = "Model type"
   ) +
-  theme_bw(base_size = 11) +
+  theme_bw(base_size = 19) +
   theme(
     legend.position = "bottom",
-    legend.title = element_text(face = "bold"),
+    plot.title = element_text(face = "bold", size = 21),
+    axis.title.x = element_text(size = 23),
+    axis.title.y = element_text(size = 20),
+    axis.text.y = element_text(size = 17),
+    legend.title = element_text(face = "bold", size = 18),
+    legend.text = element_text(size = 17),
     strip.background = element_rect(fill = "gray90"),
-    strip.text = element_text(face = "bold", size = 11),
-    axis.text.x = element_text(angle = 45, hjust = 1),
+    strip.text = element_text(face = "bold", size = 18),
+    axis.text.x = element_text(size = 20, angle = 45, hjust = 1),
     panel.grid.minor = element_blank()
   ) +
   annotate("text", x = 0.5, y = -log10(0.05), label = "P = 0.05", 
-           hjust = -0.1, vjust = -0.5, size = 3, color = "red")
+           hjust = -0.1, vjust = -0.5, size = 5.5, color = "red")
 
 #------------------------------------------------------------------------------------
-# Combined plot with caption
+# Combined plot
 #------------------------------------------------------------------------------------
-
-# Create figure caption
-fig_caption <- str_wrap(
-  "This figure presents the associations between adiposity metrics and continuous glycemic outcomes (fasting glucose and HbA1c) in 5,168 U.S. adults from NHANES. 
-  Panel A displays beta coefficients (per 1-SD increase) from survey-weighted linear regression models adjusted for age, sex, and race/ethnicity. 
-  Single-metric models include one adiposity measure along with covariates. Incremental models add each adiposity measure to a base model that already includes BMI and covariates. 
-  All adiposity metrics were z-score standardized using mean and standard deviation from the overall sample before subsetting. 
-  Panel B presents evidence for nonlinearity using likelihood ratio tests that compare the fit of linear models versus models with natural cubic splines (4 degrees of freedom). 
-  Bars extending above the red dashed horizontal line (P=0.05 threshold) indicate statistically significant departure from linearity. 
-  Central adiposity measures (visceral fat, waist circumference, and waist-to-height ratio) demonstrate stronger associations with both glycemic outcomes compared to BMI and body fat percentage. 
-  Most associations exhibit significant nonlinearity (P<0.001), indicating that the risk increases more rapidly at higher levels of adiposity rather than following a constant linear relationship. 
-  In incremental models, central adiposity measures provide substantial additional predictive value beyond BMI alone, whereas body fat percentage shows minimal or negative associations after accounting for BMI. 
-  Statistical significance is denoted as: *** P<0.001; ** P<0.01; * P<0.05; ns = non-significant (P≥0.05).",
-  width = 180
-)
 
 p_combined <- p_beta / p_nonlin + 
   plot_annotation(
     tag_levels = 'A',
-    title = "Adiposity metrics and continuous glycemic outcomes: linear associations and nonlinearity testing",
-    caption = fig_caption,
     theme = theme(
-      plot.title = element_text(face = "bold", size = 13, hjust = 0),
-      plot.caption = element_text(size = 9, hjust = 0, lineheight = 1.2, margin = margin(t = 15))
+      plot.tag = element_text(face = "bold", size = 27)
     )
   )
 
 # Save figures
-ggsave(paste0(path_nhanes_dmbf_folder, "/figures/complete cases/continuous_outcomes_beta.png"),
-       plot = p_beta, width = 10, height = 6, units = "in", dpi = 300)
+# ggsave(paste0(path_nhanes_dmbf_folder, "/figures/complete cases/continuous_outcomes_beta.png"),
+#        plot = p_beta, width = 10, height = 6, units = "in", dpi = 300)
+# 
+# ggsave(paste0(path_nhanes_dmbf_folder, "/figures/complete cases/continuous_outcomes_nonlinearity.png"),
+#        plot = p_nonlin, width = 10, height = 6, units = "in", dpi = 300)
+# 
+# ggsave(paste0(path_nhanes_dmbf_folder, "/figures/complete cases/continuous_outcomes_combined.png"),
+#        plot = p_combined, width = 10, height = 11, units = "in", dpi = 300)
 
-ggsave(paste0(path_nhanes_dmbf_folder, "/figures/complete cases/continuous_outcomes_nonlinearity.png"),
-       plot = p_nonlin, width = 10, height = 6, units = "in", dpi = 300)
-
-ggsave(paste0(path_nhanes_dmbf_folder, "/figures/complete cases/continuous_outcomes_combined.png"),
-       plot = p_combined, width = 10, height = 11, units = "in", dpi = 300)
+ggsave(
+  file.path(analysis_output_dir, "figures", "continuous_outcomes_combined.png"),
+  plot = p_combined,
+  width = 15,
+  height = 13,
+  units = "in",
+  dpi = 300
+)
 

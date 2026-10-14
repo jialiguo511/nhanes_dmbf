@@ -1,8 +1,10 @@
-rm(list=ls());gc();source(".Rprofile")
+rm(list = ls()); gc()
 
 library(tidyverse)
 library(ggplot2)
 library(patchwork)
+
+analysis_output_dir <- "/Users/jialiguo/jialiguo/NHANES Adiposity"
 
 # Load PR and OR results
 pr_results <- read_csv("complete cases/analysis/dbwse04_prevalence_ratios.csv")
@@ -34,8 +36,8 @@ pr_plot_data <- pr_results %>%
 p_pr <- ggplot(pr_plot_data, aes(y = predictor_label, x = PR, xmin = CI_low, xmax = CI_high,
                                   color = model_label, shape = model_label)) +
   geom_vline(xintercept = 1, linetype = "dashed", color = "gray50", linewidth = 0.5) +
-  geom_errorbarh(height = 0.2, position = position_dodge(width = 0.5), linewidth = 0.8) +
-  geom_point(size = 3, position = position_dodge(width = 0.5)) +
+  geom_errorbarh(height = 0.2, position = position_dodge(width = 0.5), linewidth = 1) +
+  geom_point(size = 5, position = position_dodge(width = 0.5)) +
   facet_wrap(~outcome_label, ncol = 2, scales = "free_x") +
   scale_color_manual(values = c("Single-metric" = "#2166AC", "Incremental (BMI+)" = "#D6604D")) +
   scale_shape_manual(values = c("Single-metric" = 16, "Incremental (BMI+)" = 17)) +
@@ -47,12 +49,17 @@ p_pr <- ggplot(pr_plot_data, aes(y = predictor_label, x = PR, xmin = CI_low, xma
     color = "Model type",
     shape = "Model type"
   ) +
-  theme_bw(base_size = 11) +
+  theme_bw(base_size = 19) +
   theme(
     legend.position = "bottom",
-    legend.title = element_text(face = "bold"),
+    plot.title = element_text(face = "bold", size = 21),
+    axis.title = element_text(size = 20),
+    axis.text = element_text(size = 17),
+    legend.title = element_text(face = "bold", size = 19),
+    legend.text = element_text(size = 18),
+    legend.key.size = grid::unit(1.3, "lines"),
     strip.background = element_rect(fill = "gray90"),
-    strip.text = element_text(face = "bold", size = 11),
+    strip.text = element_text(face = "bold", size = 18),
     panel.grid.minor = element_blank()
   )
 
@@ -80,8 +87,8 @@ or_plot_data <- or_results %>%
 p_or <- ggplot(or_plot_data, aes(y = predictor_label, x = OR, xmin = CI_low, xmax = CI_high,
                                   color = model_label, shape = model_label)) +
   geom_vline(xintercept = 1, linetype = "dashed", color = "gray50", linewidth = 0.5) +
-  geom_errorbarh(height = 0.2, position = position_dodge(width = 0.5), linewidth = 0.8) +
-  geom_point(size = 3, position = position_dodge(width = 0.5)) +
+  geom_errorbarh(height = 0.2, position = position_dodge(width = 0.5), linewidth = 1) +
+  geom_point(size = 5, position = position_dodge(width = 0.5)) +
   facet_wrap(~outcome_label, ncol = 2, scales = "free_x") +
   scale_color_manual(values = c("Single-metric" = "#2166AC", "Incremental (BMI+)" = "#D6604D")) +
   scale_shape_manual(values = c("Single-metric" = 16, "Incremental (BMI+)" = 17)) +
@@ -93,12 +100,17 @@ p_or <- ggplot(or_plot_data, aes(y = predictor_label, x = OR, xmin = CI_low, xma
     color = "Model type",
     shape = "Model type"
   ) +
-  theme_bw(base_size = 11) +
+  theme_bw(base_size = 19) +
   theme(
     legend.position = "bottom",
-    legend.title = element_text(face = "bold"),
+    plot.title = element_text(face = "bold", size = 21),
+    axis.title = element_text(size = 20),
+    axis.text = element_text(size = 17),
+    legend.title = element_text(face = "bold", size = 19),
+    legend.text = element_text(size = 18),
+    legend.key.size = grid::unit(1.3, "lines"),
     strip.background = element_rect(fill = "gray90"),
-    strip.text = element_text(face = "bold", size = 11),
+    strip.text = element_text(face = "bold", size = 18),
     panel.grid.minor = element_blank()
   )
 
@@ -108,15 +120,24 @@ p_or <- ggplot(or_plot_data, aes(y = predictor_label, x = OR, xmin = CI_low, xma
 
 p_combined <- p_pr / p_or + 
   plot_annotation(tag_levels = 'A', 
-                  theme = theme(plot.title = element_text(face = "bold", size = 13)))
+                  theme = theme(plot.tag = element_text(face = "bold", size = 27)))
 
 # Save figures
-ggsave(paste0(path_nhanes_dmbf_folder, "/figures/complete cases/forest_plot_PR.png"),
-       plot = p_pr, width = 10, height = 6, units = "in", dpi = 300)
+# ggsave(paste0(path_nhanes_dmbf_folder, "/figures/complete cases/forest_plot_PR.png"),
+#        plot = p_pr, width = 10, height = 6, units = "in", dpi = 300)
+# 
+# ggsave(paste0(path_nhanes_dmbf_folder, "/figures/complete cases/forest_plot_OR.png"),
+#        plot = p_or, width = 10, height = 6, units = "in", dpi = 300)
+# 
+# ggsave(paste0(path_nhanes_dmbf_folder, "/figures/complete cases/forest_plot_PR_OR_combined.png"),
+#        plot = p_combined, width = 10, height = 11, units = "in", dpi = 300)
 
-ggsave(paste0(path_nhanes_dmbf_folder, "/figures/complete cases/forest_plot_OR.png"),
-       plot = p_or, width = 10, height = 6, units = "in", dpi = 300)
-
-ggsave(paste0(path_nhanes_dmbf_folder, "/figures/complete cases/forest_plot_PR_OR_combined.png"),
-       plot = p_combined, width = 10, height = 11, units = "in", dpi = 300)
+ggsave(
+  file.path(analysis_output_dir, "figures", "forest_plot_PR_OR_combined.png"),
+  plot = p_combined,
+  width = 13,
+  height = 13,
+  units = "in",
+  dpi = 300
+)
 
